@@ -10,6 +10,6 @@ esn_logout:
     path:     /logout
     defaults: { _controller: MainBundle:Login:logout }
 
-guidepage:
+esn_guide:
     path:     /admin/guide/
     defaults: { _controller: MainBundle:Guide:index }

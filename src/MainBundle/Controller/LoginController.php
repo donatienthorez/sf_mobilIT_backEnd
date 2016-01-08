@@ -40,7 +40,7 @@ class LoginController extends Controller
             $event = new InteractiveLoginEvent($request, $token);
             $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
-            return $this->redirect($this->generateUrl('guidepage'));
+            return $this->redirect($this->generateUrl('esn_guide'));
         }
         return $this->redirect($this->generateUrl('esn_login_homepage'));
     }
