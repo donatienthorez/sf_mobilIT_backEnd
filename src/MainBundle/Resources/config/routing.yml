@@ -1,0 +1,15 @@
+esn_login_homepage:
+    path:     /
+    defaults: { _controller: MainBundle:Login:index }
+
+esn_login_check:
+    path:     /login_check
+    defaults: { _controller: MainBundle:Login:check }
+
+esn_logout:
+    path:     /logout
+    defaults: { _controller: MainBundle:Login:logout }
+
+guidepage:
+    path:     /admin/guide/
+    defaults: { _controller: MainBundle:Guide:index }

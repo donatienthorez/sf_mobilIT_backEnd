@@ -1,0 +1,8 @@
+services:
+    main.user.provider:
+        class: MainBundle\Provider\UserProvider
+        arguments:
+            - "%cas_server%"
+            - "%cas_port%"
+            - "%cas_path%"
+

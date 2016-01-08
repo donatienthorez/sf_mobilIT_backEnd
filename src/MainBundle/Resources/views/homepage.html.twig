@@ -1,0 +1,35 @@
+{% extends 'MainBundle::base.html.twig' %}
+{% block body %}
+    <div class="account-container"  style="width:700px;">
+        <div class="content clearfix">
+            <h1 style="text-align:center;">Welcome </h1><br/>
+            <h3 style="text-align:center">Welcome to the Survival Guide edition website.</h3> <br/>
+            <h3 style="text-align:center">To access to all the functionalities, connect with your galaxy account.</h3> <br/>
+            <center>
+                <a href="{{ path('esn_login_check') }}">
+                    <button class="button btn btn-success btn-medium btn-galaxy">Connect with Galaxy</button>
+                </a>
+            </center>
+        </div>
+    </div>
+
+    <div class="account-container" style="width:700px;">
+        <div class="content clearfix">
+            <h3 style="text-align:center">Send notifications to your Erasmus students and write a survival guide for them.</h3><br/>
+
+            <div id="big_stats" class="cf">
+                <div class="stat"> <i class="icon-book"></i> <span class="value"><span id="layout_guides">3</span> guides</span></div>
+                <!-- .stat -->
+
+                <div class="stat"> <i class="icon-user"></i> <span class="value"><span id="layout_users">25</span> users</span> </div>
+                <!-- .stat -->
+
+                <div class="stat"> <i class="icon-exclamation-sign"></i> <span class="value"><span id="layout_notifications">74</span> notifications</span> </div>
+                <!-- .stat -->
+                <!-- /widget-content -->
+            </div>
+            <br>
+            <h3 style="text-align:center"> For any suggestions, remarks or bugs, please contact : <a href="mailto:webmaster@esnlille.fr">webmaster@esnlille.fr</a></h3>
+        </div>
+    </div>
+{% endblock %}
