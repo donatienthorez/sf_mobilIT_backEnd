@@ -1,0 +1,20 @@
+<div class="subnavbar">
+    <div class="subnavbar-inner">
+        <div class="container">
+            <ul class="mainnav">
+                <li class="{% if app.request.attributes.get('_route') == 'esn_guide' %}active{% endif %}">
+                    <a href="{{ path('esn_guide') }}">
+                        <i class="icon-list-alt"></i>
+                        <span>Survival Guide</span>
+                    </a>
+                </li>
+                <li class="{% if app.request.attributes.get('_route') == 'esn_notifications' %}active{% endif %}">
+                    <a href="{{ path('esn_notifications') }}">
+                        <i class="icon-exclamation-sign"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

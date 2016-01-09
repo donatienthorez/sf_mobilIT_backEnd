@@ -3,5 +3,9 @@
 
 <body>
     {{ include('MainBundle::navbar.html.twig') }}
+    {% if app.user %}
+        {{ include('MainBundle::subnavbar.html.twig') }}
+    {% endif %}
+
     {% block body %}{% endblock %}
 </body>
