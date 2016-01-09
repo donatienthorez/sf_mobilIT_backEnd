@@ -6,6 +6,10 @@
     {% if app.user %}
         {{ include('MainBundle::subnavbar.html.twig') }}
     {% endif %}
-
-    {% block body %}{% endblock %}
+    <div class="main-inner">
+        <div class="container">
+        {% block body %}
+        {% endblock %}
+        </div>
+    </div>
 </body>

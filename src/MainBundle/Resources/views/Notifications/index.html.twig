@@ -1,3 +1,52 @@
 {% extends 'MainBundle::base.html.twig' %}
 {% block body %}
+    <div class="span5">
+        <div class="widget">
+            <div class="widget-header">
+                <i class="icon-book"></i>
+                <h3>Send a notification</h3>
+            </div>
+            <div class="widget-content">
+                <form method="post" action="">
+                    <input type="hidden" name="code_section" value="DEV">
+                    <div class="control-group">
+                        <label for="subject" class="control-label">Subject</label>
+                        <div class="controls">
+                            <input type="text" name="subject" id="subject" class="span4">
+                        </div> <!-- /controls -->
+                    </div>
+
+                    <div class="control-group">
+                        <label for="message" class="control-label">Message</label>
+                        <div class="controls">
+                            <textarea name="message" cols="50" rows="10" id="message" class="span4" type="text"></textarea>
+                        </div> <!-- /controls -->
+                    </div>
+                    <input type="submit" value="Send notification" class="btn btn-primary" button="">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="span5">
+        <div class="widget">
+            <div class="widget-header">
+                <i class="icon-book"></i>
+                <h3>Last notification</h3>
+            </div>
+            <div class="widget-content">
+                <ul class="news-items">
+                    <li>
+                        <div class="news-item-date">
+                            <span class="news-item-month">08/11</span>
+                            <span class="news-item-month">11:06:56</span>
+                        </div>
+                        <div class="news-item-detail">
+                            <span class="news-item-title">ESNMobilIT test</span>
+                            <p class="news-item-preview">Bonjour :) #OnlyForDeveloppers</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,23 +1,30 @@
 <?php
 
-namespace MainBundle\Controller;
+namespace MainBundle\Controller\Front;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class LoginController extends Controller
+class SecurityController extends Controller
 {
+    /**
+     * @Route("/", name="esn_login_homepage")
+     */
     public function indexAction(Request $request)
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            return $this->redirect($this->generateUrl('guidepage'));
+            return $this->redirect($this->generateUrl('esn_guide'));
         }
         return $this->render('MainBundle::homepage.html.twig');
     }
 
+    /**
+     * @Route("/login_check", name="esn_login_check")
+     */
     public function checkAction(Request $request)
     {
         $userCas = $this->get("main.user.provider")->loadUser();
@@ -44,6 +51,10 @@ class LoginController extends Controller
         }
         return $this->redirect($this->generateUrl('esn_login_homepage'));
     }
+
+    /**
+     * @Route("/logout", name="esn_logout")
+     */
     public function logoutAction()
     {
         $this->get('security.context')->setToken(null);

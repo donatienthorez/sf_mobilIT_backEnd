@@ -2,6 +2,7 @@
 
 namespace MainBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -11,6 +12,12 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->notifications = new ArrayCollection();
+    }
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -87,6 +94,11 @@ class User extends BaseUser
      * @ORM\Column(name="birthdate", type="date", nullable=true)
      */
     private $birthdate;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Notification", cascade="all", mappedBy="sentBy")
+     */
+    protected $notifications;
 
     /**
      * return fullname

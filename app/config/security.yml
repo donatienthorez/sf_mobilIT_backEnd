@@ -21,7 +21,8 @@ security:
             anonymous:    true
 
     access_control:
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register,  role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/homepage, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, role: ROLE_USER }
+        - { path: ^/homepage,  role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin,     role: ROLE_USER }
+        - { path: ^/api/,      role: ROLE_USER }

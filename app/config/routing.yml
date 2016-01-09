@@ -1,6 +1,14 @@
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+#main:
+#    resource: "@MainBundle/Resources/config/routing.yml"
+#    prefix:   /
+#
 main:
-    resource: "@MainBundle/Resources/config/routing.yml"
+    resource: "@MainBundle/Controller/"
+    type:     annotation
     prefix:   /
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
