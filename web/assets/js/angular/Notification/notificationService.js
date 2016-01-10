@@ -1,0 +1,3 @@
+notificationModule.service('notificationService', [ function () {
+
+}]);

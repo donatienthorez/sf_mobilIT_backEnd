@@ -6,7 +6,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -33,6 +33,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        webmastermail: donatienthorez@gmail.com
 
 # Doctrine Configuration
 doctrine:
@@ -86,6 +88,7 @@ fos_rest:
         default_engine: twig
     routing_loader:
         default_format: json
+        include_format: false
 
 parameters:
     locale: en
@@ -93,3 +96,4 @@ parameters:
     cas_server: galaxy.esn.org
     cas_port: 443
     cas_path: /cas/
+    mail: donatienthorez@gmail.com

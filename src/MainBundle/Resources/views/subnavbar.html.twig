@@ -5,13 +5,13 @@
                 <li class="{% if app.request.attributes.get('_route') == 'esn_guide' %}active{% endif %}">
                     <a href="{{ path('esn_guide') }}">
                         <i class="icon-list-alt"></i>
-                        <span>Survival Guide</span>
+                        <span>{{ 'menu.guide' | trans }}</span>
                     </a>
                 </li>
                 <li class="{% if app.request.attributes.get('_route') == 'esn_notifications' %}active{% endif %}">
                     <a href="{{ path('esn_notifications') }}">
                         <i class="icon-exclamation-sign"></i>
-                        <span>Notifications</span>
+                        <span>{{ 'menu.notifications' | trans }}</span>
                     </a>
                 </li>
             </ul>

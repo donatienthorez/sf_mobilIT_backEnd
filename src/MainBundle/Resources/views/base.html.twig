@@ -1,15 +1,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html ng-app="survivalGuideApp">
 {{ include('MainBundle::header.html.twig') }}
 
-<body>
-    {{ include('MainBundle::navbar.html.twig') }}
-    {% if app.user %}
-        {{ include('MainBundle::subnavbar.html.twig') }}
-    {% endif %}
-    <div class="main-inner">
-        <div class="container">
+    <body>
+        {{ include('MainBundle::navbar.html.twig') }}
+        {% if app.user %}
+            {{ include('MainBundle::subnavbar.html.twig') }}
+        {% endif %}
+
         {% block body %}
         {% endblock %}
-        </div>
-    </div>
-</body>
+    </body>
+</html>

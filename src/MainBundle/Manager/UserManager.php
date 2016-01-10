@@ -38,12 +38,14 @@ class UserManager
         $userDb = (!$userDb) ? new EntityUser() : $userDb;
         $userDb->setUsername($securityUser->getUsername());
         $userDb->setUsernameCanonical($securityUser->getUsername());
-        $userDb->setEmail($userDb->getEmail());
-        $userDb->setGalaxyRoles(implode(",", $userDb->getRoles()));
-        $userDb->setFirstname($userDb->getFirstname());
-        $userDb->setLastname($userDb->getLastname());
-        $userDb->setBirthdate($userDb->getBirthdate());
-        $userDb->setSection($userDb->getSection());
+        $userDb->setEmail($securityUser->getEmail());
+        $userDb->setGalaxyRoles(implode(",", $securityUser->getRoles()));
+        $userDb->setFirstname($securityUser->getFirstname());
+        $userDb->setLastname($securityUser->getLastname());
+
+        $userDb->setBirthdate(\DateTime::createFromFormat("d/m/Y", $securityUser->getBirthdate()));
+        $userDb->setSection($securityUser->getSection());
+        $userDb->setCodeSection($securityUser->getSc());
 
         if (!$userDb) {
             $this->em->persist($userDb);

@@ -1,0 +1,5 @@
+services:
+    main.notification.fetcher:
+        class: MainBundle\Fetcher\NotificationFetcher
+        arguments:
+            - "@doctrine.orm.entity_manager"

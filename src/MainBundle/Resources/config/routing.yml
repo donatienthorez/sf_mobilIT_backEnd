@@ -1,0 +1,6 @@
+notification:
+    type: rest
+    resource: MainBundle\Controller\Api\NotificationController
+    prefix: notifications
+    options:
+        expose: true
