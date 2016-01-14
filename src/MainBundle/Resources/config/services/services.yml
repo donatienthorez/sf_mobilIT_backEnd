@@ -1,1 +1,11 @@
 services:
+    main.notification.service:
+        class: MainBundle\Service\NotificationService
+        arguments:
+            - "@main.notification.manager"
+
+    main.notification.service:
+            class: MainBundle\Service\ImportService
+            arguments:
+                - "@main.import_countries.helper"
+                - "@main.country.manager"

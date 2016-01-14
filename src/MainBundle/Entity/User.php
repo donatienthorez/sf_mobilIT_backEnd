@@ -12,12 +12,6 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->notifications = new ArrayCollection();
-    }
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -99,6 +93,12 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Notification", cascade="all", mappedBy="sentBy")
      */
     protected $notifications;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->notifications = new ArrayCollection();
+    }
 
     /**
      * return fullname

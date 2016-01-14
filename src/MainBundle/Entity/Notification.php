@@ -39,7 +39,7 @@ class Notification
     private $section;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(name="sendAt", type="datetime")
      */
     protected $sendAt;
 
@@ -60,14 +60,6 @@ class Notification
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -137,16 +129,16 @@ class Notification
     /**
      * @return mixed
      */
-    public function getUser()
+    public function getSentBy()
     {
-        return $this->user;
+        return $this->sentBy;
     }
 
     /**
-     * @param mixed $user
+     * @param $sentBy
      */
-    public function setUser($user)
+    public function setSentBy($sentBy)
     {
-        $this->user = $user;
+        $this->sentBy = $sentBy;
     }
 }

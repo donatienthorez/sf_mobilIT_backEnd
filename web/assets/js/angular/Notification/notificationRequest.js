@@ -20,12 +20,10 @@ notificationModule.service('notificationRequest', ['$http', function ($http) {
      *
      * @return promise.
      */
-    this.sendNotification = function(notification, section) {
-        if (typeof section != 'undefined') {
-            notification.section = section;
-        }
+    this.sendNotification = function(notification, sections) {
+        notification.sections = sections;
         return $http({
-            method: 'GET',
+            method: 'POST',
             url: Routing.generate(
                 'api_notifications_send',
                 notification

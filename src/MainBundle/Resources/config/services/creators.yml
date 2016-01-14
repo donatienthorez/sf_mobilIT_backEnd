@@ -1,0 +1,7 @@
+services:
+    main.notification.creator:
+        class: MainBundle\Creator\NotificationCreator
+
+    main.country.creator:
+            class: MainBundle\Creator\CountryCreator
+

@@ -1,8 +1,11 @@
 notificationModule.controller('notificationController',
     ['$scope', 'notificationRequest',
         function ($scope, notificationRequest) {
-
             $scope.notifications = [];
+            $scope.notification = {};
+            $scope.lille = { "name":"ESN Lille", "codeSection":"FR-LILL-ESL"};
+            $scope.paris = { "name":"ESN Paris", "codeSection":"FR-PARI-ESL"};
+            $scope.sections = [$scope.lille, $scope.paris];
 
             $scope.init = function () {
                 getNotifications();
@@ -15,10 +18,11 @@ notificationModule.controller('notificationController',
             }
 
             $scope.sendNotification = function() {
-                notificationRequest.sendNotification($scope.notification, $scope.section).then(function (data) {
-                    console.log(data);
-                    /** todo add in notifications **/
-                    //$scope.notifications = data;
+                notificationRequest.sendNotification(
+                    $scope.notification,
+                    $scope.sections
+                ).then(function (data) {
+                    $scope.notifications.splice(0, 0, data);
                 });
             }
         }

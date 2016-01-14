@@ -4,3 +4,13 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
 
+    main.notification.manager:
+            class: MainBundle\Manager\NotificationManager
+            arguments:
+                - "@doctrine.orm.entity_manager"
+
+    main.country.manager:
+            class: MainBundle\Manager\CountryCoManager
+            arguments:
+                - "@doctrine.orm.entity_manager"
+

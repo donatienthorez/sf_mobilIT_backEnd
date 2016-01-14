@@ -2,7 +2,7 @@
 
 namespace MainBundle\Controller\Api;
 
-
+use MainBundle\Entity\Notification;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as FosRest;
@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
 
 /**
  * @FosRest\Prefix("notifications")
@@ -43,6 +42,7 @@ class NotificationController extends Controller
 
     /**
      * @FosRest\View()
+     * @FosRest\Post("/send")
      *
      * @QueryParam(
      *     name="title",
@@ -55,7 +55,7 @@ class NotificationController extends Controller
      *     description="Content of the notification"
      * )
      * @QueryParam(
-     *     name="section",
+     *     name="sections",
      *     nullable=true,
      *     default=null,
      *     description="Esn section of the notification"
@@ -64,15 +64,27 @@ class NotificationController extends Controller
      */
     public function sendAction(ParamFetcher $paramFetcher)
     {
-        $title   = $paramFetcher->get('title');
-        $content = $paramFetcher->get('content');
-        $section = $paramFetcher->get('section');
+        $sections = $paramFetcher->get('sections');
 
-        var_dump($title);
-        var_dump($content);
-        var_dump($section);
-        die;
+        foreach ($sections as $section) {
+            $notification = $this
+                ->get('main.notification.creator')
+                ->createNotification(
+                    $paramFetcher->get('title'),
+                    $paramFetcher->get('content'),
+                    $this->getUser(),
+                    $section
+                );
 
-        return $data->test;
+            $this
+                ->get('main.notification.service')
+                ->send($notification);
+        }
+
+
+
+        // send the notification
+
+        return $notification;
     }
 }

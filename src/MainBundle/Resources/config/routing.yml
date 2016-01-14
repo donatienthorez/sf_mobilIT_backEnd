@@ -4,3 +4,10 @@ notification:
     prefix: notifications
     options:
         expose: true
+
+country:
+    type: rest
+    resource: MainBundle\Controller\Api\CountryController
+    prefix: country
+    options:
+        expose: true
