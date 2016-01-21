@@ -1,7 +1,7 @@
 imports:
     - { resource: 'services/creators.yml' }
     - { resource: 'services/fetchers.yml' }
-    - { resource: 'services/helpers.yml' }
+    - { resource: 'services/readers.yml' }
     - { resource: 'services/managers.yml' }
     - { resource: 'services/providers.yml' }
     - { resource: 'services/services.yml' }

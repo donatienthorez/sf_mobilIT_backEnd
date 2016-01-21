@@ -3,6 +3,7 @@
 namespace MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -13,6 +14,8 @@ class Section
     /**
      * @ORM\Id
      * @ORM\Column(name="codeSection", type="string", length=11)
+     *
+     * @Groups({"list", "details", "section"})
      */
     private $codeSection;
 
@@ -20,6 +23,8 @@ class Section
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     *
+     * @Groups({"list", "details", "section"})
      */
     private $name;
 
@@ -27,6 +32,8 @@ class Section
      * @var string
      *
      * @ORM\Column(name="website", type="text", nullable=true)
+     *
+     * @Groups({"details"})
      */
     private $website;
 
@@ -34,6 +41,8 @@ class Section
      * @var string
      *
      * @ORM\Column(name="university", type="text", nullable=true)
+     *
+     * @Groups({"details"})
      */
     private $university;
 
@@ -41,6 +50,8 @@ class Section
      * @var string
      *
      * @ORM\Column(name="address", type="text", nullable=true)
+     *
+     * @Groups({"details"})
      */
     private $address;
 
@@ -48,6 +59,8 @@ class Section
      * @var string
      *
      * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     *
+     * @Groups({"details"})
      */
     private $phone;
 
@@ -55,22 +68,30 @@ class Section
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     *
+     * @Groups({"details"})
      */
     private $email;
 
     /**
      * @ORM\Column(name="addedAt", type="datetime")
+     *
+     * @Groups({"details"})
      */
     protected $addedAt;
 
     /**
      * @ORM\Column(name="updatedAt", type="datetime")
+     *
+     * @Groups({"details"})
      */
     protected $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="sections")
      * @ORM\JoinColumn(name="country", referencedColumnName="codeCountry")
+     *
+     * @Groups({"list", "details"})
      */
     protected $country;
 
@@ -137,7 +158,7 @@ class Section
     }
 
     /**
-     * @param string $codeCountry
+     * @param Country $country
      */
     public function setCountry($country)
     {

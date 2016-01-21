@@ -2,7 +2,6 @@
 
 namespace MainBundle\Service;
 
-use MainBundle\Creator\NotificationCreator;
 use MainBundle\Entity\Notification;
 use MainBundle\Manager\NotificationManager;
 

@@ -4,8 +4,26 @@ services:
         arguments:
             - "@main.notification.manager"
 
-    main.notification.service:
-            class: MainBundle\Service\ImportService
+    main.country.service:
+            class: MainBundle\Service\CountryService
             arguments:
-                - "@main.import_countries.helper"
-                - "@main.country.manager"
+                - "@main.country.fetcher"
+
+    main.section.service:
+                class: MainBundle\Service\SectionService
+                arguments:
+                    - "@main.section.fetcher"
+
+    main.import_countries.service:
+        class: MainBundle\Service\ImportCountriesService
+        arguments:
+            - "@main.import_countries.reader"
+            - "@main.country.manager"
+
+    main.import_sections.service:
+        class: MainBundle\Service\ImportSectionsService
+        arguments:
+            - "@main.import_sections.reader"
+            - "@main.country.manager"
+            - "@main.country.fetcher"
+            - "@main.section.manager"

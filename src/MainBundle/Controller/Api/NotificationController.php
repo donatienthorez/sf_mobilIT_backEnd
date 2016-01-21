@@ -81,10 +81,6 @@ class NotificationController extends Controller
                 ->send($notification);
         }
 
-
-
-        // send the notification
-
         return $notification;
     }
 }

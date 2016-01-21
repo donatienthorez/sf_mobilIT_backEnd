@@ -1,0 +1,10 @@
+services:
+    main.import_countries.reader:
+        class: MainBundle\Reader\ImportCountriesReader
+        arguments:
+            - "@main.country.creator"
+
+    main.import_sections.reader:
+        class: MainBundle\Reader\ImportSectionsReader
+        arguments:
+            - "@main.section.creator"

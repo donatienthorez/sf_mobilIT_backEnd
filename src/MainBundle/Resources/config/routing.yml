@@ -1,3 +1,10 @@
+country:
+    type: rest
+    resource: MainBundle\Controller\Api\CountryController
+    prefix: countries
+    options:
+        expose: true
+
 notification:
     type: rest
     resource: MainBundle\Controller\Api\NotificationController
@@ -5,9 +12,24 @@ notification:
     options:
         expose: true
 
-country:
+section:
     type: rest
-    resource: MainBundle\Controller\Api\CountryController
-    prefix: country
+    resource: MainBundle\Controller\Api\SectionController
+    prefix: sections
     options:
         expose: true
+
+android_section:
+    type: rest
+    resource: MainBundle\Controller\AndroidApi\SectionController
+    prefix: android/sections
+    options:
+        expose: true
+
+android_country:
+    type: rest
+    resource: MainBundle\Controller\AndroidApi\CountryController
+    prefix: android/countries
+    options:
+        expose: true
+

@@ -5,3 +5,5 @@ services:
     main.country.creator:
             class: MainBundle\Creator\CountryCreator
 
+    main.section.creator:
+            class: MainBundle\Creator\SectionCreator

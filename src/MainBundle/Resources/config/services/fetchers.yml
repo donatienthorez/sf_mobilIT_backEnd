@@ -3,3 +3,13 @@ services:
         class: MainBundle\Fetcher\NotificationFetcher
         arguments:
             - "@doctrine.orm.entity_manager"
+
+    main.country.fetcher:
+        class: MainBundle\Fetcher\CountryFetcher
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    main.section.fetcher:
+            class: MainBundle\Fetcher\SectionFetcher
+            arguments:
+                - "@doctrine.orm.entity_manager"

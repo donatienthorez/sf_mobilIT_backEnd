@@ -1,5 +1,0 @@
-services:
-    main.import_countries.helper:
-        class: MainBundle\Helper\ImportCountriesHelper
-        arguments:
-            - "@main.country.creator"

@@ -3,6 +3,8 @@
 namespace MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity
@@ -13,6 +15,8 @@ class Country
     /**
      * @ORM\Id
      * @ORM\Column(name="codeCountry", type="string", length=10)
+     * @Groups({"list", "details", "section"})
+     *
      */
     private $codeCountry;
 
@@ -20,6 +24,9 @@ class Country
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     *
+     * @Groups({"list", "details"})
+     *
      */
     private $name;
 
@@ -27,6 +34,9 @@ class Country
      * @var string
      *
      * @ORM\Column(name="website", type="text")
+     *
+     * @Groups({"details"})
+     *
      */
     private $website;
 
@@ -34,21 +44,30 @@ class Country
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     *
+     * @Groups({"details"})
+     *
      */
     private $email;
 
     /**
      * @ORM\OneToMany(targetEntity="Section", cascade="all", mappedBy="country")
+     *
+     * @Groups({"details", "section"})
      */
     protected $sections;
 
     /**
      * @ORM\Column(name="addedAt", type="datetime")
+     *
+     * @Groups({"details"})
      */
     protected $addedAt;
 
     /**
      * @ORM\Column(name="updatedAt", type="datetime")
+     *
+     * @Groups({"details"})
      */
     protected $updatedAt;
 
