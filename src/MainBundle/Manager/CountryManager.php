@@ -26,7 +26,7 @@ class CountryManager
     public function saveCountries($countries)
     {
         foreach ($countries as $country) {
-            if ($this->em->find('MainBundle:Country', $country->getCodeCountry())){
+            if ($this->em->find('MainBundle:Country', $country->getCodeCountry())) {
                 $this->em->merge($country);
             } else {
                 $this->em->persist($country);

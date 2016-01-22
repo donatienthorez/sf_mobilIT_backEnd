@@ -1,0 +1,4 @@
+services:
+    main.regid.adapter:
+        class: MainBundle\Adapter\RegIdAdapter
+

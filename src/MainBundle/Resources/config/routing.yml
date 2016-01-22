@@ -19,6 +19,13 @@ section:
     options:
         expose: true
 
+regid:
+    type: rest
+    resource: MainBundle\Controller\Api\RegIdController
+    prefix: regids
+    options:
+        expose: true
+
 android_section:
     type: rest
     resource: MainBundle\Controller\AndroidApi\SectionController
@@ -33,3 +40,9 @@ android_country:
     options:
         expose: true
 
+android_regid:
+    type: rest
+    resource: MainBundle\Controller\AndroidApi\RegIdController
+    prefix: android/regids
+    options:
+        expose: true

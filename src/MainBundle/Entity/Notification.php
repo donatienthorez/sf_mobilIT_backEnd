@@ -3,10 +3,14 @@
 namespace MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
-* @ORM\Entity
-* @ORM\Table(name="Notification")
+ * @ORM\Entity
+ * @ORM\Table(name="Notification")
+ * @ExclusionPolicy("all")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\NotificationRepository")
 */
 class Notification
 {
@@ -21,6 +25,7 @@ class Notification
      * @var string
      *
      * @ORM\Column(name="title", type="text")
+     * @Expose
      */
     private $title;
 
@@ -28,6 +33,7 @@ class Notification
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Expose
      */
     private $content;
 
@@ -35,6 +41,7 @@ class Notification
      * @var string
      *
      * @ORM\Column(name="section", type="string", length=255)
+     * @Expose
      */
     private $section;
 

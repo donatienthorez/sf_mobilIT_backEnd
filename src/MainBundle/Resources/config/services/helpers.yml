@@ -1,0 +1,3 @@
+services:
+    main.notification.helper:
+        class: MainBundle\Helper\NotificationHelper

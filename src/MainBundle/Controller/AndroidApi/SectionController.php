@@ -18,7 +18,12 @@ class SectionController extends Controller
             ->getCountries();
 
         $serializer = $this->get('serializer');
-        return $serializer->serialize($countries, 'json', SerializationContext::create()->setGroups(array('section')));
+
+        return $serializer->serialize(
+            $countries,
+            'json',
+            SerializationContext::create()->setGroups(array('section'))
+        );
     }
 
     public function detailsAction()
@@ -28,6 +33,11 @@ class SectionController extends Controller
             ->getSections();
 
         $serializer = $this->get('serializer');
-        return $serializer->serialize($countries, 'json', SerializationContext::create()->setGroups(array('Default', 'details')));
+
+        return $serializer->serialize(
+            $countries,
+            'json',
+            SerializationContext::create()->setGroups(array('Default', 'details'))
+        );
     }
 }

@@ -1,11 +1,17 @@
 services:
-    main.notification.fetcher:
-        class: MainBundle\Fetcher\NotificationFetcher
+    main.country.fetcher:
+        class: MainBundle\Fetcher\CountryFetcher
         arguments:
             - "@doctrine.orm.entity_manager"
 
-    main.country.fetcher:
-        class: MainBundle\Fetcher\CountryFetcher
+
+    main.notification.fetcher:
+            class: MainBundle\Fetcher\NotificationFetcher
+            arguments:
+                - "@doctrine.orm.entity_manager"
+
+    main.regid.fetcher:
+        class: MainBundle\Fetcher\RegIdFetcher
         arguments:
             - "@doctrine.orm.entity_manager"
 

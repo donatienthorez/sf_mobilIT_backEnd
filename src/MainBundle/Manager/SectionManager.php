@@ -26,7 +26,7 @@ class SectionManager
     public function saveSections($sections)
     {
         foreach ($sections as $section) {
-            if ($this->em->find('MainBundle:Section', $section->getCodeSection())){
+            if ($this->em->find('MainBundle:Section', $section->getCodeSection())) {
                 $this->em->merge($section);
             } else {
                 $this->em->persist($section);

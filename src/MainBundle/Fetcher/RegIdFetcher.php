@@ -4,7 +4,7 @@ namespace MainBundle\Fetcher;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-class SectionFetcher
+class RegIdFetcher
 {
     /**
      * @var EntityManagerInterface
@@ -19,19 +19,21 @@ class SectionFetcher
         $this->em = $em;
     }
 
-    public function getSections()
+    public function getRegIdsFromSection($section)
     {
         return $this
             ->em
-            ->getRepository('MainBundle:Section')
-            ->findAll();
+            ->getRepository('MainBundle:RegId')
+            ->findBy(
+                array('section' => $section)
+            );
     }
 
-    public function getSection($codeSection)
+    public function count()
     {
         return $this
             ->em
-            ->getRepository('MainBundle:Section')
-            ->find($codeSection);
+            ->getRepository('MainBundle:RegId')
+            ->count();
     }
 }

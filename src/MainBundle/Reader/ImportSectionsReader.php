@@ -66,9 +66,9 @@ class ImportSectionsReader
 
     private function parseAddress($address)
     {
-        $address = str_replace('<br>', " ", $address);
-        $address = str_replace("<div class=\"scrinfo\">"," ", $address);
-        $address = str_replace("</div>"," ", $address);
+        $address = str_replace("<br>", " ", $address);
+        $address = str_replace("<div class=\"scrinfo\">", " ", $address);
+        $address = str_replace("</div>", " ", $address);
 
         return $address;
     }
@@ -86,10 +86,23 @@ class ImportSectionsReader
             foreach ($this->filterSections($country->getCodeCountry()) as $element) {
 
                 $name = $element->nodeValue;
-                $codeSection = explode("/section/" . $country->getCodeCountry() . '/', $element->attributes['href']->value)[1];
+                $codeSection = explode(
+                    "/section/" . $country->getCodeCountry() . '/',
+                    $element->attributes['href']->value
+                )[1];
 
-                $sectionElementsField = $this->filterSectionDetailsFields($country->getCodeCountry(), $codeSection);
-                $sectionElementsIterator = $this->filterSectionDetails($country->getCodeCountry(), $codeSection)->getIterator();
+                $sectionElementsField = $this
+                    ->filterSectionDetailsFields(
+                        $country->getCodeCountry(),
+                        $codeSection
+                    );
+
+                $sectionElementsIterator = $this
+                    ->filterSectionDetails(
+                        $country->getCodeCountry(),
+                        $codeSection
+                    )
+                    ->getIterator();
                 $informations = array();
                 $keys = array("Address: ","Telephone:","Section website: ", "E-Mail: ","University name: ");
                 $cpt = 0;

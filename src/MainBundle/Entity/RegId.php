@@ -3,23 +3,31 @@
 namespace MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="RegId")
+ * @ExclusionPolicy("all")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\RegIdRepository")
  */
 class RegId
 {
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="string", length=255)
+     * @Expose
      */
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Section", mappedBy="codeSection")
+     * @ORM\ManyToOne(targetEntity="Section", inversedBy="regIds")
+     * @ORM\JoinColumn(name="section", referencedColumnName="codeSection")
+     * @Expose
+     *
      */
-    private $section;
+    protected $section;
 
     /**
      * @ORM\Column(name="addedAt", type="datetime")

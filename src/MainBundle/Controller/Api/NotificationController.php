@@ -13,14 +13,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @FosRest\Prefix("notifications")
  * @FosRest\NamePrefix("api_notifications_")
  */
 class NotificationController extends Controller
 {
     /**
+     * @Security("has_role('ROLE_USER')")
+     * @FosRest\View()
      * @QueryParam(
      *     name="section",
      *     nullable=true,
@@ -41,6 +43,7 @@ class NotificationController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_USER')")
      * @FosRest\View()
      * @FosRest\Post("/send")
      *
@@ -64,23 +67,23 @@ class NotificationController extends Controller
      */
     public function sendAction(ParamFetcher $paramFetcher)
     {
+        $title = $paramFetcher->get('title');
+        $content = $paramFetcher->get('content');
         $sections = $paramFetcher->get('sections');
 
-        foreach ($sections as $section) {
-            $notification = $this
-                ->get('main.notification.creator')
-                ->createNotification(
-                    $paramFetcher->get('title'),
-                    $paramFetcher->get('content'),
-                    $this->getUser(),
-                    $section
-                );
+        $this
+            ->get('main.notification.service')
+            ->send($title, $content, $this->getUser(), $sections);
 
+        return array("title" => $title, "content" => $content);
+    }
+
+    public function countAction()
+    {
+
+        return
             $this
-                ->get('main.notification.service')
-                ->send($notification);
-        }
-
-        return $notification;
+                ->get('main.notification.fetcher')
+                ->count();
     }
 }

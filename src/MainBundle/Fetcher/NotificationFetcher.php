@@ -30,4 +30,12 @@ class NotificationFetcher
                 10
             );
     }
+
+    public function count()
+    {
+        return $this
+            ->em
+            ->getRepository('MainBundle:Notification')
+            ->count();
+    }
 }

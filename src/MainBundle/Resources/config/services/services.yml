@@ -3,6 +3,10 @@ services:
         class: MainBundle\Service\NotificationService
         arguments:
             - "@main.notification.manager"
+            - "@main.section.fetcher"
+            - "@main.notification.creator"
+            - "@main.notification.helper"
+            - "@main.regid.adapter"
 
     main.country.service:
             class: MainBundle\Service\CountryService

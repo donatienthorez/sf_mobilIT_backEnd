@@ -95,6 +95,12 @@ class Section
      */
     protected $country;
 
+    /**
+     * @ORM\OneToMany(targetEntity="RegId", cascade="all", mappedBy="section")
+     *
+     */
+    protected $regIds;
+
     public function __construct()
     {
         $this->addedAt = new \DateTime();
@@ -259,5 +265,21 @@ class Section
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegIds()
+    {
+        return $this->regIds;
+    }
+
+    /**
+     * @param mixed $regIds
+     */
+    public function setRegIds($regIds)
+    {
+        $this->regIds = $regIds;
     }
 }
