@@ -16,6 +16,21 @@ notificationModule.service('notificationRequest', ['$http', function ($http) {
     };
 
     /**
+     * Retrieve all the sections.
+     *
+     * @return promise.
+     */
+    this.getSections = function(section) {
+        return $http({
+            method: 'GET',
+            url: Routing.generate(
+                'api_sections_get'
+            )}).then(function (result) {
+            return result.data;
+        });
+    };
+
+    /**
      * Send notifications of the section.
      *
      * @return promise.

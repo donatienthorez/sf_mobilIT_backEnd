@@ -5,6 +5,7 @@ namespace MainBundle\Controller\AndroidApi;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\Annotations as FosRest;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @FosRest\NamePrefix("api_android_countries_")
@@ -18,6 +19,12 @@ class CountryController extends Controller
             ->getCountries();
 
         $serializer = $this->get('serializer');
-        return $serializer->serialize($countries, 'json', SerializationContext::create()->setGroups(array('list')));
+        return new Response(
+            $serializer->serialize(
+                $countries,
+                'json',
+                SerializationContext::create()->setGroups(array('list'))
+            )
+        );
     }
 }

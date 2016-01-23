@@ -24,7 +24,7 @@ class Country
      *
      * @ORM\Column(name="name", type="string", length=255)
      *
-     * @Groups({"list", "details"})
+     * @Groups({"list", "details", "listSection"})
      *
      */
     private $name;
@@ -52,7 +52,7 @@ class Country
     /**
      * @ORM\OneToMany(targetEntity="Section", cascade="all", mappedBy="country")
      *
-     * @Groups({"details", "section"})
+     * @Groups({"list", "details", "section"})
      */
     protected $sections;
 

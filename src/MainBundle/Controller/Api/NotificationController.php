@@ -80,10 +80,8 @@ class NotificationController extends Controller
 
     public function countAction()
     {
-
-        return
-            $this
-                ->get('main.notification.fetcher')
-                ->count();
+        return $this
+            ->get('main.notification.fetcher')
+            ->count();
     }
 }

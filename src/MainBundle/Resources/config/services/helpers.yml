@@ -1,3 +1,4 @@
 services:
     main.notification.helper:
         class: MainBundle\Helper\NotificationHelper
+        arguments: ['@service_container']

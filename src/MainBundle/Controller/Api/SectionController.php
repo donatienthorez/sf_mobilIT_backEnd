@@ -6,6 +6,8 @@ use JMS\Serializer\SerializationContext;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as FosRest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @FosRest\NamePrefix("api_sections_")
@@ -18,15 +20,17 @@ class SectionController extends Controller
     public function getAction()
     {
         $countries = $this
-            ->get('main.country.service')
-            ->getCountries();
+            ->get('main.section.service')
+            ->getSections();
 
         $serializer = $this->get('serializer');
 
-        return $serializer->serialize(
-            $countries,
-            'json',
-            SerializationContext::create()->setGroups(array('section'))
+        return new Response(
+            $serializer->serialize(
+                $countries,
+                'json',
+                SerializationContext::create()->setGroups(array('listSection'))
+            )
         );
     }
 
@@ -41,10 +45,12 @@ class SectionController extends Controller
 
         $serializer = $this->get('serializer');
 
-        return $serializer->serialize(
-            $countries,
-            'json',
-            SerializationContext::create()->setGroups(array('Default', 'details'))
+        return new Response(
+            $serializer->serialize(
+                $countries,
+                'json',
+                SerializationContext::create()->setGroups(array('Default', 'details'))
+            )
         );
     }
 }

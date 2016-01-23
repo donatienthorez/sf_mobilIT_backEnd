@@ -3,9 +3,21 @@
 namespace MainBundle\Helper;
 
 use MainBundle\Entity\Notification;
+use Symfony\Component\DependencyInjection\Container;
 
 class NotificationHelper
 {
+    /**
+     * @var Container
+     */
+    private $container;
+
+    /**
+     * @param Container $container
+     */
+    public function __construct(Container $container) {
+        $this->container = $container;
+    }
     /**
      * @param Notification $notification
      * @param array $regIds
@@ -28,7 +40,11 @@ class NotificationHelper
         );
 
         // Update your Google Cloud Messaging API Key
-        define("GOOGLE_API_KEY", "AIzaSyARq1v5hjOd16fSBin0DXmG-EX5CeYQS84");
+        if (!defined("GOOGLE_API_KEY")) {
+            define("GOOGLE_API_KEY",
+                $this->container->getParameter('google_api_key')
+            );
+        }
         $headers = array(
             'Authorization: key=' . GOOGLE_API_KEY,
             'Content-Type: application/json'

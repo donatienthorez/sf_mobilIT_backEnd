@@ -15,7 +15,7 @@ class Section
      * @ORM\Id
      * @ORM\Column(name="codeSection", type="string", length=11)
      *
-     * @Groups({"list", "details", "section"})
+     * @Groups({"list", "details", "listSection"})
      */
     private $codeSection;
 
@@ -24,7 +24,7 @@ class Section
      *
      * @ORM\Column(name="name", type="string", length=255)
      *
-     * @Groups({"list", "details", "section"})
+     * @Groups({"list", "details", "listSection"})
      */
     private $name;
 
@@ -91,7 +91,7 @@ class Section
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="sections")
      * @ORM\JoinColumn(name="country", referencedColumnName="codeCountry")
      *
-     * @Groups({"list", "details"})
+     * @Groups({"list", "details", "listSection"})
      */
     protected $country;
 

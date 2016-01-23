@@ -6,6 +6,7 @@ use JMS\Serializer\SerializationContext;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as FosRest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @FosRest\NamePrefix("api_countries_")
@@ -23,10 +24,12 @@ class CountryController extends Controller
 
         $serializer = $this->get('serializer');
 
-        return $serializer->serialize(
-            $countries,
-            'json',
-            SerializationContext::create()->setGroups(array('list'))
+        return new Response(
+            $serializer->serialize(
+                $countries,
+                'json',
+                SerializationContext::create()->setGroups(array('list'))
+            )
         );
     }
 
@@ -41,10 +44,12 @@ class CountryController extends Controller
 
         $serializer = $this->get('serializer');
 
-        return $serializer->serialize(
-            $countries,
-            'json',
-            SerializationContext::create()->setGroups(array('Default', 'details'))
+        return new Response(
+            $serializer->serialize(
+                $countries,
+                'json',
+                SerializationContext::create()->setGroups(array('Default', 'details'))
+            )
         );
     }
 }

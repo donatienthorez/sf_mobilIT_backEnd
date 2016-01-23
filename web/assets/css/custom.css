@@ -73,3 +73,9 @@
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0;
 }
+
+ul.chosen-choices li.search-field input {
+    height: 20px !important;
+    width: 180px !important;
+    font-family: "Open Sans";!important;
+}

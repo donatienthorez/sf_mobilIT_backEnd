@@ -62,7 +62,7 @@ class NotificationService
         foreach ($sections as $section) {
             $section = $this
                 ->sectionFetcher
-                ->getSection($section['codeSection']);
+                ->getSection($section['code_section']);
 
             $notification = $this
                 ->notificationCreator

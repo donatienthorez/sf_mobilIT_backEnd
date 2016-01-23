@@ -15,6 +15,8 @@
         <script src="{{ asset('assets/js/angular/Notification/notificationService.js') }}"></script>
         <script src="{{ asset('assets/js/angular/Notification/notificationRequest.js') }}"></script>
         <script src="{{ asset('assets/js/custom.js') }}"></script>
+        <script src="{{ asset('assets/vendor/chosen/chosen.js') }}"></script>
+        <script src="{{ asset('assets/vendor/angular-chosen-localytics/chosen.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     {% endblock %}
 
@@ -27,6 +29,9 @@
         <link href="{{ asset('assets/css/pages/dashboard.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/pages/signin.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/chosen/chosen.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/angular-chosen-localytics/chosen-spinner.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 
     {% endblock %}
 </head>

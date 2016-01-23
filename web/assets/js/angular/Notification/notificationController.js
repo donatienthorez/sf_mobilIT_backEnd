@@ -3,12 +3,15 @@ notificationModule.controller('notificationController',
         function ($scope, notificationRequest) {
             $scope.notifications = [];
             $scope.notification = {};
-            $scope.lille = { "name":"ESN Lille", "codeSection":"FR-LILL-ESL"};
-            //$scope.paris = { "name":"ESN Paris", "codeSection":"FR-PARI-ESL"};
-            $scope.sections = [$scope.lille];
+            $scope.lille = { "name":"ESN Lille", "code_section":"FR-LILL-ESL"};
+            $scope.sectionsSelected = [];
+
+            $scope.sections = [];
+            $scope.section = [];
 
             $scope.init = function () {
-                getNotifications($scope.lille.codeSection);
+                getNotifications($scope.lille.code_section);
+                getSections();
             };
 
             function getNotifications(section) {
@@ -17,7 +20,14 @@ notificationModule.controller('notificationController',
                 });
             }
 
+            function getSections(){
+                notificationRequest.getSections().then(function (data){
+                    $scope.sections = data;
+                });
+            }
+
             $scope.sendNotification = function() {
+                console.log($scope.sectionsSelected);
                 notificationRequest.sendNotification(
                     $scope.notification,
                     $scope.sections

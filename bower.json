@@ -1,0 +1,22 @@
+{
+  "name": "survivalGuide",
+  "homepage": "https://github.com/donatienthorez/sf_mobilIT_backEnd",
+  "authors": [
+    "Donatien Thorez <donatienthorez@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-chosen-localytics": "~1.0.7"
+  }
+}

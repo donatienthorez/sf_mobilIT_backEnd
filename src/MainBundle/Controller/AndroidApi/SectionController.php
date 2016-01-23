@@ -5,6 +5,7 @@ namespace MainBundle\Controller\AndroidApi;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\Annotations as FosRest;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @FosRest\NamePrefix("api_android_sections_")
@@ -19,10 +20,12 @@ class SectionController extends Controller
 
         $serializer = $this->get('serializer');
 
-        return $serializer->serialize(
-            $countries,
-            'json',
-            SerializationContext::create()->setGroups(array('section'))
+        return new Response(
+            $serializer->serialize(
+                $countries,
+                'json',
+                SerializationContext::create()->setGroups(array('section'))
+            )
         );
     }
 
@@ -34,10 +37,12 @@ class SectionController extends Controller
 
         $serializer = $this->get('serializer');
 
-        return $serializer->serialize(
-            $countries,
-            'json',
-            SerializationContext::create()->setGroups(array('Default', 'details'))
+        return new Response(
+            $serializer->serialize(
+                $countries,
+                'json',
+                SerializationContext::create()->setGroups(array('Default', 'details'))
+            )
         );
     }
 }
