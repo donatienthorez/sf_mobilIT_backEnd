@@ -4,7 +4,8 @@ namespace MainBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
-use MainBundle\Security\User as SecurityUser;
+use MainBundle\Entity\User;
+use MainBundle\Model\UserModel;
 use MainBundle\Entity\User as EntityUser;
 
 class UserManager
@@ -23,7 +24,7 @@ class UserManager
         $this->em = $em;
     }
 
-    public function saveUser(SecurityUser $securityUser)
+    public function saveUser(UserModel $userModel)
     {
         $userDb = $this
             ->em
@@ -31,21 +32,34 @@ class UserManager
             ->findOneBy(
                 array
                 (
-                    "email" => $securityUser->getEmail()
+                    "email" => $userModel->getEmail()
                 )
             );
 
-        $userDb = (!$userDb) ? new EntityUser() : $userDb;
-        $userDb->setUsername($securityUser->getUsername());
-        $userDb->setUsernameCanonical($securityUser->getUsername());
-        $userDb->setEmail($userDb->getEmail());
-        $userDb->setGalaxyRoles(implode(",", $userDb->getRoles()));
-        $userDb->setFirstname($userDb->getFirstname());
-        $userDb->setLastname($userDb->getLastname());
-        $userDb->setBirthdate($userDb->getBirthdate());
-        $userDb->setSection($userDb->getSection());
 
-        if (!$userDb) {
+        $sectionDb = $this
+            ->em
+            ->getRepository("MainBundle:Section")
+            ->findOneBy(
+                array
+                (
+                    "codeSection" => $userModel->getCodeSection()
+                )
+            );
+
+
+        $persist = $userDb ? false : true;
+        $userDb = (!$userDb) ? new EntityUser() : $userDb;
+
+        $userDb->setUsername($userModel->getUsername());
+        $userDb->setEmail($userModel->getEmail());
+        $userDb->setGalaxyRoles($userModel->getGalaxyRoles());
+        $userDb->setFirstName($userModel->getFirstName());
+        $userDb->setLastName($userModel->getLastName());
+        $userDb->setRandomPassword();
+        $userDb->setSection($sectionDb);
+        if ($persist) {
+            $userDb->addRole(User::ROLE_NORMAL);
             $this->em->persist($userDb);
         }
 

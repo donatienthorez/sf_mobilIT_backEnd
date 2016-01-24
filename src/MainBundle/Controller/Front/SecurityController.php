@@ -2,6 +2,7 @@
 
 namespace MainBundle\Controller\Front;
 
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -27,19 +28,18 @@ class SecurityController extends Controller
      */
     public function checkAction(Request $request)
     {
-        $userCas = $this->get("main.user.provider")->loadUser();
+        try {
+            $userModel = $this->get("main.user.provider")->loadUser();
 
-        if ($userCas != null) {
-
-            $user_db = $this
+            $userDb = $this
                 ->get("main.user.manager")
-                ->saveUser($userCas);
+                ->saveUser($userModel);
 
             $token = new UsernamePasswordToken(
-                $user_db,
+                $userDb,
                 null,
                 "main",
-                $user_db->getRoles()
+                $userDb->getRoles()
             );
 
             $this->get("security.token_storage")->setToken($token);
@@ -48,8 +48,11 @@ class SecurityController extends Controller
             $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
             return $this->redirect($this->generateUrl('esn_guide'));
+
+        } catch (AccessDeniedException $e) {
+
+            return $this->redirect($this->generateUrl('esn_login_homepage'));
         }
-        return $this->redirect($this->generateUrl('esn_login_homepage'));
     }
 
     /**

@@ -1,0 +1,7 @@
+services:
+    app.section_voter:
+        class: MainBundle\Security\Voter\SectionVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false

@@ -1,0 +1,24 @@
+homepage:
+  first:
+    welcome-1: Welcome
+    welcome-2: Welcome to the Survival Guide edition website.
+    connect:
+      text:  To access to all the functionalities, connect with your galaxy account.
+      button: Connect with Galaxy
+  second:
+    functionnalities: Send notifications to your Erasmus students and write a survival guide for them.
+    guide: guides
+    users: users
+    notifications: notifications
+    comments: For any suggestions, remarks or bugs, please contact :
+    mail: webmaster@esnlille.fr
+
+menu:
+  name-site: ESN - Survival Guide
+  guide: Guide
+  notifications: Notifications
+  logout: Logout
+
+notifications:
+  send-notification:  Send a notification
+  last-notifications: Last notifications

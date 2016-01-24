@@ -1,0 +1,5 @@
+androidApi:
+    resource: "@MainBundle/Resources/config/routing/androidApi.yml"
+
+api:
+    resource: "@MainBundle/Resources/config/routing/api.yml"

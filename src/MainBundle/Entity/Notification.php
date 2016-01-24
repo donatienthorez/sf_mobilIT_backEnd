@@ -3,10 +3,14 @@
 namespace MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
-* @ORM\Entity
-* @ORM\Table(name="Notification")
+ * @ORM\Entity
+ * @ORM\Table(name="notifications")
+ * @ExclusionPolicy("all")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\NotificationRepository")
 */
 class Notification
 {
@@ -21,6 +25,7 @@ class Notification
      * @var string
      *
      * @ORM\Column(name="title", type="text")
+     * @Expose
      */
     private $title;
 
@@ -28,6 +33,7 @@ class Notification
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Expose
      */
     private $content;
 
@@ -35,16 +41,18 @@ class Notification
      * @var string
      *
      * @ORM\Column(name="section", type="string", length=255)
+     * @Expose
      */
     private $section;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(name="sendAt", type="datetime")
+     * @Expose
      */
     protected $sendAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="notifications")
+     * @ORM\ManyToOne(targetEntity="user", inversedBy="notifications")
      * @ORM\JoinColumn(name="sentBy", referencedColumnName="id")
      */
     protected $sentBy;
@@ -60,14 +68,6 @@ class Notification
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -137,16 +137,16 @@ class Notification
     /**
      * @return mixed
      */
-    public function getUser()
+    public function getSentBy()
     {
-        return $this->user;
+        return $this->sentBy;
     }
 
     /**
-     * @param mixed $user
+     * @param $sentBy
      */
-    public function setUser($user)
+    public function setSentBy($sentBy)
     {
-        $this->user = $user;
+        $this->sentBy = $sentBy;
     }
 }

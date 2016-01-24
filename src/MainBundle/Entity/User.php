@@ -5,18 +5,16 @@ namespace MainBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use FOS\UserBundle\Model\UserInterface;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="User")
+ * @ORM\Table(name="users")
  */
-class User extends BaseUser
+class User extends BaseUser implements UserInterface
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->notifications = new ArrayCollection();
-    }
+    const ROLE_NORMAL = 'ROLE_NORMAL';
+    const ROLE_ADMIN  = 'ROLE_ADMIN';
 
     /**
      * @ORM\Id
@@ -30,35 +28,14 @@ class User extends BaseUser
      *
      * @ORM\Column(name="firstname", type="string", length=255)
      */
-    private $firstname;
+    private $firstName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=255)
      */
-    private $lastname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=255, nullable=true)
-     */
-    private $address;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=50, nullable=true)
-     */
-    private $city;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="zipcode", type="string", length=5, nullable=true)
-     */
-    private $zipcode;
+    private $lastName;
 
     /**
      * @var string
@@ -68,37 +45,22 @@ class User extends BaseUser
     private $galaxy_roles;
 
     /**
-     * @var string
+     * @ORM\ManyToOne(targetEntity="Section", inversedBy="users")
+     * @ORM\JoinColumn(name="section", referencedColumnName="codeSection")
      *
-     * @ORM\Column(name="section", type="string", length=255, nullable=true)
      */
-    private $section;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="code_section", type="string", length=255, nullable=true)
-     */
-    private $code_section;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="galaxy_picture", type="string", length=255, nullable=true)
-     */
-    private $galaxy_picture;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="birthdate", type="date", nullable=true)
-     */
-    private $birthdate;
+    protected $section;
 
     /**
      * @ORM\OneToMany(targetEntity="Notification", cascade="all", mappedBy="sentBy")
      */
     protected $notifications;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->notifications = new ArrayCollection();
+    }
 
     /**
      * return fullname
@@ -107,21 +69,7 @@ class User extends BaseUser
      */
     public function __toString()
     {
-        return $this->getFirstname() . " " . $this->getLastname();
-    }
-
-    /**
-     * return full object as string
-     *
-     * @return string
-     */
-    public function toLongString()
-    {
-        return
-            "id:" . $this->getId() .
-            ",firstname:" . $this->getFirstname() .
-            ",lastname:" .$this->getLastname() .
-            ",email:" . $this->getEmail();
+        return $this->getFirstName() . " " . $this->getLastName();
     }
 
     /**
@@ -129,7 +77,7 @@ class User extends BaseUser
      */
     public function getFullname()
     {
-        return $this->getFirstname() . " " . $this->getLastname();
+        return $this->getFirstName() . " " . $this->getLastName();
     }
     /**
      * @return mixed
@@ -162,33 +110,33 @@ class User extends BaseUser
     /**
      * @return string
      */
-    public function getFirstname()
+    public function getFirstName()
     {
-        return $this->firstname;
+        return $this->firstName;
     }
 
     /**
-     * @param string $firstname
+     * @param string $firstName
      */
-    public function setFirstname($firstname)
+    public function setFirstName($firstName)
     {
-        $this->firstname = $firstname;
+        $this->firstName = $firstName;
     }
 
     /**
      * @return string
      */
-    public function getLastname()
+    public function getLastName()
     {
-        return $this->lastname;
+        return $this->lastName;
     }
 
     /**
-     * @param string $lastname
+     * @param string $lastName
      */
-    public function setLastname($lastname)
+    public function setLastName($lastName)
     {
-        $this->lastname = $lastname;
+        $this->lastName = $lastName;
     }
 
     /**
@@ -205,54 +153,6 @@ class User extends BaseUser
     public function setSection($section)
     {
         $this->section = $section;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCodeSection()
-    {
-        return $this->code_section;
-    }
-
-    /**
-     * @param string $code_section
-     */
-    public function setCodeSection($code_section)
-    {
-        $this->code_section = $code_section;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGalaxyPicture()
-    {
-        return $this->galaxy_picture;
-    }
-
-    /**
-     * @param string $galaxy_picture
-     */
-    public function setGalaxyPicture($galaxy_picture)
-    {
-        $this->galaxy_picture = $galaxy_picture;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getBirthdate()
-    {
-        return $this->birthdate;
-    }
-
-    /**
-     * @param \DateTime $birthdate
-     */
-    public function setBirthdate($birthdate)
-    {
-        $this->birthdate = $birthdate;
     }
 
     public function setRandomPassword()

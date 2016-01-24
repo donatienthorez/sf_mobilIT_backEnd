@@ -103,14 +103,14 @@ Bootstrap Admin Template by EGrappler.com
 */
 
 .news-items {
-    margin: 1em 0 0;
+    margin: 0 0 0;
 }
 
 .news-items li {
     display: table;
-    padding: 0 2em 0 1.5em;
     padding-bottom: 1em;
     margin-bottom: 1em;
+    width: 100%;
     border-bottom: 1px dotted #CCC;
 }
 

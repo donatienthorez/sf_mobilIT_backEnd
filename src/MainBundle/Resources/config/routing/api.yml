@@ -1,0 +1,27 @@
+country:
+    type: rest
+    resource: MainBundle\Controller\Api\CountryController
+    prefix: countries
+    options:
+        expose: true
+
+notification:
+    type: rest
+    resource: MainBundle\Controller\Api\NotificationController
+    prefix: notifications
+    options:
+        expose: true
+
+section:
+    type: rest
+    resource: MainBundle\Controller\Api\SectionController
+    prefix: sections
+    options:
+        expose: true
+
+regid:
+    type: rest
+    resource: MainBundle\Controller\Api\RegIdController
+    prefix: regids
+    options:
+        expose: true

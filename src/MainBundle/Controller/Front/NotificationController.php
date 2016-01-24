@@ -2,10 +2,10 @@
 
 namespace MainBundle\Controller\Front;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class NotificationsController extends Controller
+class NotificationController extends Controller
 {
     /**
      * @Route("/admin/notifications/", name="esn_notifications")
