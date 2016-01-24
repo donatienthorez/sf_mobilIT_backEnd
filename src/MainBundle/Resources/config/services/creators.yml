@@ -10,3 +10,8 @@ services:
 
     main.user.creator:
         class: MainBundle\Creator\UserCreator
+
+    main.regid.creator:
+        class: MainBundle\Creator\RegIdCreator
+
+

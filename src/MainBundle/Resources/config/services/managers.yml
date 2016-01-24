@@ -19,3 +19,8 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
 
+    main.regid.manager:
+        class: MainBundle\Manager\RegIdManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@main.regid.creator"

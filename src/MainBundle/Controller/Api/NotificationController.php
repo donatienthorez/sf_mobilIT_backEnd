@@ -2,6 +2,7 @@
 
 namespace MainBundle\Controller\Api;
 
+use HttpInvalidParamException;
 use MainBundle\Entity\Notification;
 use MainBundle\Entity\User;
 use MainBundle\Security\Voter\SectionVoter;
@@ -72,7 +73,8 @@ class NotificationController extends Controller
      *     default=null,
      *     description="Esn section of the notification"
      * )
-     *
+     * @param ParamFetcher $paramFetcher
+     * @return array|HttpInvalidParamException
      */
     public function sendAction(ParamFetcher $paramFetcher)
     {
@@ -81,7 +83,7 @@ class NotificationController extends Controller
         $sections = $paramFetcher->get('sections');
 
         if (!$title || !$content) {
-           return new \HttpInvalidParamException();
+           return new HttpInvalidParamException();
         }
 
         if (!$sections) {
