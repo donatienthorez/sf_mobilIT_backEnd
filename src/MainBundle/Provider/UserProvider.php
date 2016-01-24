@@ -2,12 +2,14 @@
 
 namespace MainBundle\Provider;
 
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use phpCAS;
-use MainBundle\Security\User;
+use MainBundle\Entity\User;
+use MainBundle\Creator\UserCreator;
 
 class UserProvider implements UserProviderInterface
 {
@@ -15,11 +17,17 @@ class UserProvider implements UserProviderInterface
     private $cas_port;
     private $cas_path;
 
-    public function __construct($cas_server, $cas_port, $cas_path)
+    /**
+     * @var UserCreator
+     */
+    private $userCreator;
+
+    public function __construct($cas_server, $cas_port, $cas_path, UserCreator $userCreator)
     {
         $this->cas_server = $cas_server;
         $this->cas_port = $cas_port;
         $this->cas_path = $cas_path;
+        $this->userCreator = $userCreator;
     }
 
     public function loadUser()
@@ -29,10 +37,25 @@ class UserProvider implements UserProviderInterface
         phpCAS::setNoCasServerValidation();
         phpCAS::forceAuthentication();
         $username =  phpCAS::getUser();
-        if ($username) {
-            $attributes = phpCAS::getAttributes();
-            return new User($username, $attributes, null, null, array());
+
+        if (!$username) {
+            throw new AccessDeniedException();
         }
+        $attributes = phpCAS::getAttributes();
+
+
+        $userModel = $this
+            ->userCreator
+            ->createUser(
+                $username,
+                $attributes['mail'],
+                $attributes['roles'],
+                $attributes['first'],
+                $attributes['last'],
+                $attributes['sc']
+            );
+
+        return $userModel;
     }
 
     public function loadUserByUsername($username)
@@ -71,6 +94,6 @@ class UserProvider implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return $class === 'ESN\LoginBundle\Security\User\UserProvider';
+        return $class === 'MainBundle\Security\User\UserProvider';
     }
 }

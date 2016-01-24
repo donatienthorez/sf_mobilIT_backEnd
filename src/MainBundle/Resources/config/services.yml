@@ -6,4 +6,5 @@ imports:
     - { resource: 'services/readers.yml' }
     - { resource: 'services/managers.yml' }
     - { resource: 'services/providers.yml' }
+    - { resource: 'services/voters.yml' }
     - { resource: 'services/services.yml' }

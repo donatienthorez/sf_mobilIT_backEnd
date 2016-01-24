@@ -10,6 +10,7 @@
                     </div>
                     <div class="widget-content">
                         <form method="post" name="sendNotificationsForm" ng-submit="sendNotification()">
+                            {% if is_granted('ROLE_ADMIN') %}
                             <div class="control-group">
                                 <label for="subject" class="control-label">Sections</label>
                                 <div class="controls">
@@ -22,6 +23,7 @@
                                     </select>
                                 </div>
                             </div>
+                            {% endif %}
                             <div class="control-group">
                                 <label for="subject" class="control-label">Title</label>
                                 <div class="controls">

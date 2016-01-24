@@ -5,4 +5,5 @@ services:
             - "%cas_server%"
             - "%cas_port%"
             - "%cas_path%"
+            - "@main.user.creator"
 

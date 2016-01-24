@@ -3,6 +3,8 @@
 namespace MainBundle\Controller\Api;
 
 use MainBundle\Entity\Notification;
+use MainBundle\Entity\User;
+use MainBundle\Security\Voter\SectionVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as FosRest;
@@ -14,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * @FosRest\NamePrefix("api_notifications_")
@@ -32,10 +35,16 @@ class NotificationController extends Controller
      */
     public function listAction($section = null)
     {
-        if ($section == null) {
-            $section = $this->getUser()->getCodeSection();
+        $section =
+            $section ?
+                $this
+                    ->get('main.notification.fetcher')
+                    ->getSection($section)
+                : $this->getUser()->getSection();
+
+        if (!$this->isGranted(SectionVoter::ACCESS, $section)) {
+            throw new AccessDeniedHttpException('Only admins can see other sections than theirs');
         }
-        /** todo else verify if admin */
 
         return $this
             ->get('main.notification.fetcher')
@@ -70,6 +79,11 @@ class NotificationController extends Controller
         $title = $paramFetcher->get('title');
         $content = $paramFetcher->get('content');
         $sections = $paramFetcher->get('sections');
+
+        if (!$sections) {
+            $sections = array();
+            array_push($sections, $this->getUser()->getSection()->getCodeSection());
+        }
 
         $this
             ->get('main.notification.service')

@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="RegId")
+ * @ORM\Table(name="regIds")
  * @ExclusionPolicy("all")
  * @ORM\Entity(repositoryClass="MainBundle\Repository\RegIdRepository")
  */
@@ -22,7 +22,7 @@ class RegId
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Section", inversedBy="regIds")
+     * @ORM\ManyToOne(targetEntity="section", inversedBy="regIds")
      * @ORM\JoinColumn(name="section", referencedColumnName="codeSection")
      * @Expose
      *

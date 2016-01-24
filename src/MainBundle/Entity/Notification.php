@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Notification")
+ * @ORM\Table(name="notifications")
  * @ExclusionPolicy("all")
  * @ORM\Entity(repositoryClass="MainBundle\Repository\NotificationRepository")
 */
@@ -51,7 +51,7 @@ class Notification
     protected $sendAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="notifications")
+     * @ORM\ManyToOne(targetEntity="user", inversedBy="notifications")
      * @ORM\JoinColumn(name="sentBy", referencedColumnName="id")
      */
     protected $sentBy;

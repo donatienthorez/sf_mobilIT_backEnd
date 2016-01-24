@@ -15,7 +15,8 @@ class NotificationHelper
     /**
      * @param Container $container
      */
-    public function __construct(Container $container) {
+    public function __construct(Container $container)
+    {
         $this->container = $container;
     }
     /**
@@ -41,7 +42,8 @@ class NotificationHelper
 
         // Update your Google Cloud Messaging API Key
         if (!defined("GOOGLE_API_KEY")) {
-            define("GOOGLE_API_KEY",
+            define(
+                "GOOGLE_API_KEY",
                 $this->container->getParameter('google_api_key')
             );
         }

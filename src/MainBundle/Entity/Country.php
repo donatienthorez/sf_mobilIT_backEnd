@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Country")
+ * @ORM\Table(name="countries")
  */
 class Country
 {
@@ -50,7 +50,7 @@ class Country
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="Section", cascade="all", mappedBy="country")
+     * @ORM\OneToMany(targetEntity="section", cascade="all", mappedBy="country")
      *
      * @Groups({"list", "details", "section"})
      */

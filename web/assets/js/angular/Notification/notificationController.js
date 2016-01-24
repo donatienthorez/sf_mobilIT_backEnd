@@ -4,14 +4,11 @@ notificationModule.controller('notificationController',
             $scope.notifications = [];
             $scope.notification = {};
 
-            // this will be deleted when the getSectionFromUser api will be done
-            $scope.lille = { "name":"ESN Lille", "code_section":"FR-LILL-ESL"};
-
             $scope.sectionsSelected = [];
             $scope.sections = [];
 
             $scope.init = function () {
-                getNotifications($scope.lille.code_section);
+                getNotifications();
                 getSections();
             };
 
@@ -37,6 +34,7 @@ notificationModule.controller('notificationController',
                     sectionsToSend
                 ).then(function (data) {
                     $scope.notifications.splice(0, 0, data);
+                    $scope.notification = {};
                 });
             }
         }

@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Section")
+ * @ORM\Table(name="sections")
  */
 class Section
 {
@@ -100,6 +100,11 @@ class Section
      *
      */
     protected $regIds;
+
+    /**
+     * @ORM\OneToMany(targetEntity="User", cascade="all", mappedBy="section")
+     */
+    protected $users;
 
     public function __construct()
     {
@@ -281,5 +286,10 @@ class Section
     public function setRegIds($regIds)
     {
         $this->regIds = $regIds;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getCodeSection();
     }
 }

@@ -2,10 +2,12 @@
 
 namespace MainBundle\Service;
 
+use MainBundle\Security\Voter\SectionVoter;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use MainBundle\Security\Voter\NotificationVoter;
 use MainBundle\Adapter\RegIdAdapter;
-use MainBundle\Controller\Front\NotificationController;
 use MainBundle\Creator\NotificationCreator;
-use MainBundle\Entity\Notification;
 use MainBundle\Fetcher\RegIdFetcher;
 use MainBundle\Fetcher\SectionFetcher;
 use MainBundle\Helper\NotificationHelper;
@@ -36,25 +38,30 @@ class NotificationService
      */
     private $regIdAdapter;
 
+    protected $securityContext;
+
     /**
      * @param NotificationManager $notificationManager
      * @param SectionFetcher $sectionFetcher
      * @param NotificationCreator $notificationCreator
      * @param NotificationHelper $notificationHelper
      * @param RegIdAdapter $regIdAdapter
+     * @param AuthorizationCheckerInterface $securityContext
      */
     public function __construct(
         NotificationManager $notificationManager,
         SectionFetcher $sectionFetcher,
         NotificationCreator $notificationCreator,
         NotificationHelper $notificationHelper,
-        RegIdAdapter $regIdAdapter
+        RegIdAdapter $regIdAdapter,
+        AuthorizationCheckerInterface $securityContext
     ) {
         $this->notificationManager = $notificationManager;
         $this->sectionFetcher      = $sectionFetcher;
         $this->notificationCreator = $notificationCreator;
         $this->notificationHelper  = $notificationHelper;
         $this->regIdAdapter        = $regIdAdapter;
+        $this->securityContext = $securityContext;
     }
 
     public function send($title, $content, $user, $sections)
@@ -64,13 +71,19 @@ class NotificationService
                 ->sectionFetcher
                 ->getSection($section);
 
+            if (!$this->securityContext->isGranted(SectionVoter::ACCESS, $section)) {
+                throw new AccessDeniedHttpException(
+                    "Only admins can send notifications to others sections than theirs."
+                );
+            }
+
             $notification = $this
                 ->notificationCreator
                 ->createNotification(
                     $title,
                     $content,
                     $user,
-                    $section->getCodeSection()
+                    $section
                 );
 
             $regIds = $this
