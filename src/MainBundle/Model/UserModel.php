@@ -2,8 +2,8 @@
 
 namespace MainBundle\Model;
 
-use MainBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use MainBundle\Entity\User;
 
 class UserModel extends User
 {

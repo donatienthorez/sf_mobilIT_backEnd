@@ -2,8 +2,8 @@
 
 namespace MainBundle\Reader;
 
-use MainBundle\Creator\CountryCreator;
 use Symfony\Component\DomCrawler\Crawler;
+use MainBundle\Creator\CountryCreator;
 
 class ImportCountriesReader
 {

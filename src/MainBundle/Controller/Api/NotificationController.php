@@ -2,22 +2,17 @@
 
 namespace MainBundle\Controller\Api;
 
-use HttpInvalidParamException;
-use MainBundle\Entity\Notification;
-use MainBundle\Entity\User;
-use MainBundle\Security\Voter\SectionVoter;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use FOS\RestBundle\Controller\Annotations as FosRest;
-use FOS\RestBundle\Request\ParamFetcher;
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Post;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use HttpInvalidParamException;
+use FOS\RestBundle\Controller\Annotations as FosRest;
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use MainBundle\Security\Voter\SectionVoter;
 
 /**
  * @FosRest\NamePrefix("api_notifications_")

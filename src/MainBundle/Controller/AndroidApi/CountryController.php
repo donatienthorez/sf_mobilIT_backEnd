@@ -3,9 +3,9 @@
 namespace MainBundle\Controller\AndroidApi;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\Annotations as FosRest;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @FosRest\NamePrefix("api_android_countries_")

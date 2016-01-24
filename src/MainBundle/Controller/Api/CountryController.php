@@ -2,11 +2,11 @@
 
 namespace MainBundle\Controller\Api;
 
-use JMS\Serializer\SerializationContext;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use FOS\RestBundle\Controller\Annotations as FosRest;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use FOS\RestBundle\Controller\Annotations as FosRest;
+use JMS\Serializer\SerializationContext;
 
 /**
  * @FosRest\NamePrefix("api_countries_")

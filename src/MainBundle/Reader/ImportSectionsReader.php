@@ -2,8 +2,8 @@
 
 namespace MainBundle\Reader;
 
-use MainBundle\Creator\SectionCreator;
 use Symfony\Component\DomCrawler\Crawler;
+use MainBundle\Creator\SectionCreator;
 
 class ImportSectionsReader
 {

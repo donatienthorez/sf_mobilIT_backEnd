@@ -2,10 +2,9 @@
 
 namespace MainBundle\Service;
 
-use MainBundle\Security\Voter\SectionVoter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use MainBundle\Security\Voter\NotificationVoter;
+use MainBundle\Security\Voter\SectionVoter;
 use MainBundle\Adapter\RegIdAdapter;
 use MainBundle\Creator\NotificationCreator;
 use MainBundle\Fetcher\RegIdFetcher;

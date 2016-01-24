@@ -2,12 +2,12 @@
 
 namespace MainBundle\Security\Voter;
 
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use MainBundle\Entity\Notification;
 use MainBundle\Entity\Permission;
 use MainBundle\Entity\Section;
 use MainBundle\Entity\User;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class SectionVoter extends Voter
 {
