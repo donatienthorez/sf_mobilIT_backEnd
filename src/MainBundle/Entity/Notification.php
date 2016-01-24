@@ -47,6 +47,7 @@ class Notification
 
     /**
      * @ORM\Column(name="sendAt", type="datetime")
+     * @Expose
      */
     protected $sendAt;
 

@@ -98,5 +98,7 @@ class NotificationService
                 ->notificationHelper
                 ->sendNotification($notification, $regIds);
         }
+
+        return $notification;
     }
 }

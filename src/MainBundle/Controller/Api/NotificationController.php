@@ -38,7 +38,7 @@ class NotificationController extends Controller
         $section =
             $section ?
                 $this
-                    ->get('main.notification.fetcher')
+                    ->get('main.section.fetcher')
                     ->getSection($section)
                 : $this->getUser()->getSection();
 
@@ -80,16 +80,21 @@ class NotificationController extends Controller
         $content = $paramFetcher->get('content');
         $sections = $paramFetcher->get('sections');
 
+        if (!$title || !$content) {
+           return new \HttpInvalidParamException();
+        }
+
         if (!$sections) {
             $sections = array();
             array_push($sections, $this->getUser()->getSection()->getCodeSection());
         }
 
-        $this
-            ->get('main.notification.service')
-            ->send($title, $content, $this->getUser(), $sections);
+        $notification =
+            $this
+                ->get('main.notification.service')
+                ->send($title, $content, $this->getUser(), $sections);
 
-        return array("title" => $title, "content" => $content);
+        return array("title" => $notification->getTitle(), "content" => $notification->getContent(), "send_at" => $notification->getSendAt());
     }
 
     public function countAction()
