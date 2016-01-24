@@ -1,48 +1,5 @@
-country:
-    type: rest
-    resource: MainBundle\Controller\Api\CountryController
-    prefix: countries
-    options:
-        expose: true
+androidApi:
+    resource: "@MainBundle/Resources/config/routing/androidApi.yml"
 
-notification:
-    type: rest
-    resource: MainBundle\Controller\Api\NotificationController
-    prefix: notifications
-    options:
-        expose: true
-
-section:
-    type: rest
-    resource: MainBundle\Controller\Api\SectionController
-    prefix: sections
-    options:
-        expose: true
-
-regid:
-    type: rest
-    resource: MainBundle\Controller\Api\RegIdController
-    prefix: regids
-    options:
-        expose: true
-
-android_section:
-    type: rest
-    resource: MainBundle\Controller\AndroidApi\SectionController
-    prefix: android/sections
-    options:
-        expose: true
-
-android_country:
-    type: rest
-    resource: MainBundle\Controller\AndroidApi\CountryController
-    prefix: android/countries
-    options:
-        expose: true
-
-android_regid:
-    type: rest
-    resource: MainBundle\Controller\AndroidApi\RegIdController
-    prefix: android/regids
-    options:
-        expose: true
+api:
+    resource: "@MainBundle/Resources/config/routing/api.yml"
