@@ -99,3 +99,4 @@ parameters:
     cas_port: 443
     cas_path: /cas/
     mail: donatienthorez@gmail.com
+    google_api_key: AIzaSyARq1v5hjOd16fSBin0DXmG-EX5CeYQS84

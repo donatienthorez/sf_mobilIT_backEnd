@@ -3,11 +3,12 @@ notificationModule.controller('notificationController',
         function ($scope, notificationRequest) {
             $scope.notifications = [];
             $scope.notification = {};
-            $scope.lille = { "name":"ESN Lille", "code_section":"FR-LILL-ESL"};
-            $scope.sectionsSelected = [];
 
+            // this will be deleted when the getSectionFromUser api will be done
+            $scope.lille = { "name":"ESN Lille", "code_section":"FR-LILL-ESL"};
+
+            $scope.sectionsSelected = [];
             $scope.sections = [];
-            $scope.section = [];
 
             $scope.init = function () {
                 getNotifications($scope.lille.code_section);
@@ -27,10 +28,13 @@ notificationModule.controller('notificationController',
             }
 
             $scope.sendNotification = function() {
-                console.log($scope.sectionsSelected);
+                var sectionsToSend = [];
+                angular.forEach($scope.sectionsSelected, function(section, key) {
+                    sectionsToSend.push(section.code_section);
+                });
                 notificationRequest.sendNotification(
                     $scope.notification,
-                    $scope.sections
+                    sectionsToSend
                 ).then(function (data) {
                     $scope.notifications.splice(0, 0, data);
                 });
