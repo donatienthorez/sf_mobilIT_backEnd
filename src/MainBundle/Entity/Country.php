@@ -17,55 +17,40 @@ class Country
      * @Groups({"list", "details", "section"})
      *
      */
-    private $codeCountry;
+    protected $codeCountry;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="name", type="string", length=255)
-     *
      * @Groups({"list", "details", "listSection"})
-     *
      */
-    private $name;
+    protected $name;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="website", type="text")
-     *
      * @Groups({"details"})
-     *
      */
-    private $website;
+    protected $website;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="email", type="string", length=255)
-     *
      * @Groups({"details"})
-     *
      */
-    private $email;
+    protected $email;
 
     /**
      * @ORM\OneToMany(targetEntity="section", cascade="all", mappedBy="country")
-     *
      * @Groups({"list", "details", "section"})
      */
     protected $sections;
 
     /**
      * @ORM\Column(name="addedAt", type="datetime")
-     *
      * @Groups({"details"})
      */
     protected $addedAt;
 
     /**
      * @ORM\Column(name="updatedAt", type="datetime")
-     *
      * @Groups({"details"})
      */
     protected $updatedAt;
@@ -77,7 +62,7 @@ class Country
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCodeCountry()
     {
@@ -85,7 +70,7 @@ class Country
     }
 
     /**
-     * @param mixed $codeCountry
+     * @param string $codeCountry
      */
     public function setCodeCountry($codeCountry)
     {

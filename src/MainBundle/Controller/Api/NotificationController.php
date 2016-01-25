@@ -91,7 +91,7 @@ class NotificationController extends Controller
                 ->get('main.notification.service')
                 ->send($title, $content, $this->getUser(), $sections);
 
-        return array("title" => $notification->getTitle(), "content" => $notification->getContent(), "send_at" => $notification->getSendAt());
+        return array("title" => $notification->getTitle(), "content" => $notification->getContent(), "sent_at" => $notification->getSentAt());
     }
 
     public function countAction()

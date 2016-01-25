@@ -26,7 +26,7 @@ class NotificationFetcher
             ->getRepository('MainBundle:Notification')
             ->findBy(
                 array('section' => $section->getCodeSection()),
-                array('sendAt' => 'DESC'),
+                array('sentAt' => 'DESC'),
                 10
             );
     }

@@ -65,24 +65,19 @@ class Section
     private $phone;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
-     *
      * @Groups({"details"})
      */
     private $email;
 
     /**
      * @ORM\Column(name="addedAt", type="datetime")
-     *
      * @Groups({"details"})
      */
     protected $addedAt;
 
     /**
      * @ORM\Column(name="updatedAt", type="datetime")
-     *
      * @Groups({"details"})
      */
     protected $updatedAt;
@@ -90,21 +85,30 @@ class Section
     /**
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="sections")
      * @ORM\JoinColumn(name="country", referencedColumnName="codeCountry")
-     *
      * @Groups({"list", "details", "listSection"})
      */
     protected $country;
 
     /**
      * @ORM\OneToMany(targetEntity="RegId", cascade="all", mappedBy="section")
-     *
      */
     protected $regIds;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Notification", cascade="all", mappedBy="section")
+     */
+    protected $notification;
 
     /**
      * @ORM\OneToMany(targetEntity="User", cascade="all", mappedBy="section")
      */
     protected $users;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Guide")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $guide;
 
     public function __construct()
     {
