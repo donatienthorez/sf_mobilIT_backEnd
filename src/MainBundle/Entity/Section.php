@@ -106,7 +106,7 @@ class Section
 
     /**
      * @ORM\OneToOne(targetEntity="Guide")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="guide", referencedColumnName="id")
      */
     protected $guide;
 
