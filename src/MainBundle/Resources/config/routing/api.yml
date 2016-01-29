@@ -25,3 +25,10 @@ regid:
     prefix: regids
     options:
         expose: true
+
+guide:
+    type: rest
+    resource: MainBundle\Controller\Api\GuideController
+    prefix: guides
+    options:
+        expose: true

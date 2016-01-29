@@ -5,11 +5,13 @@ namespace MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\MaxDepth;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\GuideRepository")
  * @ORM\Table(name="guides")
  * @ExclusionPolicy("all")
+ *
  */
 class Guide
 {
@@ -17,13 +19,13 @@ class Guide
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
      */
     protected $id;
 
     /**
      * @ORM\OneToOne(targetEntity="Section")
      * @ORM\JoinColumn(name="section", referencedColumnName="codeSection")
-     * @Expose
      */
     protected $section;
 
@@ -35,11 +37,13 @@ class Guide
 
     /**
      * @ORM\OneToMany(targetEntity="Category", cascade="all", mappedBy="guide")
+     * @Expose
      */
     protected $categories;
 
     /**
      * @ORM\Column(type="boolean", name="activated", options={"default": false})
+     * @Expose
      */
     protected $activated;
 
@@ -110,5 +114,21 @@ class Guide
     public function setActivated($activated)
     {
         $this->activated = $activated;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param mixed $categories
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
     }
 }

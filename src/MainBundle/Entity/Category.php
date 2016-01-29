@@ -5,6 +5,7 @@ namespace MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity
@@ -41,19 +42,28 @@ class Category
     /**
      * @ORM\ManyToOne(targetEntity="Guide", inversedBy="categories")
      * @ORM\JoinColumn(name="guide", referencedColumnName="id")
-     * @Expose
+     * @MaxDepth(2)
      */
     protected $guide;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @MaxDepth(2)
      */
     private $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @MaxDepth(5)
      */
     private $children;
+
+    /**
+     * @ORM\Column(name="position", type="integer")
+     * @Expose
+     */
+    protected $position;
+
 
     public function __construct()
     {
@@ -196,5 +206,21 @@ class Category
     public function removeChildren($children)
     {
         unset($this->children, $children);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param mixed $position
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
     }
 }

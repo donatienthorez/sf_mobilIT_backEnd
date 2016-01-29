@@ -3,6 +3,7 @@ guideModule.controller('guideController',
         function ($scope, guideRequest) {
 
             $scope.categorieSelected = {};
+            $scope.data = [];
 
             $scope.remove = function (scope) {
                 console.log(scope.$modelValue);
@@ -51,6 +52,7 @@ guideModule.controller('guideController',
             };
 
             $scope.init = function () {
+                getGuide();
             };
 
             $scope.collapseAll = function () {
@@ -61,53 +63,59 @@ guideModule.controller('guideController',
                 $scope.$broadcast('expandAll');
             };
 
-            $scope.data = [{
-                'id': 1,
-                'title': 'node1',
-                'content': 'test',
-                'nodes': [
-                    {
-                        'id': 11,
-                        'title': 'node1.1',
-                        'nodes': [
-                            {
-                                'id': 111,
-                                'title': 'node1.1.1',
-                                'nodes': []
-                            }
-                        ]
-                    },
-                    {
-                        'id': 12,
-                        'title': 'node1.2',
-                        'nodes': []
-                    }
-                ]
-            }, {
-                'id': 2,
-                'title': 'node2',
-                'nodrop': true, // An arbitrary property to check in custom template for nodrop-enabled
-                'nodes': [
-                    {
-                        'id': 21,
-                        'title': 'node2.1',
-                        'nodes': []
-                    },
-                    {
-                        'id': 22,
-                        'title': 'node2.2',
-                        'nodes': []
-                    }
-                ]
-            }, {
-                'id': 3,
-                'title': 'node3',
-                'nodes': [
-                    {
-                        'id': 31,
-                        'title': 'node3.1',
-                        'nodes': []
-                    }
-                ]
-            }];
+            function getGuide(section) {
+                guideRequest.getGuide(section).then(function (data) {
+                    $scope.data = data.nodes;
+                });
+            }
+            //
+            //$scope.data = [{
+            //    'id': 1,
+            //    'title': 'node1',
+            //    'content': 'test',
+            //    'categories': [
+            //        {
+            //            'id': 11,
+            //            'title': 'node1.1',
+            //            'categories': [
+            //                {
+            //                    'id': 111,
+            //                    'title': 'node1.1.1',
+            //                    'categories': []
+            //                }
+            //            ]
+            //        },
+            //        {
+            //            'id': 12,
+            //            'title': 'node1.2',
+            //            'categories': []
+            //        }
+            //    ]
+            //}, {
+            //    'id': 2,
+            //    'title': 'node2',
+            //    'nodrop': true, // An arbitrary property to check in custom template for nodrop-enabled
+            //    'categories': [
+            //        {
+            //            'id': 21,
+            //            'title': 'node2.1',
+            //            'categories': []
+            //        },
+            //        {
+            //            'id': 22,
+            //            'title': 'node2.2',
+            //            'categories': []
+            //        }
+            //    ]
+            //}, {
+            //    'id': 3,
+            //    'title': 'node3',
+            //    'categories': [
+            //        {
+            //            'id': 31,
+            //            'title': 'node3.1',
+            //            'categories': []
+            //        }
+            //    ]
+            //}];
         }]);
