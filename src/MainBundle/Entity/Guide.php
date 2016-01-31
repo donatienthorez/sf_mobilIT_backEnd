@@ -137,10 +137,21 @@ class Guide
         $this->categories[] = $category;
     }
 
+    public function getCategoriesWithoutParent()
+    {
+        $categories = [];
+        foreach ($this->getCategories() as $children) {
+            if (!$children->getParent()) {
+                $categories[] = $children;
+            }
+        }
+        return $categories;
+    }
+
     public function getMaxPosition()
     {
         $max = 0;
-        foreach ($this->getCategories() as $children) {
+        foreach ($this->getCategoriesWithoutParent() as $children) {
             $max = max($children->getPosition(), $max);
         }
         return $max;

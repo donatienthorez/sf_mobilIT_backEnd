@@ -14,6 +14,11 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
 
+    main.guide.manager:
+        class: MainBundle\Manager\GuideManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
     main.section.manager:
         class: MainBundle\Manager\SectionManager
         arguments:

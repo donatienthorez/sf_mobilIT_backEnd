@@ -8,7 +8,7 @@ class NotificationRepository extends EntityRepository
 {
 
     /**
-     * Returns the number of notification
+     * Returns the number of notifications
      *
      * @return int
      */

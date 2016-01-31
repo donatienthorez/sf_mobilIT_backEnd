@@ -27,4 +27,12 @@ class GuideFetcher
             ->getRepository('MainBundle:Guide')
             ->getGuide($section);
     }
+
+    public function count()
+    {
+        return $this
+            ->em
+            ->getRepository('MainBundle:Guide')
+            ->count();
+    }
 }

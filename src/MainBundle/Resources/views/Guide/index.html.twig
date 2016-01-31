@@ -28,8 +28,20 @@
                     <div class="widget-header">
                         <i class="icon-book"></i>
                         <h3>Categories</h3>
-                        <button class="btn btn-default" type="button" ng-click="addToRoot()">Add Category</button>
+                            <span>
+                                <button class="btn btn-default" type="button" ng-click="addToRoot()">Add Category</button>
+                            </span>
+                            <span>
+                                <div class="onoffswitch">
+                                    <input name="onoffswitch" class="onoffswitch-checkbox ng-pristine ng-untouched ng-valid" id="myonoffswitch" ng-model="activated" ng-change="changeGuideStatus()" type="checkbox">
+                                    <label class="onoffswitch-label" for="myonoffswitch">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </span>
                     </div>
+
                     <div class="widget-content">
                         <div class="ng-scope angular-ui-tree" ui-tree="treeOptions" id="tree-root" data-max-depth="3">
                             <ol ui-tree-nodes class="ng-pristine ng-untouched ng-valid ng-scope angular-ui-tree-nodes" ng-model="data">

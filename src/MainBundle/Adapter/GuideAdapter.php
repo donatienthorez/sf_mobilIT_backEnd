@@ -11,6 +11,7 @@ class GuideAdapter
     {
         $model = new GuideModel();
         $model->setCodeSection($guide->getSection()->getCodeSection());
+        $model->setActivated($guide->getActivated());
         foreach ($guide->getCategories() as $category) {
             if (!$category->getParent()) {
                 $categoryM = (new CategoryModel())

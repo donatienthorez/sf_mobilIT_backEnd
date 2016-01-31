@@ -50,6 +50,23 @@ guideModule.service('guideRequest', ['$http', function ($http) {
     };
 
     /**
+     * Change the status of the guide.
+     *
+     * @return promise.
+     */
+    this.changeGuideStatus = function(section) {
+        return $http({
+            method: 'PUT',
+            url: Routing.generate(
+                'api_guides_change_status',
+                {'section': section}
+            )
+        }).then(function (result) {
+            return result.data;
+        });
+    };
+
+    /**
      * Move a category.
      *
      * @return promise.

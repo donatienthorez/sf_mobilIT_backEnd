@@ -4,6 +4,7 @@ guideModule.controller('guideController',
             $scope.categorieSelected = {};
             $scope.section = {};
             $scope.data = [];
+            $scope.activated = false;
 
             $scope.init = function () {
                 getGuide();
@@ -17,7 +18,12 @@ guideModule.controller('guideController',
 
             $scope.toggle = function (scope) {
                 scope.toggle();
-                console.log("test");
+            };
+
+            $scope.changeGuideStatus = function (section) {
+                guideRequest.changeGuideStatus(section).then(function (data) {
+                    $scope.activated = data;
+                });
             };
 
             $scope.treeOptions = {
@@ -44,7 +50,10 @@ guideModule.controller('guideController',
                     if ((sourceParent != destParent || sourcePosition != destPosition)
                         || (sourceParent == undefined && destParent == undefined && sourcePosition != destPosition)
                     ) {
-                        console.log("sentRequest");
+                        console.log("elementId: " + elementId);
+                        console.log("sourceParent: " + sourceParent);
+                        console.log("destParent: " + destParent);
+                        console.log("destPosition: " + destPosition);
                         guideRequest.moveCategory(elementId, sourceParent, destParent, destPosition).then(function (data) {
                             return true;
                         });
@@ -93,6 +102,8 @@ guideModule.controller('guideController',
 
             function getGuide(section) {
                 guideRequest.getGuide(section).then(function (data) {
+                    $scope.activated = data.activated;
+                    console.log(data);
                     $scope.data = data.nodes;
                 });
             }

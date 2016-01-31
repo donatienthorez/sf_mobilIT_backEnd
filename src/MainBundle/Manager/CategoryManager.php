@@ -74,40 +74,95 @@ class CategoryManager
             $newSiblings = $parentCategory
                 ->getChildren();
         } else {
-            $category->setParent(null);
             $guide = $category->getGuide();
-            $newSiblings = $guide->getCategories();
-            $guide->addCategory($category);
+            $newSiblings = $guide->getCategoriesWithoutParent();
         }
 
-        if (($category->getParent() == null && $parentId == null) || ($category->getParent()->getId() == $parentId)) {
-            foreach ($newSiblings as $child) {
-                if ($child->getPosition() >= $position && $child->getPosition() < $category->getPosition()) {
-                    $child->setPosition($child->getPosition() + 1);
+        // if we just move the position
+        if (($category->getParent() == null && $parentId == null) || ($category->getParent() != null && $category->getParent()->getId() == $parentId)) {
+            if ($category->getPosition() > $position) {
+                foreach ($newSiblings as $child) {
+                    if ($child->getPosition() >= $position && $child->getPosition() <= $category->getPosition()) {
+                        $child->setPosition($child->getPosition() + 1);
+                    }
+                    $this->em->persist($child);
                 }
-                $this->em->persist($child);
+            } else {
+                foreach ($newSiblings as $child) {
+                    if ($child->getPosition() <= $position && $child->getPosition() >= $category->getPosition()) {
+                        $child->setPosition($child->getPosition() -1);
+                    }
+                    $this->em->persist($child);
+                }
             }
-        } else {
-            $siblings = $category->getParent() ?
+        }
+        // if we move the position and change the parent
+        else {
+            $oldSiblings = $category->getParent() ?
                 $category->getParent()->getChildren()
-                : $category->getGuide()->getCategories();
+                : $category->getGuide()->getCategoriesWithoutParent();
 
-            foreach ($newSiblings as $child) {
-                if ($child->getPosition() >= $position) {
-                    $child->setPosition($child->getPosition() + 1);
-                }
-                $this->em->persist($child);
-            }
-            foreach ($siblings as $child) {
+            foreach ($oldSiblings as $child) {
                 if ($child->getPosition() >= $category->getPosition()) {
                     $child->setPosition($child->getPosition() - 1);
                 }
                 $this->em->persist($child);
             }
+            foreach ($newSiblings as $child) {
+                if ($child->getPosition() >= $category->getPosition()) {
+                    $child->setPosition($child->getPosition() + 1);
+                }
+                $this->em->persist($child);
+            }
         }
+
         $category
-            ->setParent($parentCategory)
             ->setPosition($position);
+
+        if(isset($parentCategory)) {
+            $category->setParent($parentCategory);
+        } else {
+            $category->setParent(null);
+        }
+
+//        if ($parentId) {
+//            $parentCategory = $this
+//                ->em
+//                ->find('MainBundle:Category', $parentId);
+//            $newSiblings = $parentCategory
+//                ->getChildren();
+//        } else {
+//            $category->setParent(null);
+//            $guide = $category->getGuide();
+//            $newSiblings = $guide->getCategories();
+//            $guide->addCategory($category);
+//        }
+//
+//        if (($category->getParent() == null && $parentId == null) || ($category->getParent()->getId() == $parentId)) {
+//            foreach ($newSiblings as $child) {
+//                if ($child->getPosition() >= $position && $child->getPosition() < $category->getPosition()) {
+//                    $child->setPosition($child->getPosition() + 1);
+//                }
+//                $this->em->persist($child);
+//            }
+//        } else {
+//            $siblings = $category->getParent() ?
+//                $category->getParent()->getChildren()
+//                : $category->getGuide()->getCategories();
+//
+//            foreach ($newSiblings as $child) {
+//                if ($child->getPosition() >= $position) {
+//                    $child->setPosition($child->getPosition() + 1);
+//                }
+//                $this->em->persist($child);
+//            }
+//            foreach ($siblings as $child) {
+//                if ($child->getPosition() >= $category->getPosition()) {
+//                    $child->setPosition($child->getPosition() - 1);
+//                }
+//                $this->em->persist($child);
+//            }
+//        }
 
         $this->em->persist($category);
         $this->em->flush();

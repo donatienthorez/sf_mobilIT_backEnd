@@ -1,4 +1,5 @@
 var survivalGuideApp = angular.module('survivalGuideApp', [
+    'homepage.module',
     'notification.module',
     'guide.module',
     'localytics.directives'
@@ -8,3 +9,4 @@ var survivalGuideApp = angular.module('survivalGuideApp', [
 
 var notificationModule = angular.module("notification.module", ['localytics.directives']);
 var guideModule = angular.module("guide.module", ['ui.tree']);
+var homepageModule = angular.module("homepage.module", []);

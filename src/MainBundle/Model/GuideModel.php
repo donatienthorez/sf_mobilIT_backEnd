@@ -6,6 +6,7 @@ class GuideModel
 {
     private $codeSection;
     private $nodes;
+    private $activated;
 
     /**
      * @return string
@@ -37,9 +38,11 @@ class GuideModel
         $a = $a->getPosition();
         $b = $b->getPosition();
 
-//        if($a == null) var_dump($a);
-//        if($b == null) var_dump($b);
-
         return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
+    }
+
+    function setActivated($activated)
+    {
+        $this->activated = $activated;
     }
 }

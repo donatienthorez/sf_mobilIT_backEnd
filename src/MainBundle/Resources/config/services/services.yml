@@ -9,6 +9,12 @@ services:
             - "@main.regid.adapter"
             - "@security.authorization_checker"
 
+    main.guide.service:
+       class: MainBundle\Service\GuideService
+       arguments:
+           - "@main.guide.fetcher"
+           - "@main.guide.manager"
+
     main.country.service:
             class: MainBundle\Service\CountryService
             arguments:

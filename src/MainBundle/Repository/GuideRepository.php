@@ -9,7 +9,7 @@ use MainBundle\Entity\Section;
 class GuideRepository extends EntityRepository
 {
     /**
-     * Returns the number of notification
+     * Returns the guide of the section
      *
      * @param Section $section
      *
@@ -25,5 +25,20 @@ class GuideRepository extends EntityRepository
             ->getQuery();
 
         return $query->getSingleResult();
+    }
+
+    /**
+     * Returns the number of guides
+     *
+     * @return int
+     */
+    public function count()
+    {
+        $query = $this
+            ->createQueryBuilder('c')
+            ->select('COUNT(c.id)')
+            ->getQuery();
+
+        return $query->getSingleScalarResult();
     }
 }
