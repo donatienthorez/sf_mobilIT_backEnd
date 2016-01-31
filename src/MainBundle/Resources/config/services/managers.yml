@@ -24,3 +24,8 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@main.regid.creator"
+
+    main.category.manager:
+        class: MainBundle\Manager\CategoryManager
+        arguments:
+            - "@doctrine.orm.entity_manager"

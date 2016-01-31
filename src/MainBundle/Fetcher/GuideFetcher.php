@@ -3,6 +3,7 @@
 namespace MainBundle\Fetcher;
 
 use Doctrine\ORM\EntityManagerInterface;
+use MainBundle\Entity\Section;
 
 class GuideFetcher
 {
@@ -19,7 +20,7 @@ class GuideFetcher
         $this->em = $em;
     }
 
-    public function getGuide($section)
+    public function getGuide(Section $section)
     {
         return $this
             ->em

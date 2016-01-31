@@ -2,6 +2,7 @@
 
 namespace MainBundle\Controller\Api;
 
+use MainBundle\Entity\Category;
 use MainBundle\Model\CategoryModel;
 use MainBundle\Model\GuideModel;
 use MainBundle\Security\Voter\SectionVoter;
@@ -14,6 +15,7 @@ use FOS\RestBundle\Controller\Annotations as FosRest;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @FosRest\NamePrefix("api_guides_")

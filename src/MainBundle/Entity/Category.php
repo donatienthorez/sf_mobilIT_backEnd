@@ -28,7 +28,7 @@ class Category
     protected $title;
 
     /**
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="content", type="text", nullable=true)
      * @Expose
      */
     protected $content;
@@ -42,19 +42,16 @@ class Category
     /**
      * @ORM\ManyToOne(targetEntity="Guide", inversedBy="categories")
      * @ORM\JoinColumn(name="guide", referencedColumnName="id")
-     * @MaxDepth(2)
      */
     protected $guide;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
-     * @MaxDepth(2)
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
-     * @MaxDepth(5)
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent", cascade={"all"})
      */
     private $children;
 
@@ -160,10 +157,14 @@ class Category
 
     /**
      * @param Guide $guide
+     *
+     * @return $this
      */
     public function setGuide(Guide $guide)
     {
         $this->guide = $guide;
+
+        return $this;
     }
 
     /**
@@ -176,10 +177,14 @@ class Category
 
     /**
      * @param Category $parent
+     *
+     * @return $this
      */
     public function setParent($parent)
     {
         $this->parent = $parent;
+
+        return $this;
     }
 
     /**
@@ -222,5 +227,16 @@ class Category
     public function setPosition($position)
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getMaxPosition()
+    {
+        $max = 0;
+        foreach ($this->getChildren() as $children) {
+            $max = max($children->getPosition(), $max);
+        }
+        return $max;
     }
 }

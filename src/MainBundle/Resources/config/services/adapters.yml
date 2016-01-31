@@ -2,5 +2,8 @@ services:
     main.regid.adapter:
         class: MainBundle\Adapter\RegIdAdapter
 
+    main.category.adapter:
+        class: MainBundle\Adapter\CategoryAdapter
+
     main.guide.adapter:
         class: MainBundle\Adapter\GuideAdapter

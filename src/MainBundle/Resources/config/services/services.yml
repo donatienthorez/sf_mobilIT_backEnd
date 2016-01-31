@@ -32,3 +32,9 @@ services:
             - "@main.country.manager"
             - "@main.country.fetcher"
             - "@main.section.manager"
+
+    main.category.service:
+        class: MainBundle\Service\CategoryService
+        arguments:
+            - "@main.category.manager"
+            - "@main.category.adapter"

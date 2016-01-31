@@ -7,6 +7,7 @@ use MainBundle\Entity\User;
 
 class CategoryModel
 {
+    private $id;
     private $title;
     private $content;
     private $nodes;
@@ -24,12 +25,37 @@ class CategoryModel
     }
 
     public function sortNodes(){
-        usort($this->nodes, array($this, "cmp"));
+        if ($this->nodes != null) {
+            usort($this->nodes, array($this, "cmp"));
+        }
     }
 
     function cmp(CategoryModel $a, CategoryModel $b)
     {
-        return strcmp($a->getPosition(), $b->getPosition());
+        $a = $a->getPosition();
+        $b = $b->getPosition();
+//        if($a == null) var_dump($a);
+//        if($b == null) var_dump($b);
+
+        return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**

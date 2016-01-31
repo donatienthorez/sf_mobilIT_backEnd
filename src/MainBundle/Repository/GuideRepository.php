@@ -3,16 +3,19 @@
 namespace MainBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use MainBundle\Entity\Guide;
+use MainBundle\Entity\Section;
 
 class GuideRepository extends EntityRepository
 {
-
     /**
      * Returns the number of notification
      *
-     * @return int
+     * @param Section $section
+     *
+     * @return Guide
      */
-    public function getGuide($section)
+    public function getGuide(Section $section)
     {
         $query = $this
             ->createQueryBuilder('g')

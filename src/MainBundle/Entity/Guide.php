@@ -25,7 +25,7 @@ class Guide
 
     /**
      * @ORM\OneToOne(targetEntity="Section")
-     * @ORM\JoinColumn(name="section", referencedColumnName="codeSection")
+     * @ORM\JoinColumn(name="section", referencedColumnName="codeSection", unique=true)
      */
     protected $section;
 
@@ -130,5 +130,19 @@ class Guide
     public function setCategories($categories)
     {
         $this->categories = $categories;
+    }
+
+    public function addCategory(Category $category)
+    {
+        $this->categories[] = $category;
+    }
+
+    public function getMaxPosition()
+    {
+        $max = 0;
+        foreach ($this->getCategories() as $children) {
+            $max = max($children->getPosition(), $max);
+        }
+        return $max;
     }
 }

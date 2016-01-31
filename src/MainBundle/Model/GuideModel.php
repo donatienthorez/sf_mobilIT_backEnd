@@ -2,9 +2,6 @@
 
 namespace MainBundle\Model;
 
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use MainBundle\Entity\User;
-
 class GuideModel
 {
     private $codeSection;
@@ -28,7 +25,7 @@ class GuideModel
 
     public function addToNodes(CategoryModel $cm)
     {
-        $this->nodes[$cm->getPosition()] = $cm;
+        $this->nodes[] = $cm;
     }
 
     public function sortNodes(){
@@ -37,6 +34,12 @@ class GuideModel
 
     function cmp(CategoryModel $a, CategoryModel $b)
     {
-        return strcmp($a->getPosition(), $b->getPosition());
+        $a = $a->getPosition();
+        $b = $b->getPosition();
+
+//        if($a == null) var_dump($a);
+//        if($b == null) var_dump($b);
+
+        return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
     }
 }

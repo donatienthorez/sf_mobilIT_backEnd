@@ -32,3 +32,10 @@ guide:
     prefix: guides
     options:
         expose: true
+
+category:
+    type: rest
+    resource: MainBundle\Controller\Api\CategoryController
+    prefix: categories
+    options:
+        expose: true
