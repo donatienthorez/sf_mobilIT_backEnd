@@ -56,9 +56,16 @@
                     <div class="widget-header">
                         <i class="icon-book"></i>
                         <h3>Content</h3>
+                        <input ng-if="categorieSelected.title" class="btn btn-default" value="Save" type="submit">
                     </div>
                     <div class="widget-content">
-                        {[{ categorieSelected.title }]}
+                        <div ng-if="categorieSelected.title" class="ng-scope">
+                            <input type="hidden" name="id" required="" id="id" value="35">
+                            <label for="title">Title :</label>
+                            <input type="text" name="title" required="" id="name" ng-model="categorieSelected.title" class="ng-pristine ng-valid ng-valid-required ng-touched"><br>
+                            <label for="content">Content :</label>
+                            <textarea ckeditor="editorOptions" ng-model="categorieSelected.content"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>

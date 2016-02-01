@@ -8,5 +8,5 @@ var survivalGuideApp = angular.module('survivalGuideApp', [
 });
 
 var notificationModule = angular.module("notification.module", ['localytics.directives']);
-var guideModule = angular.module("guide.module", ['ui.tree']);
+var guideModule = angular.module("guide.module", ['ui.tree', 'ngCkeditor']);
 var homepageModule = angular.module("homepage.module", []);

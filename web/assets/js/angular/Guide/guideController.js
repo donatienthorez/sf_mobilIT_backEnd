@@ -10,6 +10,11 @@ guideModule.controller('guideController',
                 getGuide();
             };
 
+            $scope.editorOptions = {
+                language: 'fr',
+                uiColor: '#999999'
+            };
+
             $scope.delete = function (scope) {
                 guideRequest.removeCategory(scope.$modelValue.id).then(function (data) {
                     scope.remove();
