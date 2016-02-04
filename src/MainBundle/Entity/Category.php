@@ -93,10 +93,14 @@ class Category
 
     /**
      * @param mixed $title
+     *
+     * @return $this
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -109,10 +113,14 @@ class Category
 
     /**
      * @param mixed $content
+     *
+     * @return $this
      */
     public function setContent($content)
     {
         $this->content = $content;
+
+        return $this;
     }
 
     /**

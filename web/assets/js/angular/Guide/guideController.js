@@ -75,7 +75,12 @@ guideModule.controller('guideController',
 
             $scope.edit = function (scope) {
                 $scope.categorieSelected = scope.$modelValue;
-                console.log(scope.$modelValue);
+            };
+
+            $scope.save = function() {
+                guideRequest.save($scope.categorieSelected).then(function (data) {
+
+                })
             };
 
             $scope.moveLastToTheBeginning = function () {
@@ -86,8 +91,6 @@ guideModule.controller('guideController',
 
             $scope.newSubItem = function (scope) {
                 var nodeData = scope.$modelValue;
-
-                console.log(scope.$modelValue.id);
                 guideRequest.addChildCategory(scope.$modelValue.id).then(function (data) {
                     nodeData.nodes.push({
                         id: data.id,
@@ -108,8 +111,12 @@ guideModule.controller('guideController',
             function getGuide(section) {
                 guideRequest.getGuide(section).then(function (data) {
                     $scope.activated = data.activated;
-                    console.log(data);
                     $scope.data = data.nodes;
                 });
             }
+
+            $scope.editGuide = function(category) {
+                guideRequest.editGuide(category).then(function (data) {
+                    
+                })};
         }]);

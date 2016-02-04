@@ -53,6 +53,14 @@ class CategoryService
             ->getModel($createdCategory);
     }
 
+    public function edit(Category $category, $title, $content)
+    {
+        $category->setTitle($title)->setContent($content);
+        $this
+            ->categoryManager
+            ->edit($category);
+    }
+
     public function move(Category $category, $parentId, $position)
     {
         $this

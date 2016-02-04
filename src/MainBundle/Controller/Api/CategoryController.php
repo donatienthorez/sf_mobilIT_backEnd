@@ -85,15 +85,24 @@ class CategoryController extends Controller
      * @FosRest\View()
      *
      * @FosRest\Post("/{category}/edit", requirements={"category" = "\d+"})
+     * @ParamConverter("category", class="MainBundle:Category")
+     *
      * @param Category $category
      */
     public function editCategoryAction(Category $category, Request $request)
     {
-        var_dump($category->getContent());
-        $request->request->get('title');
-        $request->request->get('content');
-        $request->request->get('position');
-        die;
+        if (!$this->isGranted(SectionVoter::ACCESS, $category->getGuide()->getSection())) {
+            throw new AccessDeniedHttpException(
+                "Only admins can edit guides of others sections than theirs."
+            );
+        }
+
+        $title = $request->request->get('title');
+        $content = $request->request->get('content');
+
+        $this
+            ->get('main.category.service')
+            ->edit($category, $title, $content);
     }
 
     /**

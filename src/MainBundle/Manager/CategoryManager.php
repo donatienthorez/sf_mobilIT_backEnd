@@ -168,6 +168,16 @@ class CategoryManager
         $this->em->flush();
     }
 
+    public function edit(Category $c)
+    {
+        $this
+            ->em
+            ->persist($c);
+        $this
+            ->em
+            ->flush();
+    }
+
     public function removeCategory(Category $c)
     {
         $this

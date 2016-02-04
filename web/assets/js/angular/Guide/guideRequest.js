@@ -100,4 +100,25 @@ guideModule.service('guideRequest', ['$http', function ($http) {
             return result.data;
         });
     };
+
+    /**
+     * Save a category.
+     *
+     * @return promise.
+     */
+    this.save = function(category) {
+        console.log(category.id);
+        console.log(category.title);
+        console.log(category.content);
+        return $http({
+            method: 'POST',
+            url: Routing.generate(
+                'api_categories_edit_category',
+                {'category': category.id}
+            ),
+            data: {'content': category.content, 'title': category.title}
+        }).then(function (result) {
+            return result.data;
+        });
+    };
 }]);
