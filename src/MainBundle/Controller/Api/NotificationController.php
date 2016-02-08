@@ -6,18 +6,18 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use HttpInvalidParamException;
 use FOS\RestBundle\Controller\Annotations as FosRest;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
+use MainBundle\Controller\Api\Base\BaseController;
 use MainBundle\Security\Voter\SectionVoter;
 
 /**
  * @FosRest\NamePrefix("api_notifications_")
  */
-class NotificationController extends Controller
+class NotificationController extends BaseController
 {
     /**
      * @Security("has_role('ROLE_USER')")
@@ -38,9 +38,7 @@ class NotificationController extends Controller
                     ->getSection($section)
                 : $this->getUser()->getSection();
 
-        if (!$this->isGranted(SectionVoter::ACCESS, $section)) {
-            throw new AccessDeniedHttpException('Only admins can see other sections than theirs');
-        }
+        $this->checkPermissionsForSection($section);
 
         return $this
             ->get('main.notification.fetcher')
@@ -91,7 +89,11 @@ class NotificationController extends Controller
                 ->get('main.notification.service')
                 ->send($title, $content, $this->getUser(), $sections);
 
-        return array("title" => $notification->getTitle(), "content" => $notification->getContent(), "sent_at" => $notification->getSentAt());
+        return [
+            "title" => $notification->getTitle(),
+            "content" => $notification->getContent(),
+            "sent_at" => $notification->getSentAt()
+        ];
     }
 
     public function countAction()

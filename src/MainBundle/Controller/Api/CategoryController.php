@@ -2,27 +2,27 @@
 
 namespace MainBundle\Controller\Api;
 
-use MainBundle\Entity\Category;
-use MainBundle\Entity\Section;
-use MainBundle\Model\CategoryModel;
-use MainBundle\Security\Voter\SectionVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use FOS\RestBundle\Controller\Annotations as FosRest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Controller\Annotations as FosRest;
+use MainBundle\Controller\Api\Base\BaseController;
+use MainBundle\Entity\Category;
+use MainBundle\Model\CategoryModel;
+use MainBundle\Security\Voter\SectionVoter;
 
 /**
  * @FosRest\NamePrefix("api_categories_")
+ *
+ * @Security("has_role('ROLE_USER')")
  */
-class CategoryController extends Controller
+class CategoryController extends BaseController
 {
     /**
-     * @Security("has_role('ROLE_USER')")
-     *
      * @FosRest\Post("/{category}/addChild", requirements={"category" = "\d+"})
      *
      * @ParamConverter("category", class="MainBundle:Category")
@@ -34,11 +34,7 @@ class CategoryController extends Controller
      */
     public function addChildAction(Category $category)
     {
-        if (!$this->isGranted(SectionVoter::ACCESS, $category->getGuide()->getSection())) {
-            throw new AccessDeniedHttpException(
-                "Only admins can edit guides of others sections than theirs."
-            );
-        }
+        $this->checkPermissionsForSection($category->getGuide()->getSection());
 
         return $this
             ->get('main.category.service')
@@ -46,9 +42,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Security("has_role('ROLE_USER')")
-     *
-     * @FosRest\Post()
+     * @FosRest\Post("/")
      *
      * @FosRest\View()
      *
@@ -64,15 +58,11 @@ class CategoryController extends Controller
                     ->getSection($section)
                 : $this->getUser()->getSection();
 
+        $this->checkPermissionsForSection($section);
+
         $guide = $this
             ->get('main.guide.fetcher')
             ->getGuide($section);
-
-        if (!$this->isGranted(SectionVoter::ACCESS, $section)) {
-            throw new AccessDeniedHttpException(
-                "Only admins can edit guides of others sections than theirs."
-            );
-        }
 
         return $this
             ->get('main.category.service')
@@ -80,22 +70,16 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Security("has_role('ROLE_USER')")
-     *
      * @FosRest\View()
      *
-     * @FosRest\Post("/{category}/edit", requirements={"category" = "\d+"})
+     * @FosRest\Put("/{category}/edit", requirements={"category" = "\d+"})
      * @ParamConverter("category", class="MainBundle:Category")
      *
      * @param Category $category
      */
     public function editCategoryAction(Category $category, Request $request)
     {
-        if (!$this->isGranted(SectionVoter::ACCESS, $category->getGuide()->getSection())) {
-            throw new AccessDeniedHttpException(
-                "Only admins can edit guides of others sections than theirs."
-            );
-        }
+        $this->checkPermissionsForSection($category->getGuide()->getSection());
 
         $title = $request->request->get('title');
         $content = $request->request->get('content');
@@ -106,17 +90,17 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Security("has_role('ROLE_USER')")
-     *
      * @FosRest\View()
      *
-     * @FosRest\Post("/{category}/move", requirements={"category" = "\d+"})
+     * @FosRest\Put("/{category}/move", requirements={"category" = "\d+"})
      * @ParamConverter("category", class="MainBundle:Category")
      *
      * @param Category $category
      */
     public function moveCategoryAction(Category $category, Request $request)
     {
+        $this->checkPermissionsForSection($category->getGuide()->getSection());
+
         $parentId = $request->request->get('newParentId');
         $position = $request->request->get('position');
 
@@ -126,9 +110,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Security("has_role('ROLE_USER')")
-     *
-     * @FosRest\Delete("/{category}/remove", requirements={"category" = "\d+"})
+     * @FosRest\Delete("/{category}", requirements={"category" = "\d+"})
      *
      * @ParamConverter("category", class="MainBundle:Category")
      *
@@ -137,11 +119,7 @@ class CategoryController extends Controller
      */
     public function removeAction(Category $category)
     {
-        if (!$this->isGranted(SectionVoter::ACCESS, $category->getGuide()->getSection())) {
-            throw new AccessDeniedHttpException(
-                "Only admins can edit guides of others sections than theirs."
-            );
-        }
+        $this->checkPermissionsForSection($category->getGuide()->getSection());
 
         return $this
             ->get('main.category.service')

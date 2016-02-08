@@ -26,8 +26,14 @@ class GuideManager
         $guide
             ->setActivated
             (!$guide->getActivated());
-        $this->em->persist($guide);
-        $this->em->flush();
+
+        $this
+            ->em
+            ->persist($guide);
+
+        $this
+            ->em
+            ->flush();
 
         return $guide->getActivated();
     }

@@ -23,13 +23,12 @@ class SectionController extends Controller
             ->get('main.section.service')
             ->getSections();
 
-        $serializer = $this->get('serializer');
-
         return new Response(
-            $serializer->serialize(
-                $countries,
-                'json',
-                SerializationContext::create()->setGroups(array('listSection'))
+            $this->get('serializer')
+                ->serialize(
+                    $countries,
+                    'json',
+                    SerializationContext::create()->setGroups(array('listSection'))
             )
         );
     }

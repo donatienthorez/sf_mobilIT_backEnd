@@ -38,7 +38,9 @@ class RegIdManager
         if ($regIdDb) {
             $regIdDb->setSection($section);
         } else {
-            $this->em->persist($this->regIdCreator->createRegId($regId, $section));
+            $this->em->persist(
+                $this->regIdCreator->createRegId($regId, $section)
+            );
         }
 
         $this

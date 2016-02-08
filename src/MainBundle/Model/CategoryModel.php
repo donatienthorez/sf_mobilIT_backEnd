@@ -34,8 +34,6 @@ class CategoryModel
     {
         $a = $a->getPosition();
         $b = $b->getPosition();
-//        if($a == null) var_dump($a);
-//        if($b == null) var_dump($b);
 
         return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
     }
@@ -68,6 +66,8 @@ class CategoryModel
 
     /**
      * @param mixed $content
+     *
+     * @return $this
      */
     public function setContent($content)
     {
@@ -86,6 +86,8 @@ class CategoryModel
 
     /**
      * @param mixed $title
+     *
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -104,6 +106,8 @@ class CategoryModel
 
     /**
      * @param mixed $position
+     *
+     * @return $this
      */
     public function setPosition($position)
     {

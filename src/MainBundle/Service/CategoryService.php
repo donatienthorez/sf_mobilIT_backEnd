@@ -31,22 +31,22 @@ class CategoryService
         $this->categoryAdapter = $categoryAdapter;
     }
 
-    public function addChild(Category $c)
+    public function addChild(Category $category)
     {
         $createdCategory = $this
             ->categoryManager
-            ->addChild($c);
+            ->addChild($category);
 
         return $this
             ->categoryAdapter
             ->getModel($createdCategory);
     }
 
-    public function add(Guide $g)
+    public function add(Guide $guide)
     {
         $createdCategory = $this
             ->categoryManager
-            ->add($g);
+            ->add($guide);
 
         return $this
             ->categoryAdapter
@@ -68,10 +68,10 @@ class CategoryService
             ->move($category, $parentId, $position);
     }
 
-    public function removeCategory(Category $c)
+    public function removeCategory(Category $category)
     {
         $this
             ->categoryManager
-            ->removeCategory($c);
+            ->removeCategory($category);
     }
 }

@@ -10,22 +10,19 @@ use JMS\Serializer\SerializationContext;
 
 /**
  * @FosRest\NamePrefix("api_countries_")
+ *
+ * @Security("has_role('ROLE_USER')")
  */
 class CountryController extends Controller
 {
-    /**
-     * @Security("has_role('ROLE_USER')")
-     */
     public function getAction()
     {
         $countries = $this
             ->get('main.country.service')
             ->getCountries();
 
-        $serializer = $this->get('serializer');
-
         return new Response(
-            $serializer->serialize(
+            $this->get('serializer')->serialize(
                 $countries,
                 'json',
                 SerializationContext::create()->setGroups(array('list'))
@@ -33,22 +30,18 @@ class CountryController extends Controller
         );
     }
 
-    /**
-     * @Security("has_role('ROLE_USER')")
-     */
     public function detailsAction()
     {
         $countries = $this
             ->get('main.country.service')
             ->getCountries();
 
-        $serializer = $this->get('serializer');
-
         return new Response(
-            $serializer->serialize(
-                $countries,
-                'json',
-                SerializationContext::create()->setGroups(array('Default', 'details'))
+            $this->get('serializer')
+                ->serialize(
+                    $countries,
+                    'json',
+                    SerializationContext::create()->setGroups(array('Default', 'details'))
             )
         );
     }

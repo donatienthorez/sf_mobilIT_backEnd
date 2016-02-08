@@ -19,6 +19,7 @@ class CountryController extends Controller
             ->getCountries();
 
         $serializer = $this->get('serializer');
+
         return new Response(
             $serializer->serialize(
                 $countries,

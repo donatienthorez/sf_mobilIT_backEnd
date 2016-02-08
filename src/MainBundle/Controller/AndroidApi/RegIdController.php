@@ -3,7 +3,6 @@
 namespace MainBundle\Controller\AndroidApi;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations as FosRest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
@@ -15,7 +14,7 @@ class RegIdController extends Controller
 {
     /**
      * @FosRest\View()
-     * @FosRest\Post()
+     * @FosRest\Post("/")
      *
      * @QueryParam(
      *     name="regId",
@@ -40,6 +39,8 @@ class RegIdController extends Controller
             return new \HttpInvalidParamException();
         }
 
-        $this->get('main.regid.manager')->saveRegId($regId, $section);
+        return $this
+            ->get('main.regid.manager')
+            ->saveRegId($regId, $section);
     }
 }

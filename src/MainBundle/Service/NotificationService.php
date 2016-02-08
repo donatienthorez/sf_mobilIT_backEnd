@@ -36,7 +36,9 @@ class NotificationService
      * @var RegIdAdapter
      */
     private $regIdAdapter;
-
+    /**
+     * @var AuthorizationCheckerInterface
+     */
     protected $securityContext;
 
     /**

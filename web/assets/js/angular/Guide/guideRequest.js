@@ -73,7 +73,7 @@ guideModule.service('guideRequest', ['$http', function ($http) {
      */
     this.moveCategory = function(category, oldParent, newParent, position) {
         return $http({
-            method: 'POST',
+            method: 'PUT',
             url: Routing.generate(
                 'api_categories_move_category',
                 {'category': category}
@@ -111,7 +111,7 @@ guideModule.service('guideRequest', ['$http', function ($http) {
         console.log(category.title);
         console.log(category.content);
         return $http({
-            method: 'POST',
+            method: 'PUT',
             url: Routing.generate(
                 'api_categories_edit_category',
                 {'category': category.id}

@@ -2,30 +2,32 @@
 
 namespace MainBundle\Controller\Api;
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use FOS\RestBundle\Controller\Annotations as FosRest;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use JMS\Serializer\SerializationContext;
+use MainBundle\Controller\Api\Base\BaseController;
 use MainBundle\Entity\Category;
 use MainBundle\Entity\Guide;
 use MainBundle\Entity\Section;
 use MainBundle\Model\CategoryModel;
 use MainBundle\Model\GuideModel;
 use MainBundle\Security\Voter\SectionVoter;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use JMS\Serializer\SerializationContext;
-use FOS\RestBundle\Controller\Annotations as FosRest;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @FosRest\NamePrefix("api_guides_")
+ *
+ * @Security("has_role('ROLE_USER')")
  */
-class GuideController extends Controller
+class GuideController extends BaseController
 {
     /**
-     * @Security("has_role('ROLE_USER')")
      * @FosRest\View()
      * @QueryParam(
      *     name="section",
@@ -43,9 +45,7 @@ class GuideController extends Controller
                     ->getSection($section)
                 : $this->getUser()->getSection();
 
-        if (!$this->isGranted(SectionVoter::ACCESS, $section)) {
-            throw new AccessDeniedHttpException('Only admins can see other sections than theirs');
-        }
+        $this->checkPermissionsForSection($section);
 
         $guide = $this
             ->get('main.guide.fetcher')
@@ -57,7 +57,6 @@ class GuideController extends Controller
     }
 
     /**
-     * @Security("has_role('ROLE_USER')")
      * @FosRest\Put()
      * @FosRest\View()
      * @QueryParam(
@@ -76,9 +75,7 @@ class GuideController extends Controller
                     ->getSection($section)
                 : $this->getUser()->getSection();
 
-        if (!$this->isGranted(SectionVoter::ACCESS, $section)) {
-            throw new AccessDeniedHttpException('Only admins can see other sections than theirs');
-        }
+        $this->checkPermissionsForSection($section);
 
         return $this
             ->get('main.guide.service')

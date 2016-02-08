@@ -164,8 +164,13 @@ class CategoryManager
 //            }
 //        }
 
-        $this->em->persist($category);
-        $this->em->flush();
+        $this
+            ->em
+            ->persist($category);
+
+        $this
+            ->em
+            ->flush();
     }
 
     public function edit(Category $c)

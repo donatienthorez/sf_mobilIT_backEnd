@@ -1,39 +1,39 @@
-country:
+countries:
     type: rest
     resource: MainBundle\Controller\Api\CountryController
     prefix: countries
     options:
         expose: true
 
-notification:
+notifications:
     type: rest
     resource: MainBundle\Controller\Api\NotificationController
     prefix: notifications
     options:
         expose: true
 
-section:
+sections:
     type: rest
     resource: MainBundle\Controller\Api\SectionController
     prefix: sections
     options:
         expose: true
 
-regid:
+regids:
     type: rest
     resource: MainBundle\Controller\Api\RegIdController
     prefix: regids
     options:
         expose: true
 
-guide:
+guides:
     type: rest
     resource: MainBundle\Controller\Api\GuideController
     prefix: guides
     options:
         expose: true
 
-category:
+categories:
     type: rest
     resource: MainBundle\Controller\Api\CategoryController
     prefix: categories

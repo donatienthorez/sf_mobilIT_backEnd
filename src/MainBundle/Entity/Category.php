@@ -230,7 +230,9 @@ class Category
     }
 
     /**
-     * @param mixed $position
+     * @param int $position
+     *
+     * @return $this
      */
     public function setPosition($position)
     {
@@ -239,6 +241,10 @@ class Category
         return $this;
     }
 
+
+    /**
+     * @return int
+     */
     public function getMaxPosition()
     {
         $max = 0;
