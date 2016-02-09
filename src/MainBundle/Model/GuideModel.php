@@ -30,7 +30,9 @@ class GuideModel
     }
 
     public function sortNodes(){
-        usort($this->nodes, array($this, "cmp"));
+        if ($this->nodes) {
+            usort($this->nodes, array($this, "cmp"));
+        }
     }
 
     function cmp(CategoryModel $a, CategoryModel $b)

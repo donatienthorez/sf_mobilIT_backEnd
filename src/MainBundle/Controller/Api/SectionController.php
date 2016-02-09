@@ -10,13 +10,11 @@ use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\Annotations as FosRest;
 
 /**
+ * @Security("has_role('ROLE_USER')")
  * @FosRest\NamePrefix("api_sections_")
  */
 class SectionController extends Controller
 {
-    /**
-     * @Security("has_role('ROLE_USER')")
-     */
     public function getAction()
     {
         $countries = $this
@@ -33,9 +31,6 @@ class SectionController extends Controller
         );
     }
 
-    /**
-     * @Security("has_role('ROLE_USER')")
-     */
     public function detailsAction()
     {
         $countries = $this

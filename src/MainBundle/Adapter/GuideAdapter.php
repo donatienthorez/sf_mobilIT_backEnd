@@ -28,7 +28,7 @@ class GuideAdapter
 
                     foreach ($category2->getChildren() as $category3) {
                         $category3M = (new CategoryModel())
-                            ->setId($category->getId())
+                            ->setId($category3->getId())
                             ->setTitle($category3->getTitle())
                             ->setContent($category3->getContent())
                             ->setPosition($category3->getPosition());

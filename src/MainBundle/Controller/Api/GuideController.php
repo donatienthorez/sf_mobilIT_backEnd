@@ -22,12 +22,11 @@ use MainBundle\Security\Voter\SectionVoter;
 
 /**
  * @FosRest\NamePrefix("api_guides_")
- *
- * @Security("has_role('ROLE_USER')")
  */
 class GuideController extends BaseController
 {
     /**
+     * @Security("has_role('ROLE_USER')")
      * @FosRest\View()
      * @QueryParam(
      *     name="section",
@@ -57,6 +56,7 @@ class GuideController extends BaseController
     }
 
     /**
+     * @Security("has_role('ROLE_USER')")
      * @FosRest\Put()
      * @FosRest\View()
      * @QueryParam(
@@ -81,6 +81,8 @@ class GuideController extends BaseController
             ->get('main.guide.service')
             ->changeStatus($section);
     }
+
+
 
     public function countAction()
     {

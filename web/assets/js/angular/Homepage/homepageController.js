@@ -26,7 +26,6 @@ homepageModule.controller('homepageController',
 
             $scope.getRegIdsCount = function() {
                 homepageRequest.getRegIdsCount().then(function (data){
-                    console.log(data);
                     animateToValue(data, 'layout_users')
                 });
             };

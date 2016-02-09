@@ -65,7 +65,7 @@ class CategoryManager
         return $category;
     }
 
-    public function move(Category $category, $parentId, $position)
+    public function move(Category $category, $parentId, $newPosition)
     {
         if ($parentId) {
             $parentCategory = $this
@@ -77,19 +77,20 @@ class CategoryManager
             $guide = $category->getGuide();
             $newSiblings = $guide->getCategoriesWithoutParent();
         }
+        $oldPosition = $category->getPosition();
 
         // if we just move the position
         if (($category->getParent() == null && $parentId == null) || ($category->getParent() != null && $category->getParent()->getId() == $parentId)) {
-            if ($category->getPosition() > $position) {
+            if ($oldPosition > $newPosition) {
                 foreach ($newSiblings as $child) {
-                    if ($child->getPosition() >= $position && $child->getPosition() <= $category->getPosition()) {
+                    if ($child->getPosition() >= $newPosition && $child->getPosition() < $oldPosition) {
                         $child->setPosition($child->getPosition() + 1);
                     }
                     $this->em->persist($child);
                 }
             } else {
                 foreach ($newSiblings as $child) {
-                    if ($child->getPosition() <= $position && $child->getPosition() >= $category->getPosition()) {
+                    if ($child->getPosition() <= $newPosition && $child->getPosition() > $oldPosition) {
                         $child->setPosition($child->getPosition() -1);
                     }
                     $this->em->persist($child);
@@ -103,13 +104,13 @@ class CategoryManager
                 : $category->getGuide()->getCategoriesWithoutParent();
 
             foreach ($oldSiblings as $child) {
-                if ($child->getPosition() >= $category->getPosition()) {
+                if ($child->getPosition() >= $oldPosition) {
                     $child->setPosition($child->getPosition() - 1);
                 }
                 $this->em->persist($child);
             }
             foreach ($newSiblings as $child) {
-                if ($child->getPosition() >= $category->getPosition()) {
+                if ($child->getPosition() >= $newPosition) {
                     $child->setPosition($child->getPosition() + 1);
                 }
                 $this->em->persist($child);
@@ -117,7 +118,7 @@ class CategoryManager
         }
 
         $category
-            ->setPosition($position);
+            ->setPosition($newPosition);
 
         if(isset($parentCategory)) {
             $category->setParent($parentCategory);
@@ -125,52 +126,10 @@ class CategoryManager
             $category->setParent(null);
         }
 
-//        if ($parentId) {
-//            $parentCategory = $this
-//                ->em
-//                ->find('MainBundle:Category', $parentId);
-//            $newSiblings = $parentCategory
-//                ->getChildren();
-//        } else {
-//            $category->setParent(null);
-//            $guide = $category->getGuide();
-//            $newSiblings = $guide->getCategories();
-//            $guide->addCategory($category);
-//        }
-//
-//        if (($category->getParent() == null && $parentId == null) || ($category->getParent()->getId() == $parentId)) {
-//            foreach ($newSiblings as $child) {
-//                if ($child->getPosition() >= $position && $child->getPosition() < $category->getPosition()) {
-//                    $child->setPosition($child->getPosition() + 1);
-//                }
-//                $this->em->persist($child);
-//            }
-//        } else {
-//            $siblings = $category->getParent() ?
-//                $category->getParent()->getChildren()
-//                : $category->getGuide()->getCategories();
-//
-//            foreach ($newSiblings as $child) {
-//                if ($child->getPosition() >= $position) {
-//                    $child->setPosition($child->getPosition() + 1);
-//                }
-//                $this->em->persist($child);
-//            }
-//            foreach ($siblings as $child) {
-//                if ($child->getPosition() >= $category->getPosition()) {
-//                    $child->setPosition($child->getPosition() - 1);
-//                }
-//                $this->em->persist($child);
-//            }
-//        }
-
         $this
             ->em
             ->persist($category);
-
-        $this
-            ->em
-            ->flush();
+        $this->em->flush();
     }
 
     public function edit(Category $c)

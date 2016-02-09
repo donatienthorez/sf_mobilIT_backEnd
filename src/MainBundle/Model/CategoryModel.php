@@ -25,7 +25,7 @@ class CategoryModel
     }
 
     public function sortNodes(){
-        if ($this->nodes != null) {
+        if ($this->nodes) {
             usort($this->nodes, array($this, "cmp"));
         }
     }
