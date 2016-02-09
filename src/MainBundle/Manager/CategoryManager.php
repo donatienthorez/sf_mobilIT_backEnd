@@ -142,11 +142,21 @@ class CategoryManager
             ->flush();
     }
 
-    public function removeCategory(Category $c)
+    public function removeCategory(Category $category)
     {
+        $oldSiblings = $category->getParent() ?
+            $category->getParent()->getChildren()
+            : $category->getGuide()->getCategoriesWithoutParent();
+        foreach ($oldSiblings as $child) {
+            if ($child->getPosition() >= $category->getPosition()) {
+                $child->setPosition($child->getPosition() - 1);
+            }
+            $this->em->persist($child);
+        }
+
         $this
             ->em
-            ->remove($c);
+            ->remove($category);
         $this
             ->em
             ->flush();
