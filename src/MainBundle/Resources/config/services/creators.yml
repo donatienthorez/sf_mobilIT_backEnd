@@ -2,6 +2,9 @@ services:
     main.notification.creator:
         class: MainBundle\Creator\NotificationCreator
 
+    main.guide.creator:
+            class: MainBundle\Creator\GuideCreator
+
     main.country.creator:
         class: MainBundle\Creator\CountryCreator
 

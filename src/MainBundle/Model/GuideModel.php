@@ -7,6 +7,7 @@ class GuideModel
     private $codeSection;
     private $nodes;
     private $activated;
+    private $created;
 
     /**
      * @return string
@@ -46,5 +47,9 @@ class GuideModel
     function setActivated($activated)
     {
         $this->activated = $activated;
+    }
+
+    function setCreated($created){
+        $this->created = $created;
     }
 }

@@ -37,4 +37,17 @@ class GuideManager
 
         return $guide->getActivated();
     }
+
+    public function addGuide(Guide $guide)
+    {
+       $this
+            ->em
+            ->persist($guide);
+
+        $this
+            ->em
+            ->flush();
+
+        return $guide;
+    }
 }

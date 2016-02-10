@@ -2,6 +2,7 @@
 
 namespace MainBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -49,7 +50,9 @@ class Guide
 
     public function __construct()
     {
-        $this->createAt = new \DateTime();
+        $this->createdAt = new \DateTime();
+        $this->activated = false;
+        $this->categories = new ArrayCollection();
     }
 
     /**
@@ -82,6 +85,8 @@ class Guide
     public function setSection($section)
     {
         $this->section = $section;
+
+        return $this;
     }
 
     /**

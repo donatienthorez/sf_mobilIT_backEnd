@@ -64,6 +64,16 @@ class CategoryController extends BaseController
             ->get('main.guide.fetcher')
             ->getGuide($section);
 
+        if (!$guide) {
+            $guide = $this
+                ->get('main.guide.creator')
+                ->createGuide($section);
+
+            $this
+                ->get('main.guide.manager')
+                ->addGuide($guide);
+        }
+
         return $this
             ->get('main.category.service')
             ->add($guide);

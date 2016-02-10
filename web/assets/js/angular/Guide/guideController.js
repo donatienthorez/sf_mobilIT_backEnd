@@ -69,11 +69,18 @@ guideModule.controller('guideController',
 
             $scope.addToRoot = function () {
               guideRequest.addCategory($scope.section).then(function (data){
-                  $scope.data.push({
-                      id: data.id,
-                      title: data.title,
-                      nodes: []
-                  });
+                  if (!$scope.data) {
+                      guideRequest.getGuide($scope.section).then(function (data) {
+                          $scope.activated = data.activated;
+                          $scope.data = data.nodes;
+                      });
+                  } else {
+                      $scope.data.push({
+                          id: data.id,
+                          title: data.title,
+                          nodes: []
+                      });
+                  }
               })
             };
 

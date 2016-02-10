@@ -52,10 +52,10 @@ class CategoryManager
     {
         $category = new Category();
         $category
-            ->setPosition($guide->getMaxPosition()+1)
             ->setParent(null)
             ->setGuide($guide)
-            ->setTitle("New Category");
+            ->setTitle("New Category")
+            ->setPosition($guide->getMaxPosition() == 0 ? 0 : $guide->getMaxPosition()+1);
 
         $guide->addCategory($category);
 

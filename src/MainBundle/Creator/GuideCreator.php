@@ -9,6 +9,9 @@ class GuideCreator
 {
     public function createGuide(Section $section)
     {
-        return (new Guide())->setSection($section);
+        $guide = new Guide();
+        $guide->setSection($section);
+
+        return $guide;
     }
 }

@@ -24,7 +24,7 @@ class GuideRepository extends EntityRepository
             ->setParameter(":section", $section->getCodeSection())
             ->getQuery();
 
-        return $query->getSingleResult();
+        return $query->getOneOrNullResult();
     }
 
     /**
