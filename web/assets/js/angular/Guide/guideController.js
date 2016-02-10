@@ -55,10 +55,6 @@ guideModule.controller('guideController',
                     if ((sourceParent != destParent || sourcePosition != destPosition)
                         || (sourceParent == undefined && destParent == undefined && sourcePosition != destPosition)
                     ) {
-                        console.log("elementId: " + elementId);
-                        console.log("sourceParent: " + sourceParent);
-                        console.log("destParent: " + destParent);
-                        console.log("destPosition: " + destPosition);
                         guideRequest.moveCategory(elementId, sourceParent, destParent, destPosition).then(function (data) {
                             return true;
                         });

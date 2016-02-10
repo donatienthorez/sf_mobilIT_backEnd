@@ -8,7 +8,7 @@ use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\Annotations as FosRest;
 
 /**
- * @FosRest\NamePrefix("api_android_sections_")
+ * @FosRest\NamePrefix("api_android_sections_v1_")
  */
 class SectionController extends Controller
 {

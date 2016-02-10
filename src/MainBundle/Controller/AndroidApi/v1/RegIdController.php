@@ -8,7 +8,7 @@ use FOS\RestBundle\Controller\Annotations as FosRest;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 
 /**
- * @FosRest\NamePrefix("api_android_regids_")
+ * @FosRest\NamePrefix("api_android_regids_v1_")
  */
 class RegIdController extends Controller
 {
