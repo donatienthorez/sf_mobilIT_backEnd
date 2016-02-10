@@ -1,0 +1,20 @@
+android_sections:
+    type: rest
+    resource: MainBundle\Controller\AndroidApi\v1\SectionController
+    prefix: android/v1/sections
+    options:
+        expose: true
+
+android_countries:
+    type: rest
+    resource: MainBundle\Controller\AndroidApi\v1\CountryController
+    prefix: android/v1/countries
+    options:
+        expose: true
+
+android_regids:
+    type: rest
+    resource: MainBundle\Controller\AndroidApi\v1\RegIdController
+    prefix: android/v1/regids
+    options:
+        expose: true
