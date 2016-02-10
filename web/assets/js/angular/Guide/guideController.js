@@ -2,7 +2,6 @@ guideModule.controller('guideController',
     ['$scope', 'guideRequest',
         function ($scope, guideRequest) {
             $scope.categorieSelected = {};
-            $scope.section = {};
             $scope.data = [];
             $scope.activated = false;
 
@@ -25,8 +24,8 @@ guideModule.controller('guideController',
                 scope.toggle();
             };
 
-            $scope.changeGuideStatus = function (section) {
-                guideRequest.changeGuideStatus(section).then(function (data) {
+            $scope.changeGuideStatus = function () {
+                guideRequest.changeGuideStatus().then(function (data) {
                     $scope.activated = data;
                 });
             };
@@ -64,9 +63,9 @@ guideModule.controller('guideController',
             };
 
             $scope.addToRoot = function () {
-              guideRequest.addCategory($scope.section).then(function (data){
+              guideRequest.addCategory().then(function (data){
                   if (!$scope.data) {
-                      guideRequest.getGuide($scope.section).then(function (data) {
+                      guideRequest.getGuide().then(function (data) {
                           $scope.activated = data.activated;
                           $scope.data = data.nodes;
                       });
@@ -115,8 +114,8 @@ guideModule.controller('guideController',
                 $scope.$broadcast('expandAll');
             };
 
-            function getGuide(section) {
-                guideRequest.getGuide(section).then(function (data) {
+            function getGuide() {
+                guideRequest.getGuide().then(function (data) {
                     $scope.activated = data.activated;
                     $scope.data = data.nodes;
                 });

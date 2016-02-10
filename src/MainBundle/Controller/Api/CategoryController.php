@@ -50,13 +50,7 @@ class CategoryController extends BaseController
      */
     public function addAction(Request $request)
     {
-        $section = $request->request->get('section');
-        $section =
-            $section ?
-                $this
-                    ->get('main.section.fetcher')
-                    ->getSection($section)
-                : $this->getUser()->getSection();
+        $section = $this->getUser()->getSection();
 
         $this->checkPermissionsForSection($section);
 

@@ -28,21 +28,10 @@ class GuideController extends BaseController
     /**
      * @Security("has_role('ROLE_USER')")
      * @FosRest\View()
-     * @QueryParam(
-     *     name="section",
-     *     nullable=true,
-     *     default=null,
-     *     description="Esn section of the guide",
-     * )
      */
-    public function getAction($section = null)
+    public function listAction()
     {
-        $section =
-            $section ?
-                $this
-                    ->get('main.section.fetcher')
-                    ->getSection($section)
-                : $this->getUser()->getSection();
+        $section = $this->getUser()->getSection();
 
         $this->checkPermissionsForSection($section);
 
@@ -59,21 +48,11 @@ class GuideController extends BaseController
      * @Security("has_role('ROLE_USER')")
      * @FosRest\Put()
      * @FosRest\View()
-     * @QueryParam(
-     *     name="section",
-     *     nullable=true,
-     *     default=null,
-     *     description="Esn section of the guide",
      * )
      */
-    public function changeStatusAction($section = null)
+    public function changeStatusAction()
     {
-        $section =
-            $section ?
-                $this
-                    ->get('main.section.fetcher')
-                    ->getSection($section)
-                : $this->getUser()->getSection();
+        $section = $this->getUser()->getSection();
 
         $this->checkPermissionsForSection($section);
 
@@ -81,8 +60,6 @@ class GuideController extends BaseController
             ->get('main.guide.service')
             ->changeStatus($section);
     }
-
-
 
     public function countAction()
     {

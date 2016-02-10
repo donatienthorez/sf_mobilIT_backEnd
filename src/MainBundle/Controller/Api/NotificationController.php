@@ -22,21 +22,10 @@ class NotificationController extends BaseController
     /**
      * @Security("has_role('ROLE_USER')")
      * @FosRest\View()
-     * @QueryParam(
-     *     name="section",
-     *     nullable=true,
-     *     default=null,
-     *     description="Esn section of the notifications",
-     * )
      */
-    public function listAction($section = null)
+    public function listAction()
     {
-        $section =
-            $section ?
-                $this
-                    ->get('main.section.fetcher')
-                    ->getSection($section)
-                : $this->getUser()->getSection();
+        $section = $this->getUser()->getSection();
 
         $this->checkPermissionsForSection($section);
 

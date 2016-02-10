@@ -12,8 +12,8 @@ notificationModule.controller('notificationController',
                 getSections();
             };
 
-            function getNotifications(section) {
-                notificationRequest.getNotifications(section).then(function (data) {
+            function getNotifications() {
+                notificationRequest.getNotifications().then(function (data) {
                     $scope.notifications = data;
                 });
             }

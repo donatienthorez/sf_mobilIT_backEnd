@@ -1,15 +1,14 @@
 guideModule.service('guideRequest', ['$http', function ($http) {
     /**
-     * Retrieve guide of the section.
+     * Retrieve the guide.
      *
      * @return promise.
      */
-    this.getGuide = function(section) {
+    this.getGuide = function() {
         return $http({
             method: 'GET',
             url: Routing.generate(
-                'api_guides_get',
-                {'section': section}
+                'api_guides_list'
             )}).then(function (result) {
             return result.data;
         });
@@ -37,13 +36,12 @@ guideModule.service('guideRequest', ['$http', function ($http) {
      *
      * @return promise.
      */
-    this.addCategory = function(section) {
+    this.addCategory = function() {
         return $http({
             method: 'POST',
             url: Routing.generate(
                 'api_categories_add'
-            ),
-            data: {'section': section}
+            )
         }).then(function (result) {
             return result.data;
         });
@@ -54,12 +52,11 @@ guideModule.service('guideRequest', ['$http', function ($http) {
      *
      * @return promise.
      */
-    this.changeGuideStatus = function(section) {
+    this.changeGuideStatus = function() {
         return $http({
             method: 'PUT',
             url: Routing.generate(
-                'api_guides_change_status',
-                {'section': section}
+                'api_guides_change_status'
             )
         }).then(function (result) {
             return result.data;
