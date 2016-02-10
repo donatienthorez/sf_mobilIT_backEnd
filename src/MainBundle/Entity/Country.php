@@ -39,7 +39,7 @@ class Country
 
     /**
      * @ORM\OneToMany(targetEntity="section", cascade="all", mappedBy="country")
-     * @Groups({"list", "details", "section"})
+     * @Groups({"list", "details", "section", "listSection"})
      */
     protected $sections;
 
