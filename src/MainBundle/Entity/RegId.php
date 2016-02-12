@@ -25,7 +25,6 @@ class RegId
      * @ORM\ManyToOne(targetEntity="section", inversedBy="regIds")
      * @ORM\JoinColumn(name="section", referencedColumnName="codeSection")
      * @Expose
-     *
      */
     protected $section;
 
@@ -98,11 +97,8 @@ class RegId
         return $this->updatedAt;
     }
 
-    /**
-     * @param mixed $updatedAt
-     */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt()
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime();
     }
 }

@@ -19,10 +19,10 @@ security:
                 csrf_token_generator: security.csrf.token_manager
             logout:       true
             anonymous:    true
+            switch_user:  { role: ROLE_ADMIN }
 
     access_control:
         - { path: ^/register,  role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/homepage,  role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin,     role: ROLE_USER }
-        - { path: ^/api/,      role: ROLE_USER }

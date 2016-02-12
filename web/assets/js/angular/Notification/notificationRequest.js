@@ -4,12 +4,11 @@ notificationModule.service('notificationRequest', ['$http', function ($http) {
      *
      * @return promise.
      */
-    this.getNotifications = function(section) {
+    this.getNotifications = function() {
         return $http({
             method: 'GET',
             url: Routing.generate(
-                'api_notifications_list',
-                {'section': section}
+                'api_notifications_list'
             )}).then(function (result) {
             return result.data;
         });
@@ -20,7 +19,7 @@ notificationModule.service('notificationRequest', ['$http', function ($http) {
      *
      * @return promise.
      */
-    this.getSections = function(section) {
+    this.getSections = function() {
         return $http({
             method: 'GET',
             url: Routing.generate(

@@ -17,6 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-chosen-localytics": "~1.0.7"
+    "angular-chosen-localytics": "~1.0.7",
+    "ckeditor": "^4.4.0"
   }
 }

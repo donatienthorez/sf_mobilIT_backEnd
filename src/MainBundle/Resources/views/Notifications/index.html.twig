@@ -53,8 +53,8 @@
                         <ul class="news-items">
                             <li ng-repeat="notification in notifications">
                                 <div class="news-item-date">
-                                    <span class="news-item-month">{[{ notification.send_at | date:'dd/MM' }]}</span>
-                                    <span class="news-item-month">{[{ notification.send_at | date:'HH:mm' }]}</span>
+                                    <span class="news-item-month">{[{ notification.sent_at | date:'dd/MM' }]}</span>
+                                    <span class="news-item-month">{[{ notification.sent_at | date:'HH:mm' }]}</span>
                                 </div>
                                 <div class="news-item-detail">
                                     <span class="news-item-title">{[{ notification.title }]}</span>

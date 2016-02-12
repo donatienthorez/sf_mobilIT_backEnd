@@ -18,7 +18,10 @@ menu:
   guide: Guide
   notifications: Notifications
   logout: Logout
+  impersonation: Exit impersonation
 
 notifications:
   send-notification:  Send a notification
   last-notifications: Last notifications
+
+guide:

@@ -19,3 +19,8 @@ services:
             class: MainBundle\Fetcher\SectionFetcher
             arguments:
                 - "@doctrine.orm.entity_manager"
+
+    main.guide.fetcher:
+                class: MainBundle\Fetcher\GuideFetcher
+                arguments:
+                    - "@doctrine.orm.entity_manager"

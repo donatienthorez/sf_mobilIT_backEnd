@@ -10,33 +10,27 @@ use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\Annotations as FosRest;
 
 /**
+ * @Security("has_role('ROLE_USER')")
  * @FosRest\NamePrefix("api_sections_")
  */
 class SectionController extends Controller
 {
-    /**
-     * @Security("has_role('ROLE_USER')")
-     */
     public function getAction()
     {
         $countries = $this
             ->get('main.section.service')
             ->getSections();
 
-        $serializer = $this->get('serializer');
-
         return new Response(
-            $serializer->serialize(
-                $countries,
-                'json',
-                SerializationContext::create()->setGroups(array('listSection'))
+            $this->get('serializer')
+                ->serialize(
+                    $countries,
+                    'json',
+                    SerializationContext::create()->setGroups(array('listSection'))
             )
         );
     }
 
-    /**
-     * @Security("has_role('ROLE_USER')")
-     */
     public function detailsAction()
     {
         $countries = $this

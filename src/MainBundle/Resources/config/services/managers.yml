@@ -14,6 +14,11 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
 
+    main.guide.manager:
+        class: MainBundle\Manager\GuideManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
     main.section.manager:
         class: MainBundle\Manager\SectionManager
         arguments:
@@ -24,3 +29,8 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@main.regid.creator"
+
+    main.category.manager:
+        class: MainBundle\Manager\CategoryManager
+        arguments:
+            - "@doctrine.orm.entity_manager"

@@ -30,6 +30,5 @@ class NotificationManager
         $this
             ->em
             ->flush();
-
     }
 }

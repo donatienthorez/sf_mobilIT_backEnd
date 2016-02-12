@@ -11,13 +11,23 @@
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ asset('assets/js/angular.min.js') }}"></script>
         <script src="{{ asset('assets/js/angular/app.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        {# notifications #}
         <script src="{{ asset('assets/js/angular/Notification/notificationController.js') }}"></script>
         <script src="{{ asset('assets/js/angular/Notification/notificationService.js') }}"></script>
         <script src="{{ asset('assets/js/angular/Notification/notificationRequest.js') }}"></script>
-        <script src="{{ asset('assets/js/custom.js') }}"></script>
-        <script src="{{ asset('assets/vendor/chosen/chosen.js') }}"></script>
         <script src="{{ asset('assets/vendor/angular-chosen-localytics/chosen.js') }}"></script>
-        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+        <script src="{{ asset('assets/vendor/chosen/chosen.js') }}"></script>
+        {# guide #}
+        <script src="{{ asset('assets/js/angular/Guide/guideController.js') }}"></script>
+        <script src="{{ asset('assets/js/angular/Guide/guideService.js') }}"></script>
+        <script src="{{ asset('assets/js/angular/Guide/guideRequest.js') }}"></script>
+        <script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}"></script>
+        <script src="{{ asset('assets/vendor/ng-ckeditor/ng-ckeditor.js') }}"></script>
+        <script src="{{ asset('assets/vendor/angular-ui-tree/dist/angular-ui-tree.js') }}"></script>
+        {# homepage #}
+        <script src="{{ asset('assets/js/angular/Homepage/homepageController.js') }}"></script>
+        <script src="{{ asset('assets/js/angular/Homepage/homepageRequest.js') }}"></script>
     {% endblock %}
 
     {% block css %}
@@ -32,6 +42,6 @@
         <link href="{{ asset('assets/vendor/chosen/chosen.min.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/vendor/angular-chosen-localytics/chosen-spinner.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
-
+        <link rel="stylesheet" href="{{ asset('assets/vendor/angular-ui-tree/dist/angular-ui-tree.min.css') }}" rel="stylesheet">
     {% endblock %}
 </head>

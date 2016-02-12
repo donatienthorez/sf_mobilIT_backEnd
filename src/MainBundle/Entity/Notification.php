@@ -22,34 +22,29 @@ class Notification
     protected $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="title", type="text")
      * @Expose
      */
     private $title;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="content", type="text")
      * @Expose
      */
     private $content;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="section", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="section", inversedBy="notification")
+     * @ORM\JoinColumn(name="section", referencedColumnName="codeSection")
      * @Expose
      */
-    private $section;
+    protected $section;
 
     /**
-     * @ORM\Column(name="sendAt", type="datetime")
+     * @ORM\Column(name="sentAt", type="datetime")
      * @Expose
      */
-    protected $sendAt;
+    protected $sentAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="user", inversedBy="notifications")
@@ -59,7 +54,7 @@ class Notification
 
     public function __construct()
     {
-        $this->sendAt = new \DateTime();
+        $this->sentAt = new \DateTime();
     }
 
     /**
@@ -103,7 +98,7 @@ class Notification
     }
 
     /**
-     * @return string
+     * @return Section
      */
     public function getSection()
     {
@@ -111,7 +106,7 @@ class Notification
     }
 
     /**
-     * @param string $section
+     * @param Section $section
      */
     public function setSection($section)
     {
@@ -121,21 +116,21 @@ class Notification
     /**
      * @return mixed
      */
-    public function getSendAt()
+    public function getSentAt()
     {
-        return $this->sendAt;
+        return $this->sentAt;
     }
 
     /**
-     * @param mixed $sendAt
+     * @param mixed $sentAt
      */
-    public function setSendAt($sendAt)
+    public function setSentAt($sentAt)
     {
-        $this->sendAt = $sendAt;
+        $this->sentAt = $sentAt;
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getSentBy()
     {
@@ -143,9 +138,9 @@ class Notification
     }
 
     /**
-     * @param $sentBy
+     * @param User $sentBy
      */
-    public function setSentBy($sentBy)
+    public function setSentBy(User $sentBy)
     {
         $this->sentBy = $sentBy;
     }

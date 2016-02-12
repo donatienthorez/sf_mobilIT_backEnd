@@ -12,7 +12,6 @@ class RegIdCreator
         $regId->setId($id);
         $regId->setSection($section);
 
-
         return $regId;
     }
 }
