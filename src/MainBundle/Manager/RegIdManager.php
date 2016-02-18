@@ -36,7 +36,9 @@ class RegIdManager
         $section = $this->em->find('MainBundle:Section', $section);
 
         if ($regIdDb) {
-            $regIdDb->setSection($section);
+            $regIdDb
+                ->setSection($section)
+                ->setUpdatedAt();
         } else {
             $this->em->persist(
                 $this->regIdCreator->createRegId($regId, $section)
@@ -47,5 +49,6 @@ class RegIdManager
             ->em
             ->flush();
 
+        return $regId;
     }
 }

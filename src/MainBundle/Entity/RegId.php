@@ -67,10 +67,14 @@ class RegId
 
     /**
      * @param mixed $section
+
+     * @return $this
      */
     public function setSection($section)
     {
         $this->section = $section;
+
+        return $this;
     }
 
     /**
@@ -83,10 +87,14 @@ class RegId
 
     /**
      * @param mixed $addedAt
+     *
+     * @return $this
      */
     public function setAddedAt($addedAt)
     {
         $this->addedAt = $addedAt;
+
+        return $this;
     }
 
     /**
@@ -97,8 +105,13 @@ class RegId
         return $this->updatedAt;
     }
 
+    /**
+     * @return $this
+     */
     public function setUpdatedAt()
     {
         $this->updatedAt = new \DateTime();
+
+        return $this;
     }
 }
