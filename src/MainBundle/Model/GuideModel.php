@@ -5,9 +5,9 @@ namespace MainBundle\Model;
 class GuideModel
 {
     private $codeSection;
-    private $nodes;
     private $activated;
     private $created;
+    private $nodes;
 
     /**
      * @return string

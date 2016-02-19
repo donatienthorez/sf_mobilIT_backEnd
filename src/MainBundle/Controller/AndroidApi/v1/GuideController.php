@@ -15,7 +15,6 @@ class GuideController extends Controller
 {
     /**
      * @FosRest\Get("/{section}")
-     *
      * @ParamConverter("section", class="MainBundle:Section")
      *
      * @FosRest\View()
@@ -34,6 +33,6 @@ class GuideController extends Controller
             ->get('main.guide.adapter')
             ->getModel($guide);
 
-        return $guide->isActivated() ? $guide : [];
+        return $guide;
     }
 }
