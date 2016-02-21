@@ -2,9 +2,11 @@
 
 namespace MainBundle\Controller\Api;
 
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use FOS\RestBundle\Controller\Annotations as FosRest;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -12,7 +14,7 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use MainBundle\Controller\Api\Base\BaseController;
-use MainBundle\Security\Voter\SectionVoter;
+use MainBundle\Entity\Section;
 
 /**
  * @FosRest\NamePrefix("api_notifications_")
@@ -56,7 +58,8 @@ class NotificationController extends BaseController
      *     description="Esn section of the notification"
      * )
      * @param ParamFetcher $paramFetcher
-     * @return array|HttpInvalidParamException
+     *
+     * @return array|Response
      */
     public function sendAction(ParamFetcher $paramFetcher)
     {
@@ -65,7 +68,7 @@ class NotificationController extends BaseController
         $sections = $paramFetcher->get('sections');
 
         if (!$title || !$content) {
-           return new HttpInvalidParamException();
+            return new Response("Invalid post arguments", Response::HTTP_BAD_REQUEST);
         }
 
         if (!$sections) {
@@ -83,6 +86,55 @@ class NotificationController extends BaseController
             "content" => $notification->getContent(),
             "sent_at" => $notification->getSentAt()
         ];
+    }
+
+
+    /**
+     * @FosRest\View()
+     * @FosRest\Post("{section}/sendFromDrupal")
+     * @ParamConverter("section", class="MainBundle:Section", options={"codeSection" = "section"})
+     *
+     * @QueryParam(
+     *     name="title",
+     *     nullable=false,
+     *     description="Title of the notification"
+     * )
+     * @QueryParam(
+     *     name="content",
+     *     nullable=false,
+     *     description="Content of the notification"
+     * )
+     * @QueryParam(
+     *     name="token",
+     *     nullable=true,
+     *     default=null,
+     *     description="Esn section of the notification"
+     * )
+     * @param Section $section
+     * @param Request $request
+     *
+     * @return array|BadRequestHttpException
+     */
+    public function sendFromDrupalAction(Section $section, Request $request)
+    {
+        $title = $request->request->get('title');
+        $content = $request->request->get('content');
+        $token = $request->request->get('token');
+
+        if (!$title || !$content || !$token) {
+            return new Response("Invalid post arguments", Response::HTTP_BAD_REQUEST);
+        }
+
+
+        if (!$this
+            ->get('main.section.fetcher')
+            ->checkSectionToken($section, $token)) {
+            return new Response("Invalid token or section", Response::HTTP_FORBIDDEN);
+        }
+
+        return $this
+            ->get('main.notification.service')
+            ->sendFromDrupal($title, $content, $section, $token);
     }
 
     public function countAction()

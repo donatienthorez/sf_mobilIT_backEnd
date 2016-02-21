@@ -71,6 +71,23 @@ class Section
     private $email;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=255, nullable=true)
+     *
+     * @Groups({"token"})
+     */
+    private $token;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logoUrl", type="text", nullable=true)
+     * @Groups({"details"})
+     */
+    private $logoUrl;
+
+    /**
      * @ORM\Column(name="addedAt", type="datetime")
      * @Groups({"details"})
      */
@@ -245,6 +262,38 @@ class Section
     }
 
     /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoUrl()
+    {
+        return $this->logoUrl;
+    }
+
+    /**
+     * @param string $logoUrl
+     */
+    public function setLogoUrl($logoUrl)
+    {
+        $this->logoUrl = $logoUrl;
+    }
+
+    /**
      * @return mixed
      */
     public function getAddedAt()
@@ -295,5 +344,10 @@ class Section
     public function __toString()
     {
         return (string) $this->getCodeSection();
+    }
+
+    public function generateToken()
+    {
+        $this->token = bin2hex(random_bytes(20));
     }
 }

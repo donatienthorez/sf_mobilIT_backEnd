@@ -7,13 +7,15 @@ use MainBundle\Entity\User;
 
 class NotificationCreator
 {
-    public function createNotification($title, $content, User $user, $section)
+    public function createNotification($title, $content, $user, $section)
     {
         $notification = new Notification();
         $notification->setTitle($title);
         $notification->setContent($content);
         $notification->setSection($section);
-        $notification->setSentBy($user);
+        if ($user) {
+            $notification->setSentBy($user);
+        }
 
         return $notification;
     }

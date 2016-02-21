@@ -16,14 +16,15 @@ services:
            - "@main.guide.manager"
 
     main.country.service:
-            class: MainBundle\Service\CountryService
-            arguments:
-                - "@main.country.fetcher"
+        class: MainBundle\Service\CountryService
+        arguments:
+            - "@main.country.fetcher"
 
     main.section.service:
-                class: MainBundle\Service\SectionService
-                arguments:
-                    - "@main.section.fetcher"
+        class: MainBundle\Service\SectionService
+        arguments:
+            - "@main.section.fetcher"
+            - "@main.section.manager"
 
     main.import_countries.service:
         class: MainBundle\Service\ImportCountriesService

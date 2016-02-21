@@ -3,6 +3,7 @@
 namespace MainBundle\Fetcher;
 
 use Doctrine\ORM\EntityManagerInterface;
+use MainBundle\Entity\Section;
 
 class SectionFetcher
 {
@@ -33,5 +34,16 @@ class SectionFetcher
             ->em
             ->getRepository('MainBundle:Section')
             ->find($codeSection);
+    }
+
+    public function checkSectionToken(Section $section, $token)
+    {
+        return $this
+            ->em
+            ->getRepository('MainBundle:Section')
+            ->findOneBy(array(
+                'codeSection' => $section->getCodeSection(),
+                'token' => $token
+            ));
     }
 }

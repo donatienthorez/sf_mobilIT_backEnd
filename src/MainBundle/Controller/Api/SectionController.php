@@ -6,14 +6,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\Annotations as FosRest;
+use MainBundle\Controller\Api\Base\BaseController;
+use MainBundle\Entity\Section;
 
 /**
  * @Security("has_role('ROLE_USER')")
  * @FosRest\NamePrefix("api_sections_")
  */
-class SectionController extends Controller
+class SectionController extends BaseController
 {
     public function getAction()
     {
@@ -46,5 +49,44 @@ class SectionController extends Controller
                 SerializationContext::create()->setGroups(array('Default', 'details'))
             )
         );
+    }
+
+    /**
+     * @FosRest\Get("/user")
+     *
+     * @FosRest\View()
+     *
+     * @return Response
+     */
+    public function getOfUserAction()
+    {
+        $section = $this
+            ->getUser()
+            ->getSection();
+
+        return new Response(
+            $this
+                ->get('serializer')
+                ->serialize(
+                    $section,
+                    'json',
+                    SerializationContext::create()->setGroups(array('token', 'details'))
+                )
+            );
+    }
+
+    /**
+     * @FosRest\Post("/{section}/generateToken")
+     * @ParamConverter("section", class="MainBundle:Section")
+     *
+     * @FosRest\View()
+     *
+     * @return Response
+     */
+    public function generateTokenAction(Section $section)
+    {
+        return $this
+            ->get('main.section.service')
+            ->generateToken($section);
     }
 }

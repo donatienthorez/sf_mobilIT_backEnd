@@ -14,6 +14,12 @@
                         <span>{{ 'menu.notifications' | trans }}</span>
                     </a>
                 </li>
+                <li class="{% if app.request.attributes.get('_route') == 'esn_settings' %}active{% endif %}">
+                    <a href="{{ path('esn_settings') }}">
+                        <i class="icon-cog"></i>
+                        <span>{{ 'menu.settings' | trans }}</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

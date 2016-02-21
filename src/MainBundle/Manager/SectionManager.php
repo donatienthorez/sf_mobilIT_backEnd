@@ -3,6 +3,7 @@
 namespace MainBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
+use MainBundle\Entity\Section;
 
 class SectionManager
 {
@@ -18,6 +19,19 @@ class SectionManager
         EntityManagerInterface $em
     ) {
         $this->em = $em;
+    }
+
+    public function save(Section $section)
+    {
+        $this
+            ->em
+            ->persist($section);
+
+        $this
+            ->em
+            ->flush();
+
+        return $section;
     }
 
     /**

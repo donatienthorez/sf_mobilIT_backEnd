@@ -2,6 +2,7 @@
 
 namespace MainBundle\Service;
 
+use MainBundle\Entity\Section;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use MainBundle\Security\Voter\SectionVoter;
@@ -101,5 +102,28 @@ class NotificationService
         }
 
         return $notification;
+    }
+    public function sendFromDrupal($title, $content, Section $section, $token)
+    {
+        $notification = $this
+            ->notificationCreator
+            ->createNotification(
+                $title,
+                $content,
+                null,
+                $section
+            );
+
+        $regIds = $this
+            ->regIdAdapter
+            ->getModels($section->getRegIds());
+
+        $this
+            ->notificationManager
+            ->saveNotification($notification);
+
+        $this
+            ->notificationHelper
+            ->sendNotification($notification, $regIds);
     }
 }

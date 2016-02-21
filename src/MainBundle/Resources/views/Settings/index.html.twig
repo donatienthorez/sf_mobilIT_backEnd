@@ -1,0 +1,25 @@
+{% extends 'MainBundle::base.html.twig' %}
+{% block body %}
+    <div class="main-inner" ng-controller="settingsController" ng-init="init()">
+        <div class="container">
+            <div class="span7">
+                <div class="widget">
+                    <div class="widget-header">
+                        <i class="icon-book"></i>
+                        <h3>{{ 'settings.header' | trans }}</h3>
+                    </div>
+                    <div class="widget-content">
+                        <label for="title">{{ 'settings.token-label' | trans }} :</label>
+                        <span ng-if="section.token">
+                            {[{ section.token }]}
+                        </span>
+                        <span ng-hide="section.token">
+                            <button class="btn btn-primary" ng-click="generateToken()">{{ 'settings.token-button' | trans }}</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
