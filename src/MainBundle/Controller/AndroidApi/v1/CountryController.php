@@ -41,7 +41,7 @@ class CountryController extends Controller
             $serializer->serialize(
                 $countries,
                 'json',
-                SerializationContext::create()->setGroups(array('details'))
+                SerializationContext::create()->setGroups(array('listSection'))
             )
         );
     }

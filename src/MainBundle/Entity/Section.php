@@ -103,7 +103,7 @@ class Section
     /**
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="sections")
      * @ORM\JoinColumn(name="country", referencedColumnName="codeCountry")
-     * @Groups({"list", "details", "listSection"})
+     * @Groups({"list", "listSection"})
      */
     protected $country;
 
