@@ -4,16 +4,33 @@ namespace MainBundle\Controller\AndroidApi\v1;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use JMS\Serializer\SerializationContext;
+use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations as FosRest;
+use JMS\Serializer\SerializationContext;
 
 /**
  * @FosRest\NamePrefix("api_android_sections_v1_")
  */
 class SectionController extends Controller
 {
-    public function getAction()
+    /**
+     * @QueryParam(
+     *     name = "token",
+     *     nullable = false,
+     *     description = "Mobilit token"
+     * )
+     *
+     * @param ParamFetcher $paramFetcher
+     *
+     * @return Response
+     */
+    public function getAction(ParamFetcher $paramFetcher)
     {
+        if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
+            return new Response("Invalid token. The token should be the same than the config file.", Response::HTTP_FORBIDDEN);
+        }
+
         $countries = $this
             ->get('main.country.service')
             ->getCountries();
@@ -29,8 +46,23 @@ class SectionController extends Controller
         );
     }
 
-    public function detailsAction()
+    /**
+     * @QueryParam(
+     *     name = "token",
+     *     nullable = false,
+     *     description = "Mobilit token"
+     * )
+     *
+     * @param ParamFetcher $paramFetcher
+     *
+     * @return Response
+     */
+    public function detailsAction(ParamFetcher $paramFetcher)
     {
+        if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
+            return new Response("Invalid token. The token should be the same than the config file.", Response::HTTP_FORBIDDEN);
+        }
+
         $countries = $this
             ->get('main.section.service')
             ->getSections();

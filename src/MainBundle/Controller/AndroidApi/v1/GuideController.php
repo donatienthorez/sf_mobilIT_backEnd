@@ -2,11 +2,14 @@
 
 namespace MainBundle\Controller\AndroidApi\v1;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use FOS\RestBundle\Controller\Annotations as FosRest;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcher;
 use MainBundle\Entity\Section;
 use MainBundle\Model\GuideModel;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use FOS\RestBundle\Controller\Annotations as FosRest;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @FosRest\NamePrefix("api_android_guide_v1_")
@@ -18,13 +21,22 @@ class GuideController extends Controller
      * @ParamConverter("section", class="MainBundle:Section")
      *
      * @FosRest\View()
-     *
+     * @QueryParam(
+     *     name = "token",
+     *     nullable = false,
+     *     description = "Mobilit token"
+     * )
      * @param Section $section
+     * @param ParamFetcher $paramFetcher
      *
-     * @return GuideModel|array
+     * @return array|GuideModel
      */
-    public function getAction(Section $section)
+    public function getAction(Section $section, ParamFetcher $paramFetcher)
     {
+        if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
+            return new Response("Invalid token. The token should be the same than the config file.", Response::HTTP_FORBIDDEN);
+        }
+
         $guide = $this
             ->get('main.guide.fetcher')
             ->getGuide($section);
