@@ -1,0 +1,37 @@
+{% extends 'MainBundle::base.html.twig' %}
+{% block body %}
+    <div class="main-inner" ng-controller="sectionsController" ng-init="init()">
+        <div class="container">
+            <div class="span7">
+                <div class="widget">
+                    <div class="widget-header">
+                        <i class="icon-book"></i>
+                        <h3>{{ 'sections.header' | trans }}</h3>
+                    </div>
+                    <div class="widget-content">
+                            <input type="hidden" name="id" required="" id="id" value="35">
+                            <label for="name">{{ 'sections.form.label.name' | trans }}</label>
+                            <input type="text" required="required" ng-model="section.name"><br>
+                            <label for="website">{{ 'sections.form.label.website' | trans }}</label>
+                            <input type="text" required="required" ng-model="section.website"><br>
+                            <label for="email">{{ 'sections.form.label.email' | trans }}</label>
+                            <input type="text" required="required" ng-model="section.email" type="email"><br>
+                            <label for="phone">{{ 'sections.form.label.phone' | trans }}</label>
+                            <input type="text" required="required" ng-model="section.phone"><br>
+                            <label for="university">{{ 'sections.form.label.university' | trans }}</label>
+                            <input type="text" required="required" ng-model="section.university"><br>
+                            <label for="address">{{ 'sections.form.label.address' | trans }}</label>
+                            <textarea rows="4" cols="50" ng-model="section.address"></textarea>
+                            <label for="logoUrl">{{ 'sections.form.label.logo-url' | trans }}</label>
+                            <input type="text" required="required" ng-model="section.logo_url"/><br>
+
+                            <input class="btn btn-primary" type="submit" value="Save" type="submit" ng-click="editSection()">
+                        {#<button class="btn btn-primary" ng-click="generateLogoUrl()">{{ 'sections.form.buttons.generate-url-logo' | trans }}</button><br>#}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

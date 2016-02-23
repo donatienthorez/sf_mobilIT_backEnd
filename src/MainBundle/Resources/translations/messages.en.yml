@@ -17,6 +17,7 @@ menu:
   name-site: ESN - Survival Guide
   guide: Guide
   notifications: Notifications
+  sections: Sections
   settings: Settings
   logout: Logout
   impersonation: Exit impersonation
@@ -30,3 +31,17 @@ settings:
   header: Settings
   token-label: Token
   token-button: Generate token
+
+sections:
+  header: My section
+  form:
+      label:
+          name: Name
+          phone: Phone number
+          website: Website
+          university: University
+          address: Address
+          email: E-Mail
+          logo-url: Url of the logo
+      buttons:
+          generate-url-logo: Generate from logoInserter

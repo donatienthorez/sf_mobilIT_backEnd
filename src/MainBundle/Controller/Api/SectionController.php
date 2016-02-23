@@ -2,6 +2,7 @@
 
 namespace MainBundle\Controller\Api;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -73,6 +74,24 @@ class SectionController extends BaseController
                     SerializationContext::create()->setGroups(array('token', 'details'))
                 )
             );
+    }
+
+    /**
+     * @FosRest\View()
+     *
+     * @FosRest\Put("/{section}/edit", requirements={"category" = "\d+"})
+     * @ParamConverter("section", class="MainBundle:Section")
+     *
+     * @param Section $section
+     * @param Request $request
+     */
+    public function editSectionAction(Section $section, Request $request)
+    {
+        $this->checkPermissionsForSection($section);
+
+        return $this
+            ->get('main.section.service')
+            ->editSection($section, $request);
     }
 
     /**

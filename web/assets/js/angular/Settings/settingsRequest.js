@@ -1,4 +1,4 @@
-notificationModule.service('settingsRequest',
+settingsModule.service('settingsRequest',
     ['$http',
         function ($http) {
             /**
@@ -12,7 +12,6 @@ notificationModule.service('settingsRequest',
                     url: Routing.generate(
                         'api_sections_get_of_user'
                     )}).then(function (result) {
-                    console.log(result);
                     return result.data;
                 });
             };

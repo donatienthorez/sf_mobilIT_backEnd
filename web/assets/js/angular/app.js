@@ -3,6 +3,7 @@ var survivalGuideApp = angular.module('survivalGuideApp', [
     'notification.module',
     'settings.module',
     'guide.module',
+    'sections.module',
     'localytics.directives'
 ]).config(function($interpolateProvider){
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
@@ -12,3 +13,4 @@ var notificationModule = angular.module("notification.module", ['localytics.dire
 var guideModule = angular.module("guide.module", ['ui.tree', 'ngCkeditor']);
 var homepageModule = angular.module("homepage.module", []);
 var settingsModule = angular.module("settings.module", []);
+var sectionsModule = angular.module("sections.module", []);

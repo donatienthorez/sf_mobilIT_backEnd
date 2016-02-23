@@ -4,6 +4,7 @@ namespace MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity
@@ -73,7 +74,7 @@ class Section
     /**
      * @var string
      *
-     * @ORM\Column(name="token", type="string", length=255, nullable=true)
+     * @ORM\Column(name="token", type="string", length=255, nullable=true, unique=true)
      *
      * @Groups({"token"})
      */
@@ -159,10 +160,14 @@ class Section
 
     /**
      * @param string $name
+     *
+     * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -175,10 +180,14 @@ class Section
 
     /**
      * @param string $website
+     *
+     * @return $this
      */
     public function setWebsite($website)
     {
         $this->website = $website;
+
+        return $this;
     }
 
     /**
@@ -191,10 +200,14 @@ class Section
 
     /**
      * @param Country $country
+     *
+     * @return $this
      */
     public function setCountry($country)
     {
         $this->country = $country;
+
+        return $this;
     }
 
     /**
@@ -207,10 +220,14 @@ class Section
 
     /**
      * @param string $university
+     *
+     * @return $this
      */
     public function setUniversity($university)
     {
         $this->university = $university;
+
+        return $this;
     }
 
     /**
@@ -223,10 +240,14 @@ class Section
 
     /**
      * @param string $address
+     *
+     * @return $this
      */
     public function setAddress($address)
     {
         $this->address = $address;
+
+        return $this;
     }
 
     /**
@@ -239,10 +260,14 @@ class Section
 
     /**
      * @param string $phone
+     *
+     * @return $this
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
+
+        return $this;
     }
 
     /**
@@ -255,10 +280,14 @@ class Section
 
     /**
      * @param string $email
+     *
+     * @return $this
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
@@ -271,10 +300,14 @@ class Section
 
     /**
      * @param string $token
+     *
+     * @return $this
      */
     public function setToken($token)
     {
         $this->token = $token;
+
+        return $this;
     }
 
     /**
@@ -287,10 +320,14 @@ class Section
 
     /**
      * @param string $logoUrl
+     *
+     * @return $this
      */
     public function setLogoUrl($logoUrl)
     {
         $this->logoUrl = $logoUrl;
+
+        return $this;
     }
 
     /**
@@ -318,11 +355,13 @@ class Section
     }
 
     /**
-     * @param mixed $updatedAt
+     * @return $this
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt()
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime();
+
+        return $this;
     }
 
     /**

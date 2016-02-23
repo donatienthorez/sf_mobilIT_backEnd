@@ -2,9 +2,11 @@
 
 namespace MainBundle\Service;
 
+use MainBundle\Creator\SectionCreator;
 use MainBundle\Entity\Section;
 use MainBundle\Fetcher\SectionFetcher;
 use MainBundle\Manager\SectionManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class SectionService
 {
@@ -36,6 +38,32 @@ class SectionService
             ->getSections();
 
         return $data;
+    }
+
+    public function editSection(Section $section, Request $request)
+    {
+        $name = $request->request->get('name');
+        $website = $request->request->get('website');
+        $email = $request->request->get('email');
+        $phone = $request->request->get('phone');
+        $university = $request->request->get('university');
+        $address = $request->request->get('address');
+        $logoUrl = $request->request->get('logo_url');
+
+        $section
+            ->setName($name)
+            ->setWebsite($website)
+            ->setEmail($email)
+            ->setPhone($phone)
+            ->setUniversity($university)
+            ->setAddress($address)
+            ->setLogoUrl($logoUrl);
+
+        $this
+            ->sectionManager
+            ->save($section);
+
+        return $section;
     }
 
     public function generateToken(Section $section)
