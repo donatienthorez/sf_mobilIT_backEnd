@@ -13,6 +13,35 @@
                         <span ng-if="section.token">
                             {[{ section.token }]}
                         </span>
+                        <br/>
+                        <br/>
+                        <label for="drupal-code"> {{ 'settings.drupal-code-label' | trans }}</label>
+                        <textarea rows="15" cols="50">
+                        { "rules_send_push" : {
+                            "LABEL" : "send push after events",
+                            "PLUGIN" : "reaction rule",
+                            "OWNER" : "rules",
+                            "TAGS" : [ "content", "push" ],
+                            "REQUIRES" : [ "rules", "rules_http_client" ],
+                            "ON" : {
+                                "node_insert--event" : { "bundle" : "event" },
+                                "node_insert--news" : { "bundle" : "news" },
+                                "node_insert--partner" : { "bundle" : "partner" }
+                            },
+                            "DO" : [
+                                { "request_url" : {
+                                    "USING" : {
+                                        "url" : "http://mobilit.esnlille.fr/api/notifications/{[{ section.code_section }]}/sendFromDrupal",
+                                        "headers" : "Content-type: application\/x-www-form-urlencoded",
+                                        "method" : "POST",
+                                        "data" : "subject=ESN [node:content-type] \r\nmessage=[node:title]"
+                                    },
+                                    "PROVIDE" : { "http_response" : { "http_response" : "HTTP data" } }
+                                    }
+                                }
+                            ]}
+                        }
+                        </textarea>
                         <span ng-hide="section.token">
                             <button class="btn btn-primary" ng-click="generateToken()">{{ 'settings.token-button' | trans }}</button>
                         </span>

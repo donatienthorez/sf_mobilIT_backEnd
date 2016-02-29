@@ -15,7 +15,7 @@ settingsModule.controller('sectionsController',
 
             $scope.editSection = function () {
                 sectionsRequest.editSection($scope.section).then(function (data) {
-                    $scope.section = data;
+                    $scope.section.logoUrl = data;
                 });
             };
 

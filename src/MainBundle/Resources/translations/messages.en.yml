@@ -31,6 +31,7 @@ settings:
   header: Settings
   token-label: Token
   token-button: Generate token
+  drupal-code-label: You have to copy this on drupal to activate the notifications :
 
 sections:
   header: My section

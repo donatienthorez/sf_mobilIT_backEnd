@@ -34,7 +34,7 @@ class Section
      *
      * @ORM\Column(name="website", type="text", nullable=true)
      *
-     * @Groups({"details"})
+     * @Groups({"details", "listSection"})
      */
     private $website;
 

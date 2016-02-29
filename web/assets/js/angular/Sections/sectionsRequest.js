@@ -4,9 +4,8 @@ sectionsModule.service('sectionsRequest',
             this.generateLogoUrl = function(section) {
                 return $http({
                     method: 'GET',
-                    url: ""
+                    url: "http://logoinserter.esnlille.fr/api/" + section
                 }).then(function (result) {
-                    console.log(result);
                     return result.data;
                 });
             };

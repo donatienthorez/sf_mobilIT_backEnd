@@ -130,3 +130,7 @@ tr.angular-ui-tree-empty {
     border: 2px dashed #bed2db;
     box-sizing: border-box;
 }
+
+.no-margin {
+    margin: 0;
+}
