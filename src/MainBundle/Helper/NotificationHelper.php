@@ -27,7 +27,6 @@ class NotificationHelper
      */
     public function sendNotification(Notification $notification, $regIds)
     {
-
         $message = array(
             "m" => $notification->getContent(),
             "sbj" => $notification->getTitle()

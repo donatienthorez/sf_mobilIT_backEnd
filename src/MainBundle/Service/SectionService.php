@@ -75,4 +75,16 @@ class SectionService
 
         return $section->getToken();
     }
+
+    public function generateLogoInserterLinkAction(Section $section)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, sprintf('http://logoinserter.esnlille.fr/api/%s', $section->getCodeSection()));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        $response = curl_exec($ch);
+
+        return $response;
+    }
 }

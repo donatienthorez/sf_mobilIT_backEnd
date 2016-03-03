@@ -15,13 +15,13 @@ settingsModule.controller('sectionsController',
 
             $scope.editSection = function () {
                 sectionsRequest.editSection($scope.section).then(function (data) {
-                    $scope.section.logoUrl = data;
+                    $scope.section = data;
                 });
             };
 
             $scope.generateLogoUrl = function() {
                 sectionsRequest.generateLogoUrl($scope.section.code_section).then(function (data) {
-                    $scope.section.logoUrl = data;
+                    $scope.section.logo_url = data.url;
                 });
             }
         }

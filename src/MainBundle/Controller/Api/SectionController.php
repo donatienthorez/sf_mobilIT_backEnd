@@ -108,4 +108,19 @@ class SectionController extends BaseController
             ->get('main.section.service')
             ->generateToken($section);
     }
+
+    /**
+     * @FosRest\Get("/{section}/generateLogoInserterLink")
+     * @ParamConverter("section", class="MainBundle:Section")
+     *
+     * @FosRest\View()
+     *
+     * @return Response
+     */
+    public function generateLogoInserterLinkAction(Section $section)
+    {
+        return new Response($this
+            ->get('main.section.service')
+            ->generateLogoInserterLinkAction($section));
+    }
 }

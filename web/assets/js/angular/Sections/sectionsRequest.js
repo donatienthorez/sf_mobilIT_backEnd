@@ -4,7 +4,10 @@ sectionsModule.service('sectionsRequest',
             this.generateLogoUrl = function(section) {
                 return $http({
                     method: 'GET',
-                    url: "http://logoinserter.esnlille.fr/api/" + section
+                    url: Routing.generate(
+                        'api_sections_generate_logo_inserter_link',
+                        {section : section}
+                    )
                 }).then(function (result) {
                     return result.data;
                 });

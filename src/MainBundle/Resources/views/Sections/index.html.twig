@@ -24,7 +24,7 @@
                             <textarea rows="4" cols="50" ng-model="section.address"></textarea>
                             <label for="logoUrl">{{ 'sections.form.label.logo-url' | trans }}</label>
                             <input class="no-margin" type="text" required="required" ng-model="section.logo_url"/>
-                            {#<button class="btn btn-primary" ng-click="generateLogoUrl()">{{ 'sections.form.buttons.generate-url-logo' | trans }}</button>#}
+                            <button class="btn btn-primary" ng-click="generateLogoUrl()">{{ 'sections.form.buttons.generate-url-logo' | trans }}</button>
                             <br/><br/>
                             <input class="btn btn-primary" type="submit" value="Save" type="submit" ng-click="editSection()">
 
