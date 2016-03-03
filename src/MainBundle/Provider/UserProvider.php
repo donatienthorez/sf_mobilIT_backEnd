@@ -2,7 +2,7 @@
 
 namespace MainBundle\Provider;
 
-use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -39,12 +39,11 @@ class UserProvider implements UserProviderInterface
         $username =  phpCAS::getUser();
 
         if (!$username) {
-            throw new AccessDeniedException();
+            throw new AccessDeniedHttpException();
         }
         $attributes = phpCAS::getAttributes();
 
-
-        $userModel = $this
+        $user = $this
             ->userCreator
             ->createUser(
                 $username,
@@ -55,7 +54,7 @@ class UserProvider implements UserProviderInterface
                 $attributes['sc']
             );
 
-        return $userModel;
+        return $user;
     }
 
     public function loadUserByUsername($username)

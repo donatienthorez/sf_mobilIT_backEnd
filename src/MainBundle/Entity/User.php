@@ -14,6 +14,7 @@ use FOS\UserBundle\Model\UserInterface;
 class User extends BaseUser implements UserInterface
 {
     const ROLE_NORMAL = 'ROLE_NORMAL';
+    const ROLE_BOARD  = 'ROLE_BOARD';
     const ROLE_ADMIN  = 'ROLE_ADMIN';
 
     /**
@@ -46,7 +47,7 @@ class User extends BaseUser implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Section", inversedBy="users")
-     * @ORM\JoinColumn(name="section", referencedColumnName="codeSection")
+     * @ORM\JoinColumn(name="section", referencedColumnName="codeSection", nullable=false)
      *
      */
     protected $section;
@@ -117,10 +118,14 @@ class User extends BaseUser implements UserInterface
 
     /**
      * @param string $firstName
+     *
+     * @return $this
      */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
+        return $this;
     }
 
     /**
@@ -133,10 +138,14 @@ class User extends BaseUser implements UserInterface
 
     /**
      * @param string $lastName
+     *
+     * @return $this
      */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
+        return $this;
     }
 
     /**
@@ -149,10 +158,14 @@ class User extends BaseUser implements UserInterface
 
     /**
      * @param string $section
+     *
+     * @return $this
      */
     public function setSection($section)
     {
         $this->section = $section;
+
+        return $this;
     }
 
     public function setRandomPassword()
@@ -165,5 +178,7 @@ class User extends BaseUser implements UserInterface
             $pass[] = $alphabet[$n];
         }
         $this->setPlainPassword(implode($pass)); //turn the array into a string
+
+        return $this;
     }
 }

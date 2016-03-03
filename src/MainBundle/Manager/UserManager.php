@@ -47,19 +47,19 @@ class UserManager
                 )
             );
 
-
         $persist = $userDb ? false : true;
         $userDb = (!$userDb) ? new EntityUser() : $userDb;
 
-        $userDb->setUsername($userModel->getUsername());
-        $userDb->setEmail($userModel->getEmail());
-        $userDb->setGalaxyRoles($userModel->getGalaxyRoles());
-        $userDb->setFirstName($userModel->getFirstName());
-        $userDb->setLastName($userModel->getLastName());
-        $userDb->setRandomPassword();
-        $userDb->setSection($sectionDb);
+        $userDb->setUsername($userModel->getUsername())
+            ->setEmail($userModel->getEmail())
+            ->setGalaxyRoles($userModel->getGalaxyRoles())
+            ->setFirstName($userModel->getFirstName())
+            ->setLastName($userModel->getLastName())
+            ->setRandomPassword()
+            ->setSection($sectionDb);
+
         if ($persist) {
-            $userDb->addRole(User::ROLE_NORMAL);
+            $userDb->setRoles($userModel->getRoles());
             $this->em->persist($userDb);
         }
 

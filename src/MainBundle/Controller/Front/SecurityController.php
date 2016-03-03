@@ -50,7 +50,6 @@ class SecurityController extends Controller
             return $this->redirect($this->generateUrl('esn_guide'));
 
         } catch (AccessDeniedException $e) {
-
             return $this->redirect($this->generateUrl('esn_login_homepage'));
         }
     }

@@ -19,9 +19,13 @@ class UserModel extends User
 
     /**
      * @param $codeSection
+     *
+     * @return $this
      */
     public function setCodeSection($codeSection)
     {
         $this->codeSection = $codeSection;
+
+        return $this;
     }
 }
