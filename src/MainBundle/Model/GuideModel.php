@@ -30,13 +30,14 @@ class GuideModel
         $this->nodes[] = $cm;
     }
 
-    public function sortNodes(){
+    public function sortNodes()
+    {
         if ($this->nodes) {
             usort($this->nodes, array($this, "cmp"));
         }
     }
 
-    function cmp(CategoryModel $a, CategoryModel $b)
+    public function cmp(CategoryModel $a, CategoryModel $b)
     {
         $a = $a->getPosition();
         $b = $b->getPosition();
@@ -44,16 +45,18 @@ class GuideModel
         return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
     }
 
-    function setActivated($activated)
+    public function setActivated($activated)
     {
         $this->activated = $activated;
     }
 
-    function isActivated() {
+    public function isActivated()
+    {
         return $this->activated;
     }
 
-    function setCreated($created){
+    public function setCreated($created)
+    {
         $this->created = $created;
     }
 }

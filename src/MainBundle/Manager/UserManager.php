@@ -58,8 +58,13 @@ class UserManager
             ->setRandomPassword()
             ->setSection($sectionDb);
 
+        foreach ($userModel->getRoles() as $role) {
+            if (!in_array($role, $userDb->getRoles())) {
+                $userDb->addRole($role);
+            }
+        }
+
         if ($persist) {
-            $userDb->setRoles($userModel->getRoles());
             $this->em->persist($userDb);
         }
 

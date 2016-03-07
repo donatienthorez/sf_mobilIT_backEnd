@@ -13,7 +13,7 @@ class CategoryModel
     private $nodes;
     private $position;
 
-    function __construct()
+    public function __construct()
     {
         $this->nodes = array();
     }
@@ -24,13 +24,14 @@ class CategoryModel
         $this->nodes[] = $cm;
     }
 
-    public function sortNodes(){
+    public function sortNodes()
+    {
         if ($this->nodes) {
             usort($this->nodes, array($this, "cmp"));
         }
     }
 
-    function cmp(CategoryModel $a, CategoryModel $b)
+    public function cmp(CategoryModel $a, CategoryModel $b)
     {
         $a = $a->getPosition();
         $b = $b->getPosition();

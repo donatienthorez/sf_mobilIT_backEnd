@@ -24,8 +24,7 @@ class GuideManager
     public function changeStatus(Guide $guide)
     {
         $guide
-            ->setActivated
-            (!$guide->getActivated());
+            ->setActivated(!$guide->getActivated());
 
         $this
             ->em
@@ -40,7 +39,7 @@ class GuideManager
 
     public function addGuide(Guide $guide)
     {
-       $this
+        $this
             ->em
             ->persist($guide);
 

@@ -22,8 +22,9 @@ use MainBundle\Entity\Section;
 class NotificationController extends BaseController
 {
     /**
-     * @Security("has_role('ROLE_USER')")
      * @FosRest\View()
+     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function listAction()
     {
@@ -37,7 +38,6 @@ class NotificationController extends BaseController
     }
 
     /**
-     * @Security("has_role('ROLE_USER')")
      * @FosRest\View()
      * @FosRest\Post("/send")
      *
@@ -60,6 +60,8 @@ class NotificationController extends BaseController
      * @param ParamFetcher $paramFetcher
      *
      * @return array|Response
+     *
+     * @Security("has_role('ROLE_BOARD')")
      */
     public function sendAction(ParamFetcher $paramFetcher)
     {

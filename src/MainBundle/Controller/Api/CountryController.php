@@ -42,7 +42,7 @@ class CountryController extends Controller
                     $countries,
                     'json',
                     SerializationContext::create()->setGroups(array('Default', 'details'))
-            )
+                )
         );
     }
 }

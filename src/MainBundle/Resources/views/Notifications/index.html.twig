@@ -1,7 +1,9 @@
 {% extends 'MainBundle::base.html.twig' %}
+{% set readOnly = (is_granted('ROLE_ADMIN') == false and is_granted('ROLE_BOARD') == false) %}
 {% block body %}
     <div class="main-inner" ng-controller="notificationController" ng-init="init()">
         <div class="container">
+            {% if (readOnly == false) %}
             <div class="span5">
                 <div class="widget">
                     <div class="widget-header">
@@ -11,18 +13,18 @@
                     <div class="widget-content">
                         <form method="post" name="sendNotificationsForm" ng-submit="sendNotification()">
                             {% if is_granted('ROLE_ADMIN') %}
-                            <div class="control-group">
-                                <label for="subject" class="control-label">Sections</label>
-                                <div class="controls">
-                                    <select chosen multiple
-                                            data-placeholder="Choose sections"
-                                            ng-model="sectionsSelected"
-                                            ng-options="section.name group by section.country.name for section in sections"
-                                            ng-disabled="editable">
-                                        <option value=""></option>
-                                    </select>
+                                <div class="control-group">
+                                    <label for="subject" class="control-label">Sections</label>
+                                    <div class="controls">
+                                        <select chosen multiple
+                                                data-placeholder="Choose sections"
+                                                ng-model="sectionsSelected"
+                                                ng-options="section.name group by section.country.name for section in sections"
+                                                ng-disabled="editable">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
                             {% endif %}
                             <div class="control-group">
                                 <label for="subject" class="control-label">Title</label>
@@ -42,6 +44,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             <div class="span5">
                 <div class="widget">
                     <div class="widget-header">

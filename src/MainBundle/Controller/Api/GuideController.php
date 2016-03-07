@@ -26,8 +26,9 @@ use MainBundle\Security\Voter\SectionVoter;
 class GuideController extends BaseController
 {
     /**
-     * @Security("has_role('ROLE_USER')")
      * @FosRest\View()
+     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function listAction()
     {
@@ -45,10 +46,10 @@ class GuideController extends BaseController
     }
 
     /**
-     * @Security("has_role('ROLE_USER')")
      * @FosRest\Put()
      * @FosRest\View()
-     * )
+     *
+     * @Security("has_role('ROLE_BOARD')")
      */
     public function changeStatusAction()
     {

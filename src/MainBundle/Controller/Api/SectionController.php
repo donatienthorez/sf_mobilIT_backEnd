@@ -31,7 +31,7 @@ class SectionController extends BaseController
                     $countries,
                     'json',
                     SerializationContext::create()->setGroups(array('listSection'))
-            )
+                )
         );
     }
 
@@ -73,7 +73,7 @@ class SectionController extends BaseController
                     'json',
                     SerializationContext::create()->setGroups(array('token', 'details'))
                 )
-            );
+        );
     }
 
     /**
@@ -82,8 +82,7 @@ class SectionController extends BaseController
      * @FosRest\Put("/{section}/edit", requirements={"category" = "\d+"})
      * @ParamConverter("section", class="MainBundle:Section")
      *
-     * @param Section $section
-     * @param Request $request
+     * @Security("has_role('ROLE_USER')")
      */
     public function editSectionAction(Section $section, Request $request)
     {
@@ -96,11 +95,11 @@ class SectionController extends BaseController
 
     /**
      * @FosRest\Post("/{section}/generateToken")
-     * @ParamConverter("section", class="MainBundle:Section")
-     *
      * @FosRest\View()
      *
-     * @return Response
+     * @ParamConverter("section", class="MainBundle:Section")
+     *
+     * @Security("has_role('ROLE_BOARD')")
      */
     public function generateTokenAction(Section $section)
     {
@@ -111,11 +110,11 @@ class SectionController extends BaseController
 
     /**
      * @FosRest\Get("/{section}/generateLogoInserterLink")
-     * @ParamConverter("section", class="MainBundle:Section")
-     *
      * @FosRest\View()
      *
-     * @return Response
+     * @ParamConverter("section", class="MainBundle:Section")
+     *
+     * @Security("has_role('ROLE_BOARD')")
      */
     public function generateLogoInserterLinkAction(Section $section)
     {

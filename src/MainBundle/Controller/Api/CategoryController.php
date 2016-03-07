@@ -18,7 +18,7 @@ use MainBundle\Security\Voter\SectionVoter;
 /**
  * @FosRest\NamePrefix("api_categories_")
  *
- * @Security("has_role('ROLE_USER')")
+ * @Security("has_role('ROLE_BOARD')")
  */
 class CategoryController extends BaseController
 {

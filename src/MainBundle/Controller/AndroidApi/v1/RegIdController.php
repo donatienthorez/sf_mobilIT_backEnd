@@ -33,7 +33,10 @@ class RegIdController extends Controller
     public function createAction(Request $request, ParamFetcher $paramFetcher)
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
-            return new Response("Invalid token. The token should be the same than the config file.", Response::HTTP_FORBIDDEN);
+            return new Response(
+                "Invalid token. The token should be the same than the config file.",
+                Response::HTTP_FORBIDDEN
+            );
         }
 
         $regId = $request->request->get('regId');

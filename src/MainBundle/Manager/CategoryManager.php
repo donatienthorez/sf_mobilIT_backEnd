@@ -80,7 +80,9 @@ class CategoryManager
         $oldPosition = $category->getPosition();
 
         // if we just move the position
-        if (($category->getParent() == null && $parentId == null) || ($category->getParent() != null && $category->getParent()->getId() == $parentId)) {
+        if (($category->getParent() == null && $parentId == null)
+            || ($category->getParent() != null && $category->getParent()->getId() == $parentId)
+        ) {
             if ($oldPosition > $newPosition) {
                 foreach ($newSiblings as $child) {
                     if ($child->getPosition() >= $newPosition && $child->getPosition() < $oldPosition) {
@@ -96,8 +98,7 @@ class CategoryManager
                     $this->em->persist($child);
                 }
             }
-        }
-        // if we move the position and change the parent
+        } // if we move the position and change the parent
         else {
             $oldSiblings = $category->getParent() ?
                 $category->getParent()->getChildren()
@@ -120,7 +121,7 @@ class CategoryManager
         $category
             ->setPosition($newPosition);
 
-        if(isset($parentCategory)) {
+        if (isset($parentCategory)) {
             $category->setParent($parentCategory);
         } else {
             $category->setParent(null);

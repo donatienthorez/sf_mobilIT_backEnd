@@ -34,7 +34,10 @@ class GuideController extends Controller
     public function getAction(Section $section, ParamFetcher $paramFetcher)
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
-            return new Response("Invalid token. The token should be the same than the config file.", Response::HTTP_FORBIDDEN);
+            return new Response(
+                "Invalid token. The token should be the same than the config file.",
+                Response::HTTP_FORBIDDEN
+            );
         }
 
         $guide = $this
