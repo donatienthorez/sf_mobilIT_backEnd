@@ -1,4 +1,4 @@
-notificationModule.service('notificationRequest', ['$http', function ($http) {
+adminModule.service('notificationRequest', ['$http', function ($http) {
     /**
      * Retrieve notifications of the section.
      *

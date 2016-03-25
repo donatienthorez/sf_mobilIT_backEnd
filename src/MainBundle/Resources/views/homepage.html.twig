@@ -1,35 +1,57 @@
 {% extends 'MainBundle::base.html.twig' %}
 {% block body %}
-    <div class="account-container"  style="width:700px;">
+    <div class="account-container text-align-center">
         <div class="content clearfix">
-            <h1 style="text-align:center;">{{ 'homepage.first.welcome-1' | trans}}</h1><br/>
-            <h3 style="text-align:center">{{ 'homepage.first.welcome-2' | trans}}</h3><br/>
-            <h3 style="text-align:center">{{ 'homepage.first.connect.text' | trans}}</h3><br/>
-            <center>
-                <a href="{{ path('esn_login_check') }}">
-                    <button class="button btn btn-success btn-medium btn-galaxy">{{ 'homepage.first.connect.button' | trans}}</button>
-                </a>
-            </center>
+            <h1>
+                {{ 'homepage.first.welcome-1' | trans}}
+            </h1>
+            <br/>
+            <h3>
+                {{ 'homepage.first.welcome-2' | trans}}
+            </h3>
+            <br/>
+            <h3>
+                {{ 'homepage.first.connect.text' | trans}}
+            </h3>
+            <br/>
+            <a class="btn btn-success btn-medium btn-galaxy"
+               href="{{ path('esn_login_check') }}">
+                {{ 'homepage.first.connect.button' | trans}}
+            </a>
         </div>
     </div>
-
-    <div class="account-container" style="width:700px;" ng-controller="homepageController" ng-init="init()">
+    <div class="account-container text-align-center"
+         ng-controller="homepageController as ctrl"
+         ng-init="ctrl.init()">
         <div class="content clearfix">
-            <h3 style="text-align:center">{{ 'homepage.second.functionnalities' | trans}}</h3><br/>
+            <h3>{{ 'homepage.second.functionnalities' | trans}}</h3><br/>
 
             <div id="big_stats" class="cf">
-                <div class="stat"> <i class="icon-book"></i> <span class="value"><span id="layout_guides"></span> {{ 'homepage.second.guide' | trans}}</span></div>
-                <!-- .stat -->
-
-                <div class="stat"> <i class="icon-user"></i> <span class="value"><span id="layout_users"></span> {{ 'homepage.second.users' | trans}}</span> </div>
-                <!-- .stat -->
-
-                <div class="stat"> <i class="icon-exclamation-sign"></i> <span class="value"><span id="layout_notifications"></span> {{ 'homepage.second.notifications' | trans}}</span> </div>
-                <!-- .stat -->
-                <!-- /widget-content -->
+                <div class="stat"> <i class="icon-book"></i>
+                    <span class="value">
+                        <span id="layout_guides"></span>
+                        {{ 'homepage.second.guide' | trans}}
+                    </span>
+                </div>
+                <div class="stat">
+                    <i class="icon-user"></i>
+                    <span class="value">
+                        <span id="layout_users"></span>
+                        {{ 'homepage.second.users' | trans}}</span>
+                </div>
+                 <div class="stat">
+                    <i class="icon-exclamation-sign"></i>
+                    <span class="value">
+                        <span id="layout_notifications"></span>
+                        {{ 'homepage.second.notifications' | trans}}
+                    </span>
+                </div>
             </div>
             <br>
-            <h3 style="text-align:center"> {{ 'homepage.second.comments' | trans}} <a href="mailto:{{ webmastermail }}">{{ webmastermail }}</a></h3>
+            <h3>
+                {{ 'homepage.second.comments' | trans}}
+                <a href="mailto:{{ webmastermail }}">{{ webmastermail }}</a>
+            </h3>
         </div>
     </div>
 {% endblock %}

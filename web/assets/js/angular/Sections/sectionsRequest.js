@@ -1,4 +1,4 @@
-sectionsModule.service('sectionsRequest',
+adminModule.service('sectionsRequest',
     ['$http',
         function ($http) {
             this.generateLogoUrl = function(section) {

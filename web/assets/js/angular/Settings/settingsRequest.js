@@ -1,4 +1,4 @@
-settingsModule.service('settingsRequest',
+adminModule.service('settingsRequest',
     ['$http',
         function ($http) {
             /**

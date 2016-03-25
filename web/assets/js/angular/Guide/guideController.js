@@ -1,4 +1,4 @@
-guideModule.controller('guideController', GuideController);
+survivalGuideApp.controller('guideController', GuideController);
 
 GuideController.$inject = [
     '$scope',

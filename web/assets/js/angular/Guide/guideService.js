@@ -1,3 +1,3 @@
-guideModule.service('guideService', [ function () {
+adminModule.service('guideService', [ function () {
 
 }]);

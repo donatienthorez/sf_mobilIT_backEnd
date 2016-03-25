@@ -1,4 +1,4 @@
-guideModule.service('guideRequest', GuideRequest);
+adminModule.service('guideRequest', GuideRequest);
 
 GuideRequest.$inject = ['$http'];
 

@@ -1,4 +1,4 @@
-settingsModule.controller('sectionsController',
+adminModule.controller('sectionsController',
     ['$scope', 'sectionsRequest',
         function ($scope, sectionsRequest) {
             $scope.section = {};

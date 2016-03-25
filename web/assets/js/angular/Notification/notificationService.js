@@ -1,3 +1,3 @@
-notificationModule.service('notificationService', [ function () {
+adminModule.service('notificationService', [ function () {
 
 }]);

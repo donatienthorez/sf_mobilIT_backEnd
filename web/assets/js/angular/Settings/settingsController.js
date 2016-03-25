@@ -1,4 +1,4 @@
-settingsModule.controller('settingsController',
+adminModule.controller('settingsController',
     ['$scope', 'settingsRequest',
         function ($scope, settingsRequest) {
 

@@ -1,4 +1,4 @@
-notificationModule.controller('notificationController',
+adminModule.controller('notificationController',
     ['$scope', 'notificationRequest',
         function ($scope, notificationRequest) {
             $scope.notifications = [];
