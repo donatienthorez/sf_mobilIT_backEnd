@@ -38,7 +38,7 @@ class Country
     protected $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="section", cascade="all", mappedBy="country")
+     * @ORM\OneToMany(targetEntity="Section", cascade="all", mappedBy="country")
      * @Groups({"list", "details", "section", "listSection"})
      */
     protected $sections;
