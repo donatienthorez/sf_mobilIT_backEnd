@@ -5,7 +5,9 @@ var survivalGuideApp = angular.module('survivalGuideApp', [
     'guide.module',
     'sections.module',
     'localytics.directives'
-]).config(function($interpolateProvider){
+]);
+
+survivalGuideApp.config(function($interpolateProvider){
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 });
 

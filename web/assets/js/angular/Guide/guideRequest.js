@@ -1,25 +1,40 @@
-guideModule.service('guideRequest', ['$http', function ($http) {
+guideModule.service('guideRequest', GuideRequest);
+
+GuideRequest.$inject = ['$http'];
+
+function GuideRequest($http) {
+    var ctrl = this;
+
+    ctrl.getGuide = getGuide;
+    ctrl.addChildCategory = addChildCategory;
+    ctrl.addCategory = addCategory;
+    ctrl.changeGuideStatus = changeGuideStatus;
+    ctrl.moveCategory = moveCategory;
+    ctrl.removeCategory = removeCategory;
+    ctrl.save = save;
+
     /**
      * Retrieve the guide.
      *
      * @return promise.
      */
-    this.getGuide = function() {
+    function getGuide() {
         return $http({
             method: 'GET',
             url: Routing.generate(
                 'api_guides_list'
-            )}).then(function (result) {
+            )
+        }).then(function (result) {
             return result.data;
         });
-    };
+    }
 
     /**
      * Add a child to a category.
      *
      * @return promise.
      */
-    this.addChildCategory = function(category) {
+    function addChildCategory(category) {
         return $http({
             method: 'POST',
             url: Routing.generate(
@@ -29,14 +44,14 @@ guideModule.service('guideRequest', ['$http', function ($http) {
         }).then(function (result) {
             return result.data;
         });
-    };
+    }
 
     /**
      * Add a child category to a guide.
      *
      * @return promise.
      */
-    this.addCategory = function() {
+    function addCategory() {
         return $http({
             method: 'POST',
             url: Routing.generate(
@@ -45,14 +60,14 @@ guideModule.service('guideRequest', ['$http', function ($http) {
         }).then(function (result) {
             return result.data;
         });
-    };
+    }
 
     /**
      * Change the status of the guide.
      *
      * @return promise.
      */
-    this.changeGuideStatus = function() {
+    function changeGuideStatus() {
         return $http({
             method: 'PUT',
             url: Routing.generate(
@@ -61,32 +76,36 @@ guideModule.service('guideRequest', ['$http', function ($http) {
         }).then(function (result) {
             return result.data;
         });
-    };
+    }
 
     /**
      * Move a category.
      *
      * @return promise.
      */
-    this.moveCategory = function(category, oldParent, newParent, position) {
+    function moveCategory(category, oldParent, newParent, position) {
         return $http({
             method: 'PUT',
             url: Routing.generate(
                 'api_categories_move_category',
                 {'category': category}
             ),
-            data: {'oldParentId': oldParent, 'newParentId': newParent, 'position': position}
+            data: {
+                'oldParentId': oldParent,
+                'newParentId': newParent,
+                'position': position
+            }
         }).then(function (result) {
             return result.data;
         });
-    };
+    }
 
     /**
      * Delete a category.
      *
      * @return promise.
      */
-    this.removeCategory = function(category) {
+    function removeCategory(category) {
         return $http({
             method: 'DELETE',
             url: Routing.generate(
@@ -96,17 +115,14 @@ guideModule.service('guideRequest', ['$http', function ($http) {
         }).then(function (result) {
             return result.data;
         });
-    };
+    }
 
     /**
      * Save a category.
      *
      * @return promise.
      */
-    this.save = function(category) {
-        console.log(category.id);
-        console.log(category.title);
-        console.log(category.content);
+    function save(category) {
         return $http({
             method: 'PUT',
             url: Routing.generate(
@@ -117,5 +133,5 @@ guideModule.service('guideRequest', ['$http', function ($http) {
         }).then(function (result) {
             return result.data;
         });
-    };
-}]);
+    }
+}

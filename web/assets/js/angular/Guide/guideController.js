@@ -1,128 +1,150 @@
-guideModule.controller('guideController',
-    ['$scope', 'guideRequest',
-        function ($scope, guideRequest) {
-            $scope.categorieSelected = {};
-            $scope.data = [];
-            $scope.activated = false;
+guideModule.controller('guideController', GuideController);
 
-            $scope.init = function () {
-                getGuide();
-            };
+GuideController.$inject = [
+    '$scope',
+    'guideRequest'
+];
 
-            $scope.editorOptions = {
-                language: 'fr',
-                uiColor: '#999999'
-            };
+function GuideController($scope, guideRequest) {
+    var ctrl = this;
+    ctrl.categorieSelected = {};
+    ctrl.data = [];
+    ctrl.activated = false;
 
-            $scope.delete = function (scope) {
-                guideRequest.removeCategory(scope.$modelValue.id).then(function (data) {
-                    scope.remove();
-                });
-            };
+    ctrl.init = init;
+    ctrl.getGuide = getGuide;
+    ctrl.remove = remove;
+    ctrl.toggle = toggle;
+    ctrl.changeGuideStatus = changeGuideStatus;
+    ctrl.addToRoot = addToRoot;
+    ctrl.edit = edit;
+    ctrl.save = save;
+    ctrl.moveLastToTheBeginning = moveLastToTheBeginning;
+    ctrl.newSubItem = newSubItem;
+    ctrl.collapseAll = collapseAll;
+    ctrl.expandAll = expandAll;
+    ctrl.getGuide = getGuide;
+    ctrl.editGuide = editGuide;
 
-            $scope.toggle = function (scope) {
-                scope.toggle();
-            };
+    $scope.editorOptions = {
+        language: 'fr',
+        uiColor: '#999999'
+    };
 
-            $scope.changeGuideStatus = function () {
-                guideRequest.changeGuideStatus().then(function (data) {
-                    $scope.activated = data;
-                });
-            };
+    $scope.treeOptions = {
+        dropped: function(event) {
+            // parent before
+            var sourceParent, destParent;
 
-            $scope.treeOptions = {
-                dropped: function(event) {
-                    // parent before
-                    var sourceParent, destParent;
-
-                    if (event.source.nodesScope.$parent !== null
-                        && !angular.isUndefined(event.source.nodesScope.$parent)
-                        && !angular.isUndefined(event.source.nodesScope.$parent.$modelValue)
-                    ) {
-                        sourceParent = event.source.nodesScope.$parent.$modelValue.id;
-                    }
-
-                    if (event.dest.nodesScope.$parent !== null
-                        && !angular.isUndefined(event.dest.nodesScope.$parent)
-                        && !angular.isUndefined(event.dest.nodesScope.$parent.$modelValue)) {
-                        destParent = event.dest.nodesScope.$parent.$modelValue.id;
-                    }
-                    var elementId = event.source.nodeScope.$modelValue.id;
-                    var destPosition = event.dest.index;
-                    var sourcePosition = event.source.index;
-
-                    if ((sourceParent != destParent || sourcePosition != destPosition)
-                        || (sourceParent == undefined && destParent == undefined && sourcePosition != destPosition)
-                    ) {
-                        guideRequest.moveCategory(elementId, sourceParent, destParent, destPosition).then(function (data) {
-                            return true;
-                        });
-                    }
-                    return false;
-                }
-            };
-
-            $scope.addToRoot = function () {
-              guideRequest.addCategory().then(function (data){
-                  if (!$scope.data) {
-                      guideRequest.getGuide().then(function (data) {
-                          $scope.activated = data.activated;
-                          $scope.data = data.nodes;
-                      });
-                  } else {
-                      $scope.data.push({
-                          id: data.id,
-                          title: data.title,
-                          nodes: []
-                      });
-                  }
-              })
-            };
-
-            $scope.edit = function (scope) {
-                $scope.categorieSelected = scope.$modelValue;
-            };
-
-            $scope.save = function() {
-                guideRequest.save($scope.categorieSelected).then(function (data) {
-
-                })
-            };
-
-            $scope.moveLastToTheBeginning = function () {
-
-                var a = $scope.data.pop();
-                $scope.data.splice(0, 0, a);
-            };
-
-            $scope.newSubItem = function (scope) {
-                var nodeData = scope.$modelValue;
-                guideRequest.addChildCategory(scope.$modelValue.id).then(function (data) {
-                    nodeData.nodes.push({
-                        id: data.id,
-                        title: data.title,
-                        nodes: []
-                    });
-                });
-            };
-
-            $scope.collapseAll = function () {
-                $scope.$broadcast('collapseAll');
-            };
-
-            $scope.expandAll = function () {
-                $scope.$broadcast('expandAll');
-            };
-
-            function getGuide() {
-                guideRequest.getGuide().then(function (data) {
-                    $scope.activated = data.activated;
-                    $scope.data = data.nodes;
-                });
+            if (event.source.nodesScope.$parent !== null
+                && !angular.isUndefined(event.source.nodesScope.$parent)
+                && !angular.isUndefined(event.source.nodesScope.$parent.$modelValue)
+            ) {
+                sourceParent = event.source.nodesScope.$parent.$modelValue.id;
             }
 
-            $scope.editGuide = function(category) {
-                guideRequest.editGuide(category).then(function (data) {
-                    
-                })};
-        }]);
+            if (event.dest.nodesScope.$parent !== null
+                && !angular.isUndefined(event.dest.nodesScope.$parent)
+                && !angular.isUndefined(event.dest.nodesScope.$parent.$modelValue)) {
+                destParent = event.dest.nodesScope.$parent.$modelValue.id;
+            }
+            var elementId = event.source.nodeScope.$modelValue.id;
+            var destPosition = event.dest.index;
+            var sourcePosition = event.source.index;
+
+            if ((sourceParent != destParent || sourcePosition != destPosition)
+                || (sourceParent == undefined && destParent == undefined && sourcePosition != destPosition)
+            ) {
+                guideRequest.moveCategory(elementId, sourceParent, destParent, destPosition).then(function (data) {
+                    return true;
+                });
+            }
+            return false;
+        }
+    };
+
+    function init() {
+        ctrl.getGuide();
+    }
+
+    function remove(scope) {
+        guideRequest.removeCategory(scope.$modelValue.id).then(function (data) {
+            scope.remove();
+        });
+    }
+
+    function toggle(scope) {
+        scope.toggle();
+    }
+
+    function changeGuideStatus() {
+        console.log("test");
+        guideRequest.changeGuideStatus().then(function (data) {
+            ctrl.activated = data;
+        });
+    }
+
+    function addToRoot() {
+      guideRequest.addCategory().then(function (data){
+          if (!ctrl.data) {
+              guideRequest.getGuide().then(function (data) {
+                  ctrl.activated = data.activated;
+                  ctrl.data = data.nodes;
+              });
+          } else {
+              ctrl.data.push({
+                  id: data.id,
+                  title: data.title,
+                  nodes: []
+              });
+          }
+      })
+    }
+
+    function edit(scope) {
+        ctrl.categorieSelected = scope.$modelValue;
+        console.log(ctrl.categorieSelected);
+    }
+
+    function save() {
+        guideRequest.save(ctrl.categorieSelected).then(function (data) {
+
+        })
+    }
+
+    function moveLastToTheBeginning() {
+        ctrl.data.splice(0, 0, ctrl.data.pop());
+    }
+
+    function newSubItem(scope) {
+        var nodeData = scope.$modelValue;
+        guideRequest.addChildCategory(scope.$modelValue.id).then(function (data) {
+            nodeData.nodes.push({
+                id: data.id,
+                title: data.title,
+                nodes: []
+            });
+        });
+    }
+
+    function collapseAll() {
+        $scope.$broadcast('collapseAll');
+    }
+
+    function expandAll() {
+        $scope.$broadcast('expandAll');
+    }
+
+    function getGuide() {
+        guideRequest.getGuide().then(function (data) {
+            ctrl.activated = data.activated;
+            ctrl.data = data.nodes;
+        });
+    }
+
+    function editGuide(category) {
+        guideRequest.editGuide(category).then(function (data) {
+
+        })
+    }
+}

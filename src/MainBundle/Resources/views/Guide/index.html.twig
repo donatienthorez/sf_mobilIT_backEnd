@@ -3,18 +3,22 @@
 {% block body %}
     <script type="text/ng-template" id="nodes_renderer.html">
         <div ui-tree-handle class="tree-node tree-node-content angular-ui-tree-handle">
-            <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)">
+            <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="ctrl.toggle(this)">
                 <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
             </a>
             {[{node.title}]}
-            <a class="pull-right btn btn-danger btn-xs {% if (readOnly) %}hidden{% endif %}" data-nodrag ng-click="delete(this)"><span
+            <a class="pull-right btn btn-danger btn-xs {% if (readOnly) %}hidden{% endif %}" data-nodrag ng-click="ctrl.remove(this)"><span
                         class="glyphicon glyphicon-remove"></span></a>
-            <a class="pull-right btn btn-primary btn-xs {% if (readOnly) %}hidden{% endif %}" data-nodrag ng-click="edit(this)" style="margin-right: 8px;"><span
-                        class="glyphicon glyphicon-edit"></span></a>
-            <a class="pull-right btn btn-primary btn-xs {% if (readOnly) %}hidden{% endif %}" ng-hide="depth()>2" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span
+            <a class="pull-right btn btn-primary btn-xs
+               {% if (readOnly) %}hidden{% endif %}"
+               data-nodrag ng-click="ctrl.edit(this)"
+               style="margin-right: 8px;">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+            <a class="pull-right btn btn-primary btn-xs {% if (readOnly) %}hidden{% endif %}" ng-hide="ctrl.depth()>2" data-nodrag ng-click="ctrl.newSubItem(this)" style="margin-right: 8px;"><span
                         class="glyphicon glyphicon-plus"></span></a>
             {% if (readOnly) %}
-                <a class="pull-right btn btn-primary btn-xs" ng-hide="depth()>2" data-nodrag ng-click="edit(this)" style="margin-right: 8px;">
+                <a class="pull-right btn btn-primary btn-xs" ng-hide="ctrl.depth()>2" data-nodrag ng-click="ctrl.edit(this)" style="margin-right: 8px;">
                     <span class="glyphicon glyphicon-eye-open"></span>
                 </a>
             {% endif %}
@@ -24,7 +28,7 @@
             </li>
         </ol>
     </script>
-    <div class="main-inner" ng-controller="guideController" ng-init="init()">
+    <div class="main-inner" ng-controller="guideController as ctrl" ng-init="ctrl.init()">
         <div class="container">
             <div class="span5">
                 <div class="widget">
@@ -32,11 +36,20 @@
                         <i class="icon-book"></i>
                         <h3>Categories</h3>
                             <span>
-                                <button class="btn btn-default {% if (readOnly) %}hidden{% endif %}" type="button" ng-click="addToRoot()">Add Category</button>
+                                <button class="btn btn-default {% if (readOnly) %}hidden{% endif %}"
+                                        type="button"
+                                        ng-click="ctrl.addToRoot()">
+                                    Add Category
+                                </button>
                             </span>
                             <span>
                                 <div class="onoffswitch">
-                                    <input name="onoffswitch" class="onoffswitch-checkbox ng-pristine ng-untouched ng-valid" id="myonoffswitch" ng-model="activated" ng-change="changeGuideStatus()" type="checkbox"  {% if (readOnly) %}disabled="true"{% endif %}">
+                                    <input name="onoffswitch"
+                                           class="onoffswitch-checkbox ng-pristine ng-untouched ng-valid"
+                                           id="myonoffswitch" ng-model="ctrl.activated"
+                                           ng-change="ctrl.changeGuideStatus()"
+                                           type="checkbox"
+                                           {% if (readOnly) %}disabled="true"{% endif %}">
                                     <label class="onoffswitch-label" for="myonoffswitch">
                                         <span class="onoffswitch-inner"></span>
                                         <span class="onoffswitch-switch"></span>
@@ -48,8 +61,8 @@
 
                     <div class="widget-content">
                         <div class="ng-scope angular-ui-tree" ui-tree="treeOptions" id="tree-root" data-max-depth="3">
-                            <ol ui-tree-nodes class="ng-pristine ng-untouched ng-valid ng-scope angular-ui-tree-nodes" ng-model="data">
-                                <li ng-repeat="node in data" class="ng-scope angular-ui-tree-node" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                            <ol ui-tree-nodes class="ng-pristine ng-untouched ng-valid ng-scope angular-ui-tree-nodes" ng-model="ctrl.data">
+                                <li ng-repeat="node in ctrl.data" class="ng-scope angular-ui-tree-node" ui-tree-node ng-include="'nodes_renderer.html'"></li>
                             </ol>
                         </div>
                     </div>
@@ -60,14 +73,14 @@
                     <div class="widget-header">
                         <i class="icon-book"></i>
                         <h3>Content</h3>
-                        <input class="{% if (readOnly) %}hidden{% endif %}" ng-if="categorieSelected.title" class="btn btn-default" value="Save" type="submit" ng-click="save()">
+                        <input class="{% if (readOnly) %}hidden{% endif %}" ng-if="ctrl.categorieSelected.title" class="btn btn-default" value="Save" type="submit" ng-click="ctrl.save()">
                     </div>
                     <div class="widget-content">
-                        <div ng-if="categorieSelected.title" class="ng-scope">
+                        <div ng-if="ctrl.categorieSelected.title" class="ng-scope">
                             <label for="title">Title :</label>
-                            <input type="text" name="title" required="" id="name" ng-model="categorieSelected.title" {% if (readOnly) %}disabled="true"{% endif %}><br>
+                            <input type="text" name="title" required="" id="name" ng-model="ctrl.categorieSelected.title" {% if (readOnly) %}disabled="true"{% endif %}><br>
                             <label for="content">Content :</label>
-                            <textarea ckeditor="editorOptions" ng-model="categorieSelected.content" {% if (readOnly) %}disabled="true"{% endif %}></textarea>
+                            <textarea ckeditor="editorOptions" ng-model="ctrl.categorieSelected.content" {% if (readOnly) %}disabled="true"{% endif %}></textarea>
                         </div>
                     </div>
                 </div>
