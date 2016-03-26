@@ -1,3 +1,0 @@
-adminModule.service('guideService', [ function () {
-
-}]);

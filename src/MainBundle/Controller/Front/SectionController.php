@@ -14,7 +14,7 @@ class SectionController extends Controller
     public function indexAction()
     {
         return $this->render(
-            'MainBundle:Sections:index.html.twig'
+            'MainBundle:Section:index.html.twig'
         );
 
     }

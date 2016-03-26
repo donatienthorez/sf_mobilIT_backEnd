@@ -1,42 +1,50 @@
-adminModule.controller('notificationController',
-    ['$scope', 'notificationRequest',
-        function ($scope, notificationRequest) {
-            $scope.notifications = [];
-            $scope.notification = {};
+adminModule.controller('notificationController', NotificationController);
 
-            $scope.sectionsSelected = [];
-            $scope.sections = [];
+NotificationController.$inject = [
+    'notificationRequest'
+];
 
-            $scope.init = function () {
-                getNotifications();
-                getSections();
-            };
+function NotificationController(notificationRequest) {
+    var ctrl = this;
 
-            function getNotifications() {
-                notificationRequest.getNotifications().then(function (data) {
-                    $scope.notifications = data;
-                });
-            }
+    ctrl.notifications = [];
+    ctrl.notification = {};
+    ctrl.sectionsSelected = [];
+    ctrl.sections = [];
 
-            function getSections(){
-                notificationRequest.getSections().then(function (data){
-                    $scope.sections = data;
-                });
-            }
+    ctrl.init = init;
+    ctrl.getNotifications = getNotifications;
+    ctrl.getSections = getSections;
+    ctrl.sendNotification = sendNotification;
 
-            $scope.sendNotification = function() {
-                var sectionsToSend = [];
-                angular.forEach($scope.sectionsSelected, function(section, key) {
-                    sectionsToSend.push(section.code_section);
-                });
-                notificationRequest.sendNotification(
-                    $scope.notification,
-                    sectionsToSend
-                ).then(function (data) {
-                    $scope.notifications.splice(0, 0, data);
-                    $scope.notification = {};
-                });
-            }
-        }
-    ]
-);
+    function init() {
+        ctrl.getNotifications();
+        ctrl.getSections();
+    }
+
+    function getNotifications() {
+        notificationRequest.getNotifications().then(function (data) {
+            ctrl.notifications = data;
+        });
+    }
+
+    function getSections() {
+        notificationRequest.getSections().then(function (data) {
+            ctrl.sections = data;
+        });
+    }
+
+    function sendNotification() {
+        var sectionsToSend = [];
+        angular.forEach(ctrl.sectionsSelected, function (section, key) {
+            sectionsToSend.push(section.code_section);
+        });
+        notificationRequest.sendNotification(
+            ctrl.notification,
+            sectionsToSend
+        ).then(function (data) {
+                ctrl.notifications.splice(0, 0, data);
+                ctrl.notification = {};
+            });
+    }
+}

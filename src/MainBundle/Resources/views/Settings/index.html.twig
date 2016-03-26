@@ -1,6 +1,6 @@
 {% extends 'MainBundle::base.html.twig' %}
 {% block body %}
-    <div class="main-inner" ng-controller="settingsController" ng-init="init()">
+    <div class="main-inner" ng-controller="settingsController as ctrl" ng-init="ctrl.init()">
         <div class="container">
             <div class="span7">
                 <div class="widget">
@@ -10,8 +10,8 @@
                     </div>
                     <div class="widget-content">
                         <label for="title">{{ 'settings.token-label' | trans }} :</label>
-                        <span ng-if="section.token">
-                            {[{ section.token }]}
+                        <span ng-if="ctrl.section.token">
+                            {[{ ctrl.section.token }]}
                         </span>
                         <br/>
                         <br/>
@@ -31,7 +31,7 @@
                             "DO" : [
                                 { "request_url" : {
                                     "USING" : {
-                                        "url" : "http://mobilit.esnlille.fr/api/notifications/{[{ section.code_section }]}/sendFromDrupal",
+                                        "url" : "http://mobilit.esnlille.fr/api/notifications/{[{ ctrl.section.code_section }]}/sendFromDrupal",
                                         "headers" : "Content-type: application\/x-www-form-urlencoded",
                                         "method" : "POST",
                                         "data" : "subject=ESN [node:content-type] \r\nmessage=[node:title]"
@@ -42,8 +42,8 @@
                             ]}
                         }
                         </textarea>
-                        <span ng-hide="section.token">
-                            <button class="btn btn-primary" ng-click="generateToken()">{{ 'settings.token-button' | trans }}</button>
+                        <span ng-hide="ctrl.section.token">
+                            <button class="btn btn-primary" ng-click="ctrl.generateToken()">{{ 'settings.token-button' | trans }}</button>
                         </span>
                     </div>
                 </div>
@@ -51,4 +51,3 @@
         </div>
     </div>
 {% endblock %}
-

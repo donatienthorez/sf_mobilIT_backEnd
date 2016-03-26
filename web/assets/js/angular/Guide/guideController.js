@@ -33,7 +33,6 @@ function GuideController($scope, guideRequest) {
 
     $scope.treeOptions = {
         dropped: function(event) {
-            // parent before
             var sourceParent, destParent;
 
             if (event.source.nodesScope.$parent !== null
@@ -78,7 +77,6 @@ function GuideController($scope, guideRequest) {
     }
 
     function changeGuideStatus() {
-        console.log("test");
         guideRequest.changeGuideStatus().then(function (data) {
             ctrl.activated = data;
         });
@@ -103,7 +101,6 @@ function GuideController($scope, guideRequest) {
 
     function edit(scope) {
         ctrl.categorieSelected = scope.$modelValue;
-        console.log(ctrl.categorieSelected);
     }
 
     function save() {

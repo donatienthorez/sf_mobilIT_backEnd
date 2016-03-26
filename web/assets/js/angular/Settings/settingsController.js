@@ -1,24 +1,40 @@
-adminModule.controller('settingsController',
-    ['$scope', 'settingsRequest',
-        function ($scope, settingsRequest) {
+adminModule.controller('settingsController', SettingsController);
 
-            $scope.section = {};
+SettingsController.$inject = [
+    'settingsRequest'
+];
 
-            $scope.init = function () {
-                $scope.getToken();
-            };
+function SettingsController(settingsRequest) {
+    var ctrl = this;
 
-            $scope.getToken = function () {
-                settingsRequest.getSection().then(function (data) {
-                    $scope.section = data;
-                });
-            };
+    ctrl.init = init;
+    ctrl.getToken = getToken;
+    ctrl.generateToken = generateToken;
 
-            $scope.generateToken = function () {
-                settingsRequest.generateToken($scope.section.code_section).then(function (data) {
-                    $scope.section.token = data;
-                });
-            };
-        }
-    ]
-);
+    ctrl.section = {};
+
+    /**
+     * Init the controller by calling getSection
+     */
+    function init() {
+        ctrl.getToken();
+    }
+
+    /**
+     * Get the token of a section
+     */
+    function getToken() {
+        settingsRequest.getSection().then(function (data) {
+            ctrl.section = data;
+        });
+    }
+
+    /**
+     * Generate a token for a section
+     */
+    function generateToken() {
+        settingsRequest.generateToken(ctrl.section.code_section).then(function (data) {
+            ctrl.section.token = data;
+        });
+    }
+}
