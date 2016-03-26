@@ -88,8 +88,10 @@
                                 }
                             ]}
                         }
-                            </textarea>
-                        </div>
+                        </textarea>
+                        <span ng-hide="section.token">
+                            <button class="btn btn-primary" ng-click="generateToken()">{{ 'settings.token-button' | trans }}</button>
+                        </span>
                     </div>
                 </div>
             </div>
