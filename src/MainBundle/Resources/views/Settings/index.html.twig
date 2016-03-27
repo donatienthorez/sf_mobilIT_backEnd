@@ -17,15 +17,57 @@
                         <br/>
                         <label for="drupal-code"> {{ 'settings.drupal-code-label' | trans }}</label>
                         <textarea rows="25" cols="50">
-                        { "rules_send_push" : {
+                        { "rules_send_push_events" : {
                             "LABEL" : "send push after events",
                             "PLUGIN" : "reaction rule",
                             "OWNER" : "rules",
                             "TAGS" : [ "content", "push" ],
                             "REQUIRES" : [ "rules", "rules_http_client" ],
                             "ON" : {
-                                "node_insert--event" : { "bundle" : "event" },
-                                "node_insert--news" : { "bundle" : "news" },
+                                "node_insert--event" : { "bundle" : "event" }
+                            },
+                            "DO" : [
+                                { "request_url" : {
+                                    "USING" : {
+                                        "url" : "http://mobilit.esnlille.fr/api/notifications/{[{ section.code_section }]}/sendFromDrupal",
+                                        "headers" : "Content-type: application\/x-www-form-urlencoded",
+                                        "method" : "POST",
+                                        "data" : "title=ESN [node:content-type] \r\ncontent=[node:title] \r\ntoken={[{ section.token }]} \r\ntype=events"
+                                    },
+                                    "PROVIDE" : { "http_response" : { "http_response" : "HTTP data" } }
+                                    }
+                                }
+                            ]}
+                        },
+                        { "rules_send_push_news" : {
+                            "LABEL" : "send push after news",
+                            "PLUGIN" : "reaction rule",
+                            "OWNER" : "rules",
+                            "TAGS" : [ "content", "push" ],
+                            "REQUIRES" : [ "rules", "rules_http_client" ],
+                            "ON" : {
+                                "node_insert--news" : { "bundle" : "news" }
+                            },
+                            "DO" : [
+                                { "request_url" : {
+                                    "USING" : {
+                                        "url" : "http://mobilit.esnlille.fr/api/notifications/{[{ section.code_section }]}/sendFromDrupal",
+                                        "headers" : "Content-type: application\/x-www-form-urlencoded",
+                                        "method" : "POST",
+                                        "data" : "subject=ESN [node:content-type] \r\nmessage=[node:title] \r\ntoken={[{ section.token }]} \r\ntype=news"
+                                    },
+                                    "PROVIDE" : { "http_response" : { "http_response" : "HTTP data" } }
+                                    }
+                                }
+                            ]}
+                        },
+                        { "rules_send_push_partners" : {
+                            "LABEL" : "send push after partners",
+                            "PLUGIN" : "reaction rule",
+                            "OWNER" : "rules",
+                            "TAGS" : [ "content", "push" ],
+                            "REQUIRES" : [ "rules", "rules_http_client" ],
+                            "ON" : {
                                 "node_insert--partner" : { "bundle" : "partner" }
                             },
                             "DO" : [
@@ -34,7 +76,7 @@
                                         "url" : "http://mobilit.esnlille.fr/api/notifications/{[{ section.code_section }]}/sendFromDrupal",
                                         "headers" : "Content-type: application\/x-www-form-urlencoded",
                                         "method" : "POST",
-                                        "data" : "subject=ESN [node:content-type] \r\nmessage=[node:title]"
+                                        "data" : "subject=ESN [node:content-type] \r\nmessage=[node:title] \r\ntoken={[{ section.token }]} \r\ntype=partners"
                                     },
                                     "PROVIDE" : { "http_response" : { "http_response" : "HTTP data" } }
                                     }
