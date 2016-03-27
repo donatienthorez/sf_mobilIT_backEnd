@@ -81,7 +81,7 @@ class NotificationController extends BaseController
         $notification =
             $this
                 ->get('main.notification.service')
-                ->send($title, $content, $this->getUser(), $sections);
+                ->sendNotifications($title, $content, $this->getUser(), $sections);
 
         return [
             "title" => $notification->getTitle(),
@@ -108,9 +108,13 @@ class NotificationController extends BaseController
      * )
      * @QueryParam(
      *     name="token",
-     *     nullable=true,
-     *     default=null,
-     *     description="Esn section of the notification"
+     *     nullable=false,
+     *     description="Token of the section"
+     * )
+     * @QueryParam(
+     *     name="type",
+     *     nullable=false,
+     *     description="Type of the notification"
      * )
      * @param Section $section
      * @param Request $request
@@ -122,11 +126,11 @@ class NotificationController extends BaseController
         $title = $request->request->get('title');
         $content = $request->request->get('content');
         $token = $request->request->get('token');
+        $type = $request->request->get('type');
 
-        if (!$title || !$content || !$token) {
+        if (!$title || !$content || !$token || !$type) {
             return new Response("Invalid post arguments", Response::HTTP_BAD_REQUEST);
         }
-
 
         if (!$this
             ->get('main.section.fetcher')
@@ -136,7 +140,7 @@ class NotificationController extends BaseController
 
         return $this
             ->get('main.notification.service')
-            ->sendFromDrupal($title, $content, $section, $token);
+            ->sendNotification($title, $content, $section, $type);
     }
 
     public function countAction()

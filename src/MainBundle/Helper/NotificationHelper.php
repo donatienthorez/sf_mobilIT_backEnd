@@ -2,8 +2,8 @@
 
 namespace MainBundle\Helper;
 
-use MainBundle\Entity\Notification;
 use Symfony\Component\DependencyInjection\Container;
+use MainBundle\Entity\Notification;
 
 class NotificationHelper
 {
@@ -19,7 +19,10 @@ class NotificationHelper
     {
         $this->container = $container;
     }
+
     /**
+     * Send the notification on the google android api website.
+     *
      * @param Notification $notification
      * @param array $regIds
      *
@@ -27,31 +30,26 @@ class NotificationHelper
      */
     public function sendNotification(Notification $notification, $regIds)
     {
-        $message = array(
-            "m" => $notification->getContent(),
-            "sbj" => $notification->getTitle()
-        );
-
-        //Google cloud messaging GCM-API url
-        $url = 'https://android.googleapis.com/gcm/send';
-        $fields = array(
-            'registration_ids' => $regIds,
-            'data' => $message,
-        );
-
-        // Update your Google Cloud Messaging API Key
-        if (!defined("GOOGLE_API_KEY")) {
-            define(
-                "GOOGLE_API_KEY",
+        $headers = [
+            sprintf(
+                'Authorization: key=%s',
                 $this->container->getParameter('google_api_key')
-            );
-        }
-        $headers = array(
-            'Authorization: key=' . GOOGLE_API_KEY,
-            'Content-Type: application/json'
-        );
+            ),
+            'Content-Type: application/json'];
+
+        $fields = [
+            'registration_ids' => $regIds,
+            'data' => [
+                'content' => $notification->getContent(),
+                'title' => $notification->getTitle(),
+                'type' => $notification->getType()]
+        ];
+
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch,
+            CURLOPT_URL,
+            $this->container->getParameter('google_api_website')
+        );
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

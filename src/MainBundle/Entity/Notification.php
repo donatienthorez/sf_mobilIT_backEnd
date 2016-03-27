@@ -52,6 +52,12 @@ class Notification
      */
     protected $sentBy;
 
+    /**
+     * @ORM\Column(name="type", type="string")
+     * @Expose
+     */
+    protected $type;
+
     public function __construct()
     {
         $this->sentAt = new \DateTime();
@@ -75,10 +81,14 @@ class Notification
 
     /**
      * @param string $title
+     *
+     * @return Notification $this
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -91,10 +101,14 @@ class Notification
 
     /**
      * @param string $content
+     *
+     * @return $this
      */
     public function setContent($content)
     {
         $this->content = $content;
+
+        return $this;
     }
 
     /**
@@ -107,14 +121,18 @@ class Notification
 
     /**
      * @param Section $section
+     *
+     * @return Notification $this
      */
     public function setSection($section)
     {
         $this->section = $section;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getSentAt()
     {
@@ -122,11 +140,15 @@ class Notification
     }
 
     /**
-     * @param mixed $sentAt
+     * @param \DateTime $sentAt
+     *
+     * @return Notification $this
      */
     public function setSentAt($sentAt)
     {
         $this->sentAt = $sentAt;
+
+        return $this;
     }
 
     /**
@@ -139,9 +161,33 @@ class Notification
 
     /**
      * @param User $sentBy
+     *
+     * @return Notification $this
      */
     public function setSentBy(User $sentBy)
     {
         $this->sentBy = $sentBy;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return Notification $this
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
     }
 }

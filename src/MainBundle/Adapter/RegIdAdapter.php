@@ -4,6 +4,11 @@ namespace MainBundle\Adapter;
 
 class RegIdAdapter
 {
+    /**
+     * @param $regIds
+     *
+     * @return array
+     */
     public function getModels($regIds)
     {
         $regIdsArray = array();

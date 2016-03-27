@@ -10,36 +10,56 @@ class SectionFetcher
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private $entityManager;
 
     /**
-     * @param EntityManagerInterface $em
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->em = $em;
+        $this->entityManager = $entityManager;
     }
 
+    /**
+     * Get all the sections.
+     *
+     * @return array
+     */
     public function getSections()
     {
         return $this
-            ->em
+            ->entityManager
             ->getRepository('MainBundle:Section')
             ->findAll();
     }
 
+    /**
+     * Get one section by its codeSection.
+     *
+     * @param $codeSection
+     *
+     * @return Section
+     */
     public function getSection($codeSection)
     {
         return $this
-            ->em
+            ->entityManager
             ->getRepository('MainBundle:Section')
             ->find($codeSection);
     }
 
+    /**
+     * Check the token for a section.
+     *
+     * @param Section $section
+     * @param $token
+     *
+     * @return Section
+     */
     public function checkSectionToken(Section $section, $token)
     {
         return $this
-            ->em
+            ->entityManager
             ->getRepository('MainBundle:Section')
             ->findOneBy(array(
                 'codeSection' => $section->getCodeSection(),

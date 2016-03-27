@@ -100,4 +100,5 @@ parameters:
     cas_path: /cas/
     mail: donatienthorez@gmail.com
     google_api_key: AIzaSyARq1v5hjOd16fSBin0DXmG-EX5CeYQS84
+    google_api_website: https://android.googleapis.com/gcm/send
     mobilit_token: g6g2A52mGPPbKaaHmFjz

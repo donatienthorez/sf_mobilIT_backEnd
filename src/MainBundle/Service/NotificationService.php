@@ -2,16 +2,18 @@
 
 namespace MainBundle\Service;
 
-use MainBundle\Entity\Section;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use MainBundle\Security\Voter\SectionVoter;
 use MainBundle\Adapter\RegIdAdapter;
 use MainBundle\Creator\NotificationCreator;
+use MainBundle\Entity\Notification;
+use MainBundle\Entity\Section;
+use MainBundle\Entity\User;
 use MainBundle\Fetcher\RegIdFetcher;
 use MainBundle\Fetcher\SectionFetcher;
 use MainBundle\Helper\NotificationHelper;
 use MainBundle\Manager\NotificationManager;
+use MainBundle\Security\Voter\SectionVoter;
 
 class NotificationService
 {
@@ -66,8 +68,19 @@ class NotificationService
         $this->securityContext = $securityContext;
     }
 
-    public function send($title, $content, $user, $sections)
+    /**
+     * Send notifications to sections
+     *
+     * @param string $title
+     * @param string $content
+     * @param User $user
+     * @param array $sections
+     *
+     * @return Notification|null
+     */
+    public function sendNotifications($title, $content, User $user, array $sections)
     {
+        $notification = null;
         foreach ($sections as $section) {
             $section = $this
                 ->sectionFetcher
@@ -80,38 +93,39 @@ class NotificationService
             }
 
             $notification = $this
-                ->notificationCreator
-                ->createNotification(
+                ->sendNotification(
                     $title,
                     $content,
-                    $user,
-                    $section
+                    $section,
+                    null,
+                    $user
                 );
-
-            $regIds = $this
-                ->regIdAdapter
-                ->getModels($section->getRegIds());
-
-            $this
-                ->notificationManager
-                ->saveNotification($notification);
-
-            $this
-                ->notificationHelper
-                ->sendNotification($notification, $regIds);
         }
 
         return $notification;
     }
-    public function sendFromDrupal($title, $content, Section $section, $token)
+
+    /**
+     * Send a notification.
+     *
+     * @param string $title
+     * @param string $content
+     * @param Section $section
+     * @param string $type
+     * @param User|null $user
+     *
+     * @return Notification
+     */
+    public function sendNotification($title, $content, Section $section, $type, $user = null)
     {
         $notification = $this
             ->notificationCreator
             ->createNotification(
                 $title,
                 $content,
-                null,
-                $section
+                $user,
+                $section,
+                $type
             );
 
         $regIds = $this
@@ -119,11 +133,13 @@ class NotificationService
             ->getModels($section->getRegIds());
 
         $this
+            ->notificationHelper
+            ->sendNotification($notification, $regIds);
+
+        $this
             ->notificationManager
             ->saveNotification($notification);
 
-        $this
-            ->notificationHelper
-            ->sendNotification($notification, $regIds);
+        return $notification;
     }
 }
