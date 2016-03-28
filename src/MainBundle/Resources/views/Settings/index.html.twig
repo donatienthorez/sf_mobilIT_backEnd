@@ -12,12 +12,17 @@
                         <label for="title">{{ 'settings.token-label' | trans }} :</label>
                         <span ng-if="ctrl.section.token">
                             {[{ ctrl.section.token }]}
+                        <span ng-hide="section.token">
+                            <button class="btn btn-primary" ng-click="generateToken()">{{ 'settings.token-button' | trans }}</button>
                         </span>
-                        <br/>
-                        <br/>
-                        <label for="drupal-code"> {{ 'settings.drupal-code-label' | trans }}</label>
-                        <textarea rows="25" cols="50">
-                        { "rules_send_push_events" : {
+                        <div ng-if="section.token">
+                            <label for="title">{{ 'settings.token-label' | trans }} :</label>
+                            <span>
+                                {[{ section.token }]}
+                            </span>
+                            <label for="drupal-code"> {{ 'settings.drupal-code-label' | trans }}</label>
+                            <textarea rows="25" cols="50">
+                            { "rules_send_push_events" : {
                             "LABEL" : "send push after events",
                             "PLUGIN" : "reaction rule",
                             "OWNER" : "rules",
@@ -54,7 +59,7 @@
                                         "url" : "http://mobilit.esnlille.fr/api/notifications/{[{ section.code_section }]}/sendFromDrupal",
                                         "headers" : "Content-type: application\/x-www-form-urlencoded",
                                         "method" : "POST",
-                                        "data" : "subject=ESN [node:content-type] \r\nmessage=[node:title] \r\ntoken={[{ section.token }]} \r\ntype=news"
+                                        "data" : "title=ESN [node:content-type] \r\ncontent=[node:title] \r\ntoken={[{ section.token }]} \r\ntype=news"
                                     },
                                     "PROVIDE" : { "http_response" : { "http_response" : "HTTP data" } }
                                     }
@@ -76,17 +81,15 @@
                                         "url" : "http://mobilit.esnlille.fr/api/notifications/{[{ ctrl.section.code_section }]}/sendFromDrupal",
                                         "headers" : "Content-type: application\/x-www-form-urlencoded",
                                         "method" : "POST",
-                                        "data" : "subject=ESN [node:content-type] \r\nmessage=[node:title] \r\ntoken={[{ section.token }]} \r\ntype=partners"
+                                        "data" : "title=ESN [node:content-type] \r\ncontent=[node:title] \r\ntoken={[{ section.token }]} \r\ntype=partners"
                                     },
                                     "PROVIDE" : { "http_response" : { "http_response" : "HTTP data" } }
                                     }
                                 }
                             ]}
                         }
-                        </textarea>
-                        <span ng-hide="ctrl.section.token">
-                            <button class="btn btn-primary" ng-click="ctrl.generateToken()">{{ 'settings.token-button' | trans }}</button>
-                        </span>
+                            </textarea>
+                        </div>
                     </div>
                 </div>
             </div>
