@@ -128,6 +128,11 @@ class Section
      */
     protected $guide;
 
+    /**
+     * @ORM\Column(type="boolean", name="activated", options={"default": false})
+     */
+    protected $activated;
+
     public function __construct()
     {
         $this->addedAt = new \DateTime();
@@ -378,6 +383,22 @@ class Section
     public function setRegIds($regIds)
     {
         $this->regIds = $regIds;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isActivated()
+    {
+        return $this->activated;
+    }
+
+    /**
+     * @param boolean $activated
+     */
+    public function setActivated($activated)
+    {
+        $this->activated = $activated;
     }
 
     public function __toString()
