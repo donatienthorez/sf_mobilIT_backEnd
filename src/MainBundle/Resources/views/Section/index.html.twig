@@ -1,0 +1,39 @@
+{% extends 'MainBundle::base.html.twig' %}
+{% set readOnly = (is_granted('ROLE_ADMIN') == false and is_granted('ROLE_BOARD') == false) %}
+{% block body %}
+    <div class="main-inner" ng-controller="sectionController as ctrl" ng-init="ctrl.init()">
+        <div class="container">
+            <div class="span7">
+                <div class="widget">
+                    <div class="widget-header">
+                        <i class="icon-book"></i>
+                        <h3>{{ 'sections.header' | trans }}</h3>
+                    </div>
+                    <div class="widget-content">
+                            <input type="hidden" name="id" required="" id="id" value="35">
+                            <label for="name">{{ 'sections.form.label.name' | trans }}</label>
+                            <input type="text" required="required" ng-model="ctrl.section.name" {% if (readOnly) %}readonly{% endif %}/><br>
+                            <label for="website">{{ 'sections.form.label.website' | trans }}</label>
+                            <input type="text" required="required" ng-model="ctrl.section.website" {% if (readOnly) %}readonly{% endif %}/><br>
+                            <label for="email">{{ 'sections.form.label.email' | trans }}</label>
+                            <input type="text" required="required" ng-model="ctrl.section.email" type="email" {% if (readOnly) %}readonly{% endif %}/><br>
+                            <label for="phone">{{ 'sections.form.label.phone' | trans }}</label>
+                            <input type="text" required="required" ng-model="ctrl.section.phone" {% if (readOnly) %}readonly{% endif %}/><br>
+                            <label for="university">{{ 'sections.form.label.university' | trans }}</label>
+                            <input type="text" required="required" ng-model="ctrl.section.university" {% if (readOnly) %}readonly{% endif %}/><br>
+                            <label for="address">{{ 'sections.form.label.address' | trans }}</label>
+                            <textarea rows="4" cols="50" ng-model="ctrl.section.address" {% if (readOnly) %}readonly{% endif %}></textarea>
+                            <label for="logoUrl">{{ 'sections.form.label.logo-url' | trans }}</label>
+                            <input class="no-margin" type="text" required="required" ng-model="ctrl.section.logo_url" {% if (readOnly) %}readonly{% endif %}/>
+                            <button class="btn btn-primary {% if (readOnly) %}hidden{% endif %}" ng-click="ctrl.generateLogoUrl()">{{ 'sections.form.buttons.generate-url-logo' | trans }}</button>
+                            <label for="logoUrlImage" ng-if="ctrl.section.logo_url">{{ 'sections.form.label.logo-url-image' | trans }}</label>
+                            <br/>
+                            <img ng-if="ctrl.section.logo_url" ng-src="{[{ctrl.section.logo_url}]}" alt="Logo image"/>
+                            <br/><br/>
+                            <input class="btn btn-primary {% if (readOnly) %}hidden{% endif %}" type="submit" value="Save" type="submit" ng-click="ctrl.editSection()"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -55,7 +55,7 @@ class ImportCountriesReader
 
         foreach ($this->filterCountries() as $element) {
             $name = $element->nodeValue;
-            $codeCountry = explode("/section/", $element->attributes['href']->value)[1];
+            $codeCountry = explode("/section/", $element->attributes->getNamedItem('href')->value)[1];
             $countriesElement = $this->filterCountryDetails($codeCountry);
 
             $country = $this->countryCreator->createCountry(

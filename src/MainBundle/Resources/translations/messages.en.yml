@@ -44,5 +44,6 @@ sections:
           address: Address
           email: E-Mail
           logo-url: Url of the logo
+          logo-url-image: Logo image for this link
       buttons:
           generate-url-logo: Generate from logoInserter

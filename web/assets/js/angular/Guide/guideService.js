@@ -1,3 +1,0 @@
-guideModule.service('guideService', [ function () {
-
-}]);

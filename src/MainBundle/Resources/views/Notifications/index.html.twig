@@ -1,7 +1,7 @@
 {% extends 'MainBundle::base.html.twig' %}
 {% set readOnly = (is_granted('ROLE_ADMIN') == false and is_granted('ROLE_BOARD') == false) %}
 {% block body %}
-    <div class="main-inner" ng-controller="notificationController" ng-init="init()">
+    <div class="main-inner" ng-controller="notificationController as ctrl" ng-init="ctrl.init()">
         <div class="container">
             {% if (readOnly == false) %}
             <div class="span5">
@@ -11,15 +11,15 @@
                         <h3>{{ 'notifications.send-notification' | trans }}</h3>
                     </div>
                     <div class="widget-content">
-                        <form method="post" name="sendNotificationsForm" ng-submit="sendNotification()">
+                        <form method="post" name="sendNotificationsForm" ng-submit="ctrl.sendNotification()">
                             {% if is_granted('ROLE_ADMIN') %}
                                 <div class="control-group">
                                     <label for="subject" class="control-label">Sections</label>
                                     <div class="controls">
                                         <select chosen multiple
                                                 data-placeholder="Choose sections"
-                                                ng-model="sectionsSelected"
-                                                ng-options="section.name group by section.country.name for section in sections"
+                                                ng-model="ctrl.sectionsSelected"
+                                                ng-options="section.name group by section.country.name for section in ctrl.sections"
                                                 ng-disabled="editable">
                                             <option value=""></option>
                                         </select>
@@ -29,15 +29,15 @@
                             <div class="control-group">
                                 <label for="subject" class="control-label">Title</label>
                                 <div class="controls">
-                                    <input class="span4" type="text" ng-model="notification.title" required>
+                                    <input class="span4" type="text" ng-model="ctrl.notification.title" required>
                                 </div> <!-- /controls -->
                             </div>
 
                             <div class="control-group">
                                 <label for="message" class="control-label">Content</label>
                                 <div class="controls">
-                                    <textarea class="span4" cols="50" rows="10" type="text" ng-model="notification.content" required></textarea>
-                                </div> <!-- /controls -->
+                                    <textarea class="span4" cols="50" rows="10" type="text" ng-model="ctrl.notification.content" required></textarea>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary">{{ 'notifications.send-notification' | trans }}</button>
                         </form>
@@ -54,7 +54,7 @@
                     <div class="widget-content">
 
                         <ul class="news-items">
-                            <li ng-repeat="notification in notifications">
+                            <li ng-repeat="notification in ctrl.notifications">
                                 <div class="news-item-date">
                                     <span class="news-item-month">{[{ notification.sent_at | date:'dd/MM' }]}</span>
                                     <span class="news-item-month">{[{ notification.sent_at | date:'HH:mm' }]}</span>
@@ -71,4 +71,3 @@
         </div>
     </div>
 {% endblock %}
-

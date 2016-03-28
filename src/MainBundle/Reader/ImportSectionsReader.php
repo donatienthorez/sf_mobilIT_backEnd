@@ -88,7 +88,7 @@ class ImportSectionsReader
                 $name = $element->nodeValue;
                 $codeSection = explode(
                     "/section/" . $country->getCodeCountry() . '/',
-                    $element->attributes['href']->value
+                    $element->attributes->getNamedItem('href')->value
                 )[1];
 
                 $sectionElementsField = $this

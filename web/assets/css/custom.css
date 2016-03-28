@@ -134,3 +134,11 @@ tr.angular-ui-tree-empty {
 .no-margin {
     margin: 0;
 }
+
+.text-align-center {
+    text-align:center;
+}
+
+.account-container {
+    width:700px;
+}
