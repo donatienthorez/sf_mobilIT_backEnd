@@ -53,4 +53,17 @@ class SectionManager
         }
         $this->em->flush();
     }
+
+    /**
+     * @param Section $section
+     *
+     * @return bool
+     */
+    public function changeStatus(Section $section)
+    {
+        $section->isActivated() ? $section->setActivated(false) : $section->setActivated(true);
+        $this->em->flush();
+
+        return $section->isActivated();
+    }
 }

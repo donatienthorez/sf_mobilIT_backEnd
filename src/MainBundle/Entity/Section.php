@@ -130,6 +130,7 @@ class Section
 
     /**
      * @ORM\Column(type="boolean", name="activated", options={"default": false})
+     * @Groups({"activated"})
      */
     protected $activated;
 

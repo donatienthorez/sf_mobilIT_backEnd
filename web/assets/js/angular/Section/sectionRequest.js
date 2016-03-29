@@ -10,6 +10,7 @@ function SectionRequest($http) {
     ctrl.getSection = getSection;
     ctrl.editSection = editSection;
     ctrl.generateLogoUrl = generateLogoUrl;
+    ctrl.changeSectionStatus = changeSectionStatus;
 
     /**
      * Retrieve section.
@@ -66,6 +67,22 @@ function SectionRequest($http) {
             url: Routing.generate(
                 'api_sections_generate_logo_inserter_link',
                 {section: section}
+            )
+        }).then(function (result) {
+            return result.data;
+        });
+    }
+
+    /**
+     * Change the status of the section.
+     *
+     * @return promise.
+     */
+    function changeSectionStatus() {
+        return $http({
+            method: 'PUT',
+            url: Routing.generate(
+                'api_sections_change_status'
             )
         }).then(function (result) {
             return result.data;
