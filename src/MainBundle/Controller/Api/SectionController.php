@@ -71,9 +71,26 @@ class SectionController extends BaseController
                 ->serialize(
                     $section,
                     'json',
-                    SerializationContext::create()->setGroups(array('token', 'details'))
+                    SerializationContext::create()->setGroups(array('token', 'details', 'galaxyImport'))
                 )
         );
+    }
+
+    /**
+     * @FosRest\Put()
+     * @FosRest\View()
+     *
+     * @Security("has_role('ROLE_BOARD')")
+     */
+    public function changeStatusAction()
+    {
+        $section = $this->getUser()->getSection();
+
+        $this->checkPermissionsForSection($section);
+
+        return $this
+            ->get('main.section.service')
+            ->changeStatus($section);
     }
 
     /**
@@ -82,7 +99,7 @@ class SectionController extends BaseController
      * @FosRest\Put("/{section}/edit", requirements={"category" = "\d+"})
      * @ParamConverter("section", class="MainBundle:Section")
      *
-     * @Security("has_role('ROLE_USER')")
+     * @Security("has_role('ROLE_BOARD')")
      */
     public function editSectionAction(Section $section, Request $request)
     {

@@ -13,6 +13,7 @@ function SectionController(sectionRequest) {
     ctrl.getSection = getSection;
     ctrl.editSection = editSection;
     ctrl.generateLogoUrl = generateLogoUrl;
+    ctrl.changeSectionStatus = changeSectionStatus;
 
     /**
      * Init the controller by calling getSection
@@ -45,6 +46,15 @@ function SectionController(sectionRequest) {
     function generateLogoUrl() {
         sectionRequest.generateLogoUrl(ctrl.section.code_section).then(function (data) {
             ctrl.section.logo_url = data.url;
+        });
+    }
+
+    /**
+     * Change the status of the section
+     */
+    function changeSectionStatus() {
+        sectionRequest.changeSectionStatus().then(function (data) {
+            ctrl.section.galaxy_import = data;
         });
     }
 }

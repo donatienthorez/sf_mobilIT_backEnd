@@ -40,12 +40,30 @@ class SectionManager
     public function saveSections($sections)
     {
         foreach ($sections as $section) {
-            if ($this->em->find('MainBundle:Section', $section->getCodeSection())) {
-                $this->em->merge($section);
-            } else {
+            $oldSection = $this
+                ->em
+                ->find(Section::class, $section->getCodeSection());
+
+            if (!$oldSection) {
                 $this->em->persist($section);
+            }
+            if ($oldSection && !$oldSection->isGalaxyImport()) {
+                $this->em->merge($section);
             }
         }
         $this->em->flush();
+    }
+
+    /**
+     * @param Section $section
+     *
+     * @return bool
+     */
+    public function changeStatus(Section $section)
+    {
+        $section->isGalaxyImport() ? $section->setGalaxyImport(false) : $section->setGalaxyImport(true);
+        $this->em->flush();
+
+        return $section->isGalaxyImport();
     }
 }

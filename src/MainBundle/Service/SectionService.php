@@ -87,4 +87,11 @@ class SectionService
 
         return $response;
     }
+
+    public function changeStatus(Section $section)
+    {
+        return $this
+            ->sectionManager
+            ->changeStatus($section);
+    }
 }
