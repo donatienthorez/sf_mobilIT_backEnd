@@ -54,7 +54,7 @@ function SectionController(sectionRequest) {
      */
     function changeSectionStatus() {
         sectionRequest.changeSectionStatus().then(function (data) {
-            ctrl.section.activated = data;
+            ctrl.section.galaxy_import = data;
         });
     }
 }

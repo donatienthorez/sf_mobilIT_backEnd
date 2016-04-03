@@ -47,7 +47,7 @@ class SectionManager
             if (!$oldSection) {
                 $this->em->persist($section);
             }
-            if ($oldSection && !$oldSection->isActivated()) {
+            if ($oldSection && !$oldSection->isGalaxyImport()) {
                 $this->em->merge($section);
             }
         }
@@ -61,9 +61,9 @@ class SectionManager
      */
     public function changeStatus(Section $section)
     {
-        $section->isActivated() ? $section->setActivated(false) : $section->setActivated(true);
+        $section->isGalaxyImport() ? $section->setGalaxyImport(false) : $section->setGalaxyImport(true);
         $this->em->flush();
 
-        return $section->isActivated();
+        return $section->isGalaxyImport();
     }
 }

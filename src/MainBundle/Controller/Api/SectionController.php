@@ -71,7 +71,7 @@ class SectionController extends BaseController
                 ->serialize(
                     $section,
                     'json',
-                    SerializationContext::create()->setGroups(array('token', 'details', 'activated'))
+                    SerializationContext::create()->setGroups(array('token', 'details', 'galaxyImport'))
                 )
         );
     }

@@ -134,6 +134,12 @@ class Section
      */
     protected $activated;
 
+    /**
+     * @ORM\Column(type="boolean", name="galaxy_import", options={"default": false})
+     * @Groups({"galaxyImport"})
+     */
+    protected $galaxyImport;
+
     public function __construct()
     {
         $this->addedAt = new \DateTime();
@@ -400,6 +406,22 @@ class Section
     public function setActivated($activated)
     {
         $this->activated = $activated;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isGalaxyImport()
+    {
+        return $this->galaxyImport;
+    }
+
+    /**
+     * @param boolean $galaxyImport
+     */
+    public function setGalaxyImport($galaxyImport)
+    {
+        $this->galaxyImport = $galaxyImport;
     }
 
     public function __toString()
