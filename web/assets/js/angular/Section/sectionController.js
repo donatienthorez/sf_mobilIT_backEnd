@@ -19,7 +19,7 @@ function SectionController(sectionRequest) {
      * Init the controller by calling getSection
      */
     function init() {
-        ctrl.getSection()
+        ctrl.getSection();
     }
 
     /**
