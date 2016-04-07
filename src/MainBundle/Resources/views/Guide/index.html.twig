@@ -73,7 +73,7 @@
                     <div class="widget-header">
                         <i class="icon-book"></i>
                         <h3>Content</h3>
-                        <input class="{% if (readOnly) %}hidden{% endif %}" ng-if="ctrl.categorieSelected.title" class="btn btn-default" value="Save" type="submit" ng-click="ctrl.save()">
+                        <input class="{% if (readOnly) %}hidden{% endif %} btn btn-default" ng-if="ctrl.categorieSelected.title" value="Save" type="submit" ng-click="ctrl.save()">
                     </div>
                     <div class="widget-content">
                         <div ng-if="ctrl.categorieSelected.title" class="ng-scope">
@@ -88,3 +88,4 @@
         </div>
     </div>
 {% endblock %}
+
