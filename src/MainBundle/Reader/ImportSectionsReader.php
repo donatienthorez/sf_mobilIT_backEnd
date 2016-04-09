@@ -100,7 +100,9 @@ class ImportSectionsReader
                 $element->attributes->getNamedItem('href')->value
             )[1];
 
-            if ($country->getSection($codeSection) && $country->getSection($codeSection)->isGalaxyImport()) {
+            if (!$country->getSection($codeSection) ||
+                ($country->getSection($codeSection) && $country->getSection($codeSection)->isGalaxyImport())
+            ) {
                 $sectionElementsField = $this
                     ->filterSectionDetails(
                         $country->getCodeCountry(),
