@@ -31,6 +31,8 @@ services:
         arguments:
             - "@main.import_countries.reader"
             - "@main.country.manager"
+            - "@main.country.fetcher"
+            - "@event_dispatcher"
 
     main.import_sections.service:
         class: MainBundle\Service\ImportSectionsService

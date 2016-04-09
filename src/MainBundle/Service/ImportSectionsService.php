@@ -36,13 +36,20 @@ class ImportSectionsService
      */
     protected $dispatcher;
 
+    /**
+     * @param ImportSectionsReader     $importSectionsReader
+     * @param CountryManager           $countryManager
+     * @param CountryFetcher           $countryFetcher
+     * @param SectionManager           $sectionManager
+     * @param EventDispatcherInterface $dispatcher
+     */
     public function __construct(
         ImportSectionsReader $importSectionsReader,
         CountryManager $countryManager,
         CountryFetcher $countryFetcher,
         SectionManager $sectionManager,
-        EventDispatcherInterface $dispatcher)
-    {
+        EventDispatcherInterface $dispatcher
+    ) {
         $this->importSectionsReader = $importSectionsReader;
         $this->countryManager = $countryManager;
         $this->countryFetcher = $countryFetcher;
