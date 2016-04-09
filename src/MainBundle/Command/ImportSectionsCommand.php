@@ -3,7 +3,9 @@
 namespace MainBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ImportSectionsCommand extends ContainerAwareCommand
@@ -12,16 +14,33 @@ class ImportSectionsCommand extends ContainerAwareCommand
     {
         $this
             ->setName('main:import-sections')
-            ->setDescription('Import the sections from the sections.json file');
+            ->setDescription('Import the sections from the sections.json file')
+            ->addOption(
+                'country',
+                '--country',
+                InputOption::VALUE_OPTIONAL,
+                'Specify a country and it will update all his sections'
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln("Please wait...");
+        $output->writeln('Please wait ...');
+
+        $dispatcher = $this->getContainer()->get('event_dispatcher');
+
+        $dispatcher->addListener(
+            'display.message',
+            function (GenericEvent $event) use ($output) {
+                $output->writeLn($event->getSubject());
+            }
+        );
+
         $this
             ->getContainer()
             ->get('main.import_sections.service')
-            ->importSections();
-        $output->writeln("SUCCESSFULL ! The sections are imported.");
+            ->importSections($input->getOption("country"));
+
+        $output->writeln('SUCCESSFULL ! All the sections are updated.');
     }
 }

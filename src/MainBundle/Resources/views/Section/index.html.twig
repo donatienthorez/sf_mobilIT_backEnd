@@ -12,7 +12,10 @@
                             <div class="onoffswitch">
                                 <input name="onoffswitch"
                                        class="onoffswitch-checkbox ng-pristine ng-untouched ng-valid"
-                                       id="myonoffswitch" ng-model="ctrl.section.galaxy_import"
+                                       id="myonoffswitch"
+                                       ng-model="ctrl.section.galaxy_import"
+                                       ng-true-value="false"
+                                       ng-false-value="true"
                                        ng-change="ctrl.changeSectionStatus()"
                                        type="checkbox"  {% if (readOnly) %}disabled="true"{% endif %}">
                                 <label class="onoffswitch-label" for="myonoffswitch">
@@ -24,17 +27,17 @@
                     </div>
                     <div class="widget-content">
                             <label for="name">{{ 'sections.form.label.name' | trans }}</label>
-                            <input type="text" required="required" ng-model="ctrl.section.name" {% if (readOnly) %}readonly{% endif %} ng-disabled="!ctrl.section.galaxy_import"/><br>
+                            <input type="text" required="required" ng-model="ctrl.section.name" {% if (readOnly) %}readonly{% endif %} ng-disabled="ctrl.section.galaxy_import"/><br>
                             <label for="website">{{ 'sections.form.label.website' | trans }}</label>
-                            <input type="text" required="required" ng-model="ctrl.section.website" {% if (readOnly) %}readonly{% endif %} ng-disabled="!ctrl.section.galaxy_import"/><br>
+                            <input type="text" required="required" ng-model="ctrl.section.website" {% if (readOnly) %}readonly{% endif %} ng-disabled="ctrl.section.galaxy_import"/><br>
                             <label for="email">{{ 'sections.form.label.email' | trans }}</label>
-                            <input type="text" required="required" ng-model="ctrl.section.email" type="email" {% if (readOnly) %}readonly{% endif %} ng-disabled="!ctrl.section.galaxy_import"/><br>
+                            <input type="text" required="required" ng-model="ctrl.section.email" type="email" {% if (readOnly) %}readonly{% endif %} ng-disabled="ctrl.section.galaxy_import"/><br>
                             <label for="phone">{{ 'sections.form.label.phone' | trans }}</label>
-                            <input type="text" required="required" ng-model="ctrl.section.phone" {% if (readOnly) %}readonly{% endif %} ng-disabled="!ctrl.section.galaxy_import"/><br>
+                            <input type="text" required="required" ng-model="ctrl.section.phone" {% if (readOnly) %}readonly{% endif %} ng-disabled="ctrl.section.galaxy_import"/><br>
                             <label for="university">{{ 'sections.form.label.university' | trans }}</label>
-                            <input type="text" required="required" ng-model="ctrl.section.university" {% if (readOnly) %}readonly{% endif %} ng-disabled="!ctrl.section.galaxy_import"/><br>
+                            <input type="text" required="required" ng-model="ctrl.section.university" {% if (readOnly) %}readonly{% endif %} ng-disabled="ctrl.section.galaxy_import"/><br>
                             <label for="address">{{ 'sections.form.label.address' | trans }}</label>
-                            <textarea rows="4" cols="50" ng-model="ctrl.section.address" {% if (readOnly) %}readonly{% endif %} ng-disabled="!ctrl.section.galaxy_import"></textarea>
+                            <textarea rows="4" cols="50" ng-model="ctrl.section.address" {% if (readOnly) %}readonly{% endif %} ng-disabled="ctrl.section.galaxy_import"></textarea>
                             <label for="logoUrl">{{ 'sections.form.label.logo-url' | trans }}</label>
                             <input class="no-margin" type="text" required="required" ng-model="ctrl.section.logo_url" {% if (readOnly) %}readonly{% endif %}/>
                             <button class="btn btn-primary {% if (readOnly) %}hidden{% endif %}" ng-click="ctrl.generateLogoUrl()">{{ 'sections.form.buttons.generate-url-logo' | trans }}</button>

@@ -19,6 +19,14 @@ class CountryFetcher
         $this->em = $em;
     }
 
+    public function getCountry($codeCountry)
+    {
+        return $this
+            ->em
+            ->getRepository('MainBundle:Country')
+            ->findBy(['codeCountry' => $codeCountry]);
+    }
+
     public function getCountries()
     {
         return $this

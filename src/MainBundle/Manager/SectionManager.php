@@ -23,6 +23,7 @@ class SectionManager
 
     public function save(Section $section)
     {
+        $section->setUpdatedAt();
         $this
             ->em
             ->persist($section);
@@ -46,8 +47,12 @@ class SectionManager
 
             if (!$oldSection) {
                 $this->em->persist($section);
-            }
-            if ($oldSection && !$oldSection->isGalaxyImport()) {
+            } else {
+                $section->setGuide($oldSection->getGuide());
+                $section->setToken($oldSection->getToken());
+                $section->setLogoUrl($oldSection->getLogoUrl());
+                $section->setAddedAt($oldSection->getAddedAt());
+                $section->setUpdatedAt();
                 $this->em->merge($section);
             }
         }

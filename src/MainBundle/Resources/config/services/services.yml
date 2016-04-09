@@ -39,6 +39,7 @@ services:
             - "@main.country.manager"
             - "@main.country.fetcher"
             - "@main.section.manager"
+            - "@event_dispatcher"
 
     main.category.service:
         class: MainBundle\Service\CategoryService

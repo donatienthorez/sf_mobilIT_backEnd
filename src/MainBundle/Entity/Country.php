@@ -125,6 +125,15 @@ class Country
         $this->email = $email;
     }
 
+    public function getSection($codeSection) {
+        foreach ($this->sections as $section) {
+            if ($section->getCodeSection() === $codeSection) {
+                return $section;
+            }
+        }
+        return null;
+    }
+
     /**
      * @return mixed
      */
