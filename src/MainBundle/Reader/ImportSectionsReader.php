@@ -28,20 +28,26 @@ class ImportSectionsReader
      */
     private function filterSections($country)
     {
-        $html = file_get_contents(sprintf('https://galaxy.esn.org/section/%s', $country),
-            false,
-            stream_context_create([
-                "ssl" => [
-                    "verify_peer" => false,
-                    "allow_self_signed" => false
-                    ]
-                ]
-            )
+        $html = $this->getDataFromUrl(
+            sprintf('https://galaxy.esn.org/section/%s', $country)
         );
         $crawler = new Crawler($html);
         $elements = $crawler->filter('#block-esn_galaxy_ldap-0 > div.content > ul > li > a');
 
         return $elements;
+    }
+
+    function getDataFromUrl($url)
+    {
+        $ch = curl_init();
+        $timeout = 5;
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        return $data;
     }
 
     /**
@@ -53,16 +59,8 @@ class ImportSectionsReader
      */
     private function filterSectionDetails($codeCountry, $codeSection, $details = false)
     {
-        $htmlSection = file_get_contents(
-            sprintf('https://galaxy.esn.org/section/%s/%s', $codeCountry, $codeSection),
-            false,
-            stream_context_create([
-                "ssl" => [
-                    "verify_peer" => false,
-                    "allow_self_signed" => false
-                    ]
-                ]
-            )
+        $htmlSection = $this->getDataFromUrl(
+            sprintf('https://galaxy.esn.org/section/%s/%s', $codeCountry, $codeSection)
         );
 
         $crawlerSection = new Crawler($htmlSection);
