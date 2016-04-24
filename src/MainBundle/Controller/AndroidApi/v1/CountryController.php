@@ -6,26 +6,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as FosRest;
 use FOS\RestBundle\Request\ParamFetcher;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
 use JMS\Serializer\SerializationContext;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
- * @FosRest\NamePrefix("api_android_countries_")
+ * @FosRest\NamePrefix("api_android_countries_v1_")
  */
 class CountryController extends Controller
 {
     /**
-     * @QueryParam(
+     * @ApiDoc(
+     *  description = "List all the countries and their sections."
+     * )
+     *
+     * @FosRest\QueryParam(
      *     name = "token",
      *     nullable = false,
-     *     description = "Mobilit token"
+     *     description = "Mobilit token."
      * )
      *
      * @param ParamFetcher $paramFetcher
      *
      * @return Response
      */
-    public function getAction(ParamFetcher $paramFetcher)
+    public function listAction(ParamFetcher $paramFetcher)
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
             return new Response(
