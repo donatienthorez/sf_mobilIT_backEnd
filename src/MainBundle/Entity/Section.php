@@ -149,7 +149,7 @@ class Section
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCodeSection()
     {
@@ -157,11 +157,15 @@ class Section
     }
 
     /**
-     * @param mixed $codeSection
+     * @param string $codeSection
+     *
+     * @return $this
      */
     public function setCodeSection($codeSection)
     {
         $this->codeSection = $codeSection;
+
+        return $this;
     }
 
     /**
