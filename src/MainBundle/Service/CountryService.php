@@ -20,11 +20,11 @@ class CountryService
         $this->countryFetcher = $countryFetcher;
     }
 
-    public function getCountries()
+    public function getCountries($onlyActivated = false)
     {
         $data = $this
             ->countryFetcher
-            ->getCountries();
+            ->getCountries($onlyActivated);
 
         return $data;
     }

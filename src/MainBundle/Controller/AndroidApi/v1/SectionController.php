@@ -17,6 +17,8 @@ use MainBundle\Entity\Section;
 class SectionController extends Controller
 {
     /**
+     * @FosRest\Get("/")
+     *
      * @ApiDoc(
      *  description = "List all the sections."
      * )

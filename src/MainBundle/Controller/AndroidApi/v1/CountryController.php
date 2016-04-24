@@ -15,6 +15,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class CountryController extends Controller
 {
     /**
+     * @FosRest\Get("/")
+     *
      * @ApiDoc(
      *  description = "List all the countries and their sections."
      * )
@@ -40,7 +42,7 @@ class CountryController extends Controller
 
         $countries = $this
             ->get('main.country.service')
-            ->getCountries();
+            ->getCountries(true);
 
         $serializer = $this->get('serializer');
 
