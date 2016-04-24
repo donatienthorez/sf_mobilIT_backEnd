@@ -6,10 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use FOS\RestBundle\Controller\Annotations as FosRest;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcher;
 use MainBundle\Entity\Section;
 use MainBundle\Model\GuideModel;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
  * @FosRest\NamePrefix("api_android_guide_v1_")
@@ -18,13 +18,17 @@ class GuideController extends Controller
 {
     /**
      * @FosRest\Get("/{section}")
+     *
+     * @ApiDoc(
+     *  description = "Get the guide of a section"
+     * )
+     *
      * @ParamConverter("section", class="MainBundle:Section")
      *
-     * @FosRest\View()
-     * @QueryParam(
+     * @FosRest\QueryParam(
      *     name = "token",
      *     nullable = false,
-     *     description = "Mobilit token"
+     *     description = "Mobilit token."
      * )
      * @param Section $section
      * @param ParamFetcher $paramFetcher
