@@ -3,6 +3,7 @@ services:
         class: MainBundle\Reader\ImportCountriesReader
         arguments:
             - "@main.country.creator"
+            - "@event_dispatcher"
 
     main.import_sections.reader:
         class: MainBundle\Reader\ImportSectionsReader

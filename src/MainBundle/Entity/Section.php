@@ -135,7 +135,7 @@ class Section
     protected $activated;
 
     /**
-     * @ORM\Column(type="boolean", name="galaxy_import", options={"default": false})
+     * @ORM\Column(type="boolean", name="galaxy_import", options={"default": true})
      * @Groups({"galaxyImport"})
      */
     protected $galaxyImport;
@@ -144,6 +144,8 @@ class Section
     {
         $this->addedAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->activated = false;
+        $this->galaxyImport = true;
     }
 
     /**
@@ -367,6 +369,9 @@ class Section
     }
 
     /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     *
      * @return $this
      */
     public function setUpdatedAt()
@@ -424,6 +429,22 @@ class Section
         $this->galaxyImport = $galaxyImport;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getGuide()
+    {
+        return $this->guide;
+    }
+
+    /**
+     * @param mixed $guide
+     */
+    public function setGuide($guide)
+    {
+        $this->guide = $guide;
+    }
+
     public function __toString()
     {
         return (string) $this->getCodeSection();
@@ -433,4 +454,6 @@ class Section
     {
         $this->token = bin2hex(random_bytes(20));
     }
+
+
 }

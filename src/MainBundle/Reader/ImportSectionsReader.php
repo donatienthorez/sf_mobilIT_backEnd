@@ -4,6 +4,7 @@ namespace MainBundle\Reader;
 
 use Symfony\Component\DomCrawler\Crawler;
 use MainBundle\Creator\SectionCreator;
+use MainBundle\Entity\Country;
 
 class ImportSectionsReader
 {
@@ -27,39 +28,46 @@ class ImportSectionsReader
      */
     private function filterSections($country)
     {
-        $html = file_get_contents('https://galaxy.esn.org/section/' . $country);
+        $html = $this->getDataFromUrl(
+            sprintf('https://galaxy.esn.org/section/%s', $country)
+        );
         $crawler = new Crawler($html);
         $elements = $crawler->filter('#block-esn_galaxy_ldap-0 > div.content > ul > li > a');
 
         return $elements;
     }
 
-    /**
-     * @param $codeCountry
-     * @param $codeSection
-     *
-     * @return Crawler
-     */
-    private function filterSectionDetails($codeCountry, $codeSection)
+    function getDataFromUrl($url)
     {
-        $htmlSection = file_get_contents('https://galaxy.esn.org/section/' . $codeCountry . "/" . $codeSection);
-        $crawlerSection = new Crawler($htmlSection);
-        $sectionsElement = $crawlerSection->filter('#block-esn_galaxy_ldap-2 > div.content > div > div.scrinfo');
+        $ch = curl_init();
+        $timeout = 5;
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+        $data = curl_exec($ch);
+        curl_close($ch);
 
-        return $sectionsElement;
+        return $data;
     }
 
     /**
      * @param $codeCountry
      * @param $codeSection
+     * @param bool $details
      *
      * @return Crawler
      */
-    private function filterSectionDetailsFields($codeCountry, $codeSection)
+    private function filterSectionDetails($codeCountry, $codeSection, $details = false)
     {
-        $htmlSection = file_get_contents('https://galaxy.esn.org/section/' . $codeCountry . "/" . $codeSection);
+        $htmlSection = $this->getDataFromUrl(
+            sprintf('https://galaxy.esn.org/section/%s/%s', $codeCountry, $codeSection)
+        );
+
         $crawlerSection = new Crawler($htmlSection);
-        $sectionsElement = $crawlerSection->filter('#block-esn_galaxy_ldap-2 > div.content > div > div.scinfo');
+        $filter = $details ? '#block-esn_galaxy_ldap-2 > div.content > div > div.scinfo' :
+            '#block-esn_galaxy_ldap-2 > div.content > div > div.scrinfo';
+
+        $sectionsElement = $crawlerSection->filter($filter);
 
         return $sectionsElement;
     }
@@ -74,27 +82,30 @@ class ImportSectionsReader
     }
 
     /**
-     * @param $countries
+     * @param Country $country
      *
      * @return array
      */
-    public function importSections($countries)
+    public function importSections(Country $country)
     {
         $sections = array();
 
-        foreach ($countries as $country) {
-            foreach ($this->filterSections($country->getCodeCountry()) as $element) {
+        foreach ($this->filterSections($country->getCodeCountry()) as $element) {
 
-                $name = $element->nodeValue;
-                $codeSection = explode(
-                    "/section/" . $country->getCodeCountry() . '/',
-                    $element->attributes->getNamedItem('href')->value
-                )[1];
+            $name = $element->nodeValue;
+            $codeSection = explode(
+                sprintf("/section/%s/", $country->getCodeCountry()),
+                $element->attributes->getNamedItem('href')->value
+            )[1];
 
+            if (!$country->getSection($codeSection) ||
+                ($country->getSection($codeSection) && $country->getSection($codeSection)->isGalaxyImport())
+            ) {
                 $sectionElementsField = $this
-                    ->filterSectionDetailsFields(
+                    ->filterSectionDetails(
                         $country->getCodeCountry(),
-                        $codeSection
+                        $codeSection,
+                        true
                     );
 
                 $sectionElementsIterator = $this
@@ -103,15 +114,14 @@ class ImportSectionsReader
                         $codeSection
                     )
                     ->getIterator();
-                $informations = array();
-                $keys = array("Address: ","Telephone:","Section website: ", "E-Mail: ","University name: ");
+                $information = [];
+                $keys = ["Address: ","Telephone:","Section website: ", "E-Mail: ","University name: "];
                 $cpt = 0;
                 foreach ($sectionElementsField as $sectionElement) {
                     foreach ($keys as $key) {
-
                         switch ($sectionElement->nodeValue) {
                             case $keys[0]:
-                                $informations[$cpt] = $this->parseAddress($sectionElementsIterator
+                                $information[$cpt] = $this->parseAddress($sectionElementsIterator
                                     ->current()
                                     ->ownerDocument
                                     ->saveHTML(
@@ -119,7 +129,7 @@ class ImportSectionsReader
                                     ));
                                 break;
                             default:
-                                $informations[$cpt] = $sectionElementsIterator
+                                $information[$cpt] = $sectionElementsIterator
                                     ->current()
                                     ->nodeValue;
                         }
@@ -127,7 +137,7 @@ class ImportSectionsReader
                     $cpt++;
                     $sectionElementsIterator->next();
                 }
-                $section = $this->sectionCreator->createSection($codeSection, $name, $informations, $country);
+                $section = $this->sectionCreator->createSection($codeSection, $name, $information, $country);
                 $sections[] = $section;
             }
         }

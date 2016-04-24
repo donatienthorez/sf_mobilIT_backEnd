@@ -41,4 +41,5 @@ class GuideRepository extends EntityRepository
 
         return $query->getSingleScalarResult();
     }
+
 }
