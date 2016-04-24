@@ -8,6 +8,7 @@ use JMS\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity
  * @ORM\Table(name="countries")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\CountryRepository")
  */
 class Country
 {
