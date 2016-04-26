@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\DataFixtures\ORM;
+namespace MainBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -11,7 +11,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $userAdmin = (new User())
+        $user1 = (new User())
             ->setUsername('user1')
             ->setPassword('user1')
             ->setSection(
@@ -36,6 +36,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             ->addRole("ROLE_NORMAL");
 
 
+        $manager->persist($user1);
         $manager->persist($userAdmin);
         $manager->flush();
     }
