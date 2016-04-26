@@ -15,7 +15,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class CountryController extends Controller
 {
     /**
-     * @FosRest\Get("/")
+     * @FosRest\Get("")
      *
      * @ApiDoc(
      *  description = "List all the countries and their sections."
@@ -35,7 +35,7 @@ class CountryController extends Controller
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
             return new Response(
-                "Invalid token. The token should be the same than the config file.",
+                json_encode(["message" => "Invalid token. The token should be the same than the config file."]),
                 Response::HTTP_FORBIDDEN
             );
         }

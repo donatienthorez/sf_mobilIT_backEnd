@@ -48,6 +48,8 @@ class GuideModel
     public function setActivated($activated)
     {
         $this->activated = $activated;
+
+        return $this;
     }
 
     public function isActivated()
@@ -58,5 +60,7 @@ class GuideModel
     public function setCreated($created)
     {
         $this->created = $created;
+
+        return $this;
     }
 }

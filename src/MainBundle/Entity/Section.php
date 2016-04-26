@@ -410,11 +410,15 @@ class Section
     }
 
     /**
-     * @param boolean $activated
+     * @param bool $activated
+     *
+     * @return $this
      */
     public function setActivated($activated)
     {
         $this->activated = $activated;
+
+        return $this;
     }
 
     /**
@@ -427,10 +431,14 @@ class Section
 
     /**
      * @param boolean $galaxyImport
+     *
+     * @return $this
      */
     public function setGalaxyImport($galaxyImport)
     {
         $this->galaxyImport = $galaxyImport;
+
+        return $this;
     }
 
     /**

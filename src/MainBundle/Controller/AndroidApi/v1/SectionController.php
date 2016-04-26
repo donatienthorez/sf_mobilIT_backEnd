@@ -17,7 +17,7 @@ use MainBundle\Entity\Section;
 class SectionController extends Controller
 {
     /**
-     * @FosRest\Get("/")
+     * @FosRest\Get("")
      *
      * @ApiDoc(
      *  description = "List all the sections."
@@ -37,7 +37,7 @@ class SectionController extends Controller
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
             return new Response(
-                "Invalid token. The token should be the same than the config file.",
+                json_encode(["message" => "Invalid token. The token should be the same than the config file."]),
                 Response::HTTP_FORBIDDEN
             );
         }

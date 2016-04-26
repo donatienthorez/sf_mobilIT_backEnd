@@ -66,6 +66,11 @@ class SectionService
         return $section;
     }
 
+    public function checkSection($codeSection)
+    {
+        return $this->sectionFetcher->getSection($codeSection) ? true : false;
+    }
+
     public function generateToken(Section $section)
     {
         $section->generateToken();

@@ -77,10 +77,14 @@ class Category
 
     /**
      * @param mixed $id
+     *
+     * @return $this
      */
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -133,30 +137,18 @@ class Category
 
     /**
      * @param mixed $createAt
+     *
+     * @return $this
      */
     public function setCreateAt($createAt)
     {
         $this->createAt = $createAt;
+
+        return $this;
     }
 
     /**
-     * @return mixed
-     */
-    public function getActivated()
-    {
-        return $this->activated;
-    }
-
-    /**
-     * @param mixed $activated
-     */
-    public function setActivated($activated)
-    {
-        $this->activated = $activated;
-    }
-
-    /**
-     * @return mixed
+     * @return Guide
      */
     public function getGuide()
     {

@@ -20,6 +20,13 @@ class GuideFetcher
         $this->em = $em;
     }
 
+    /**
+     * Returns the guide of the section.
+     *
+     * @param Section $section
+     *
+     * @return Guide
+     */
     public function getGuide(Section $section)
     {
         return $this
@@ -28,6 +35,11 @@ class GuideFetcher
             ->getGuide($section);
     }
 
+    /**
+     * Returns the number of guides.
+     *
+     * @return int
+     */
     public function count()
     {
         return $this
