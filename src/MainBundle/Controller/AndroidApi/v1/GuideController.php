@@ -39,7 +39,7 @@ class GuideController extends Controller
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
             return new Response(
-                "Invalid token. The token should be the same than the config file.",
+                json_encode(["message" => $this->get('translator')->trans("errors.api.android.v1.token")]),
                 Response::HTTP_FORBIDDEN
             );
         }
@@ -50,7 +50,7 @@ class GuideController extends Controller
 
         $guide = $this
             ->get('main.guide.adapter')
-            ->getModel($guide);
+            ->getModel($guide, true);
 
         return $guide;
     }

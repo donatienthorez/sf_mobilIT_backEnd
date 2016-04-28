@@ -31,11 +31,11 @@ class SectionService
         $this->sectionManager = $sectionManager;
     }
 
-    public function getSections()
+    public function getSections($activated = false)
     {
         $data = $this
             ->sectionFetcher
-            ->getSections();
+            ->getSections($activated);
 
         return $data;
     }
@@ -64,6 +64,11 @@ class SectionService
             ->save($section);
 
         return $section;
+    }
+
+    public function checkSection($codeSection)
+    {
+        return $this->sectionFetcher->getSection($codeSection) ? true : false;
     }
 
     public function generateToken(Section $section)

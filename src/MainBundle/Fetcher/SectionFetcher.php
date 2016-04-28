@@ -25,12 +25,12 @@ class SectionFetcher
      *
      * @return array
      */
-    public function getSections()
+    public function getSections($activated = false)
     {
         return $this
             ->entityManager
             ->getRepository('MainBundle:Section')
-            ->findAll();
+            ->findAllActivated($activated);
     }
 
     /**

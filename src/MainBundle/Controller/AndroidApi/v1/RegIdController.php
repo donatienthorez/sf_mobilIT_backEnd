@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as FosRest;
+use FOS\RestBundle\Request\ParamFetcher;
+use JMS\Serializer\SerializationContext;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
@@ -29,24 +31,41 @@ class RegIdController extends Controller
      * @FosRest\RequestParam(name="regId", description="RegId to save.", nullable=false)
      * @FosRest\RequestParam(name="section", description="CodeSection of the user section.", nullable=false)
      *
-     * @param Request $request
+     * @param ParamFetcher $paramFetcher
      *
      * @return Response
+     *
      */
-    public function createAction(Request $request)
+    public function createAction(ParamFetcher $paramFetcher)
     {
-        if ($this->container->getParameter('mobilit_token') != $request->request->get('token')) {
+        if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
             return new Response(
-                "Invalid token. The token should be the same than the config file.",
+                json_encode(["message" => $this->get('translator')->trans("errors.api.android.v1.token")]),
                 Response::HTTP_FORBIDDEN
             );
         }
 
-        return $this
-            ->get('main.regid.manager')
-            ->saveRegId(
-                $request->request->get('regId'),
-                $request->request->get('section')
+        if (!$this->get('main.section.service')->checkSection($paramFetcher->get('section'))) {
+            return new Response(
+                json_encode(["message" => $this->get('translator')->trans("errors.api.android.v1.no_section")]),
+                Response::HTTP_FORBIDDEN
             );
+        }
+
+        $serializer = $this->get('serializer');
+
+        return new Response(
+            $serializer->serialize(
+                $this
+                    ->get('main.regid.manager')
+                    ->saveRegId(
+                        $paramFetcher->get('regId'),
+                        $paramFetcher->get('section')
+                    ),
+                'json',
+                SerializationContext::create()->setGroups(array('list'))
+            )
+        );
     }
+
 }

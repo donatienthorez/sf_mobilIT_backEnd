@@ -8,10 +8,8 @@ class RegIdCreator
 {
     public function createRegId($id, $section)
     {
-        $regId = new RegId();
-        $regId->setId($id);
-        $regId->setSection($section);
-
-        return $regId;
+        return (new RegId())
+            ->setId($id)
+            ->setSection($section);
     }
 }
