@@ -37,14 +37,14 @@ class SectionController extends Controller
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
             return new Response(
-                json_encode(["message" => "Invalid token. The token should be the same than the config file."]),
+                json_encode(["message" => $this->get('translator')->trans("errors.api.android.v1.token")]),
                 Response::HTTP_FORBIDDEN
             );
         }
 
         $sections = $this
             ->get('main.section.service')
-            ->getSections();
+            ->getSections(true);
 
         $serializer = $this->get('serializer');
 
@@ -52,7 +52,7 @@ class SectionController extends Controller
             $serializer->serialize(
                 $sections,
                 'json',
-                SerializationContext::create()->setGroups(array('Default', 'details'))
+                SerializationContext::create()->setGroups(array('details'))
             )
         );
     }
@@ -81,7 +81,7 @@ class SectionController extends Controller
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
             return new Response(
-                "Invalid token. The token should be the same than the config file.",
+                json_encode(["message" => $this->get('translator')->trans("errors.api.android.v1.token")]),
                 Response::HTTP_FORBIDDEN
             );
         }

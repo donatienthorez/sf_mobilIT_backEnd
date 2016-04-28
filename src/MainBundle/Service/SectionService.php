@@ -31,11 +31,11 @@ class SectionService
         $this->sectionManager = $sectionManager;
     }
 
-    public function getSections()
+    public function getSections($activated = false)
     {
         $data = $this
             ->sectionFetcher
-            ->getSections();
+            ->getSections($activated);
 
         return $data;
     }

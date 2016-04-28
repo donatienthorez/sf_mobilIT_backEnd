@@ -31,6 +31,13 @@ class LoadSectionData extends AbstractFixture implements OrderedFixtureInterface
         $section3 = (new Section())
             ->setName("ESN LILLE")
             ->setCodeSection("FR-LILL-ESL")
+            ->setWebsite("website")
+            ->setEmail("email-fr-lill@esn.com")
+            ->setGalaxyImport(true)
+            ->setUniversity("Lill univ")
+            ->setLogoUrl("www.urllogo.com")
+            ->setPhone("00000000")
+            ->setToken("XXXXXXXY")
             ->setCountry($this->getReference("countryFR"))
             ->setActivated(true);
 

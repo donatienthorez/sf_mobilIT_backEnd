@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints\Date;
 /**
  * @ORM\Entity
  * @ORM\Table(name="sections")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\SectionRepository")
  */
 class Section
 {
@@ -90,13 +91,11 @@ class Section
 
     /**
      * @ORM\Column(name="addedAt", type="datetime")
-     * @Groups({"details"})
      */
     protected $addedAt;
 
     /**
      * @ORM\Column(name="updatedAt", type="datetime")
-     * @Groups({"details"})
      */
     protected $updatedAt;
 

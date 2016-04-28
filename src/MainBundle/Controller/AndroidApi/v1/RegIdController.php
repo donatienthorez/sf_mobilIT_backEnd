@@ -40,14 +40,14 @@ class RegIdController extends Controller
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
             return new Response(
-                json_encode(["message" => "Invalid token. The token should be the same than the config file."]),
+                json_encode(["message" => $this->get('translator')->trans("errors.api.android.v1.token")]),
                 Response::HTTP_FORBIDDEN
             );
         }
 
         if (!$this->get('main.section.service')->checkSection($paramFetcher->get('section'))) {
             return new Response(
-                json_encode(["message" => "The section doesn't exist."]),
+                json_encode(["message" => $this->get('translator')->trans("errors.api.android.v1.no_section")]),
                 Response::HTTP_FORBIDDEN
             );
         }
