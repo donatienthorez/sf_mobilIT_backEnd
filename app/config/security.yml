@@ -26,3 +26,5 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/homepage,  role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin,     role: ROLE_USER }
+        - { path: ^/api/doc,   role: ROLE_SUPER_ADMIN }
+        - { path: ^/_console,   role: ROLE_SUPER_ADMIN }

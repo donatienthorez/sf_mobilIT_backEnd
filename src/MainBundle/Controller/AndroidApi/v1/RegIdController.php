@@ -3,12 +3,12 @@
 namespace MainBundle\Controller\AndroidApi\v1;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use FOS\RestBundle\Request\ParamFetcher;
-use FOS\RestBundle\Controller\Annotations as FosRest;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use FOS\RestBundle\Controller\Annotations as FosRest;
+use FOS\RestBundle\Request\ParamFetcher;
+use JMS\Serializer\SerializationContext;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
  * @FosRest\NamePrefix("api_android_regids_v1_")
@@ -16,38 +16,56 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class RegIdController extends Controller
 {
     /**
-     * @FosRest\View()
-     * @FosRest\Post("/")
+     * @FosRest\Post("")
      *
-     * @QueryParam(
-     *     name = "token",
-     *     nullable = false,
-     *     description = "Mobilit token"
+     * @ApiDoc(
+     *  description = "Create or update regId.",
+     *  parameters={
+     *   {"name"="token", "dataType"="string", "required"=true, "description"="Mobilit token of the application."},
+     *   {"name"="regId", "dataType"="string", "required"=true, "description"="RegId to save."},
+     *   {"name"="section", "dataType"="string", "required"=true, "description"="CodeSection of the user section."},
+     *  },
      * )
      *
-     * @param Request $request
+     * @FosRest\RequestParam(name="token", description="Mobilit token of the application.", nullable=false)
+     * @FosRest\RequestParam(name="regId", description="RegId to save.", nullable=false)
+     * @FosRest\RequestParam(name="section", description="CodeSection of the user section.", nullable=false)
+     *
      * @param ParamFetcher $paramFetcher
      *
      * @return Response
+     *
      */
-    public function createAction(Request $request, ParamFetcher $paramFetcher)
+    public function createAction(ParamFetcher $paramFetcher)
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
             return new Response(
-                "Invalid token. The token should be the same than the config file.",
+                json_encode(["message" => $this->get('translator')->trans("errors.api.android.v1.token")]),
                 Response::HTTP_FORBIDDEN
             );
         }
 
-        $regId = $request->request->get('regId');
-        $section = $request->request->get('section');
-
-        if (!$regId || !$section) {
-            return new Response("Invalid post arguments", Response::HTTP_BAD_REQUEST);
+        if (!$this->get('main.section.service')->checkSection($paramFetcher->get('section'))) {
+            return new Response(
+                json_encode(["message" => $this->get('translator')->trans("errors.api.android.v1.no_section")]),
+                Response::HTTP_FORBIDDEN
+            );
         }
 
-        return $this
-            ->get('main.regid.manager')
-            ->saveRegId($regId, $section);
+        $serializer = $this->get('serializer');
+
+        return new Response(
+            $serializer->serialize(
+                $this
+                    ->get('main.regid.manager')
+                    ->saveRegId(
+                        $paramFetcher->get('regId'),
+                        $paramFetcher->get('section')
+                    ),
+                'json',
+                SerializationContext::create()->setGroups(array('list'))
+            )
+        );
     }
+
 }

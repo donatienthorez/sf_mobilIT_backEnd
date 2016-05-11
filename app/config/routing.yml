@@ -13,5 +13,11 @@ rest :
     prefix: /api
     defaults: {_format: json}
 
+#FOS ROUTING
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+#API
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc

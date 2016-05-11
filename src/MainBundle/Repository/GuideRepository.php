@@ -9,7 +9,7 @@ use MainBundle\Entity\Section;
 class GuideRepository extends EntityRepository
 {
     /**
-     * Returns the guide of the section
+     * Returns the guide of the section.
      *
      * @param Section $section
      *
@@ -21,10 +21,9 @@ class GuideRepository extends EntityRepository
             ->createQueryBuilder('g')
             ->select('g')
             ->where('g.section = :section')
-            ->setParameter(":section", $section->getCodeSection())
-            ->getQuery();
+            ->setParameter(":section", $section->getCodeSection());
 
-        return $query->getOneOrNullResult();
+        return $query->getQuery()->getOneOrNullResult();
     }
 
     /**

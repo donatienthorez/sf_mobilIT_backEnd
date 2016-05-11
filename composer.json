@@ -27,11 +27,13 @@
         "friendsofsymfony/jsrouting-bundle": "dev-master",
         "friendsofsymfony/rest-bundle": "dev-master",
         "jms/serializer-bundle": "dev-master",
-        "erivello/simple-html-dom-bundle": "dev-master"
+        "nelmio/api-doc-bundle": "^2.12",
+        "coresphere/console-bundle": "^0.4.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^2.7"
+        "symfony/phpunit-bridge": "^2.7",
+        "doctrine/doctrine-fixtures-bundle": "^2.3"
     },
     "scripts": {
         "post-install-cmd": [

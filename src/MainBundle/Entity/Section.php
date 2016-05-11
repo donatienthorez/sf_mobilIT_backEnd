@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints\Date;
 /**
  * @ORM\Entity
  * @ORM\Table(name="sections")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\SectionRepository")
  */
 class Section
 {
@@ -90,13 +91,11 @@ class Section
 
     /**
      * @ORM\Column(name="addedAt", type="datetime")
-     * @Groups({"details"})
      */
     protected $addedAt;
 
     /**
      * @ORM\Column(name="updatedAt", type="datetime")
-     * @Groups({"details"})
      */
     protected $updatedAt;
 
@@ -149,7 +148,7 @@ class Section
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCodeSection()
     {
@@ -157,11 +156,15 @@ class Section
     }
 
     /**
-     * @param mixed $codeSection
+     * @param string $codeSection
+     *
+     * @return $this
      */
     public function setCodeSection($codeSection)
     {
         $this->codeSection = $codeSection;
+
+        return $this;
     }
 
     /**
@@ -406,11 +409,15 @@ class Section
     }
 
     /**
-     * @param boolean $activated
+     * @param bool $activated
+     *
+     * @return $this
      */
     public function setActivated($activated)
     {
         $this->activated = $activated;
+
+        return $this;
     }
 
     /**
@@ -423,10 +430,14 @@ class Section
 
     /**
      * @param boolean $galaxyImport
+     *
+     * @return $this
      */
     public function setGalaxyImport($galaxyImport)
     {
         $this->galaxyImport = $galaxyImport;
+
+        return $this;
     }
 
     /**

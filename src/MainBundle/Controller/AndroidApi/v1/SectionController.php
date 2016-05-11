@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use FOS\RestBundle\Request\ParamFetcher;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations as FosRest;
 use JMS\Serializer\SerializationContext;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use MainBundle\Entity\Section;
 
 /**
@@ -17,7 +17,13 @@ use MainBundle\Entity\Section;
 class SectionController extends Controller
 {
     /**
-     * @QueryParam(
+     * @FosRest\Get("")
+     *
+     * @ApiDoc(
+     *  description = "List all the sections."
+     * )
+     *
+     * @FosRest\QueryParam(
      *     name = "token",
      *     nullable = false,
      *     description = "Mobilit token"
@@ -31,72 +37,43 @@ class SectionController extends Controller
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
             return new Response(
-                "Invalid token. The token should be the same than the config file.",
+                json_encode(["message" => $this->get('translator')->trans("errors.api.android.v1.token")]),
                 Response::HTTP_FORBIDDEN
             );
         }
 
-        $countries = $this
-            ->get('main.country.service')
-            ->getCountries();
+        $sections = $this
+            ->get('main.section.service')
+            ->getSections(true);
 
         $serializer = $this->get('serializer');
 
         return new Response(
             $serializer->serialize(
-                $countries,
+                $sections,
                 'json',
-                SerializationContext::create()->setGroups(array('listSection'))
+                SerializationContext::create()->setGroups(array('details'))
             )
         );
     }
 
     /**
-     * @QueryParam(
-     *     name = "token",
-     *     nullable = false,
-     *     description = "Mobilit token"
+     * @FosRest\Get("/{section}")
+     *
+     * @ApiDoc(
+     *  description = "Get the details of a section."
      * )
      *
-     * @param ParamFetcher $paramFetcher
-     *
-     * @return Response
-     */
-    public function listDetailsAction(ParamFetcher $paramFetcher)
-    {
-        if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
-            return new Response(
-                "Invalid token. The token should be the same than the config file.",
-                Response::HTTP_FORBIDDEN
-            );
-        }
-
-        $countries = $this
-            ->get('main.section.service')
-            ->getSections();
-
-        $serializer = $this->get('serializer');
-
-        return new Response(
-            $serializer->serialize(
-                $countries,
-                'json',
-                SerializationContext::create()->setGroups(array('Default', 'details'))
-            )
-        );
-    }
-
-    /**
-     * @FosRest\Get("/{section}/")
      * @ParamConverter("section", class="MainBundle:Section")
      *
-     * @QueryParam(
+     * @FosRest\QueryParam(
      *     name = "token",
      *     nullable = false,
-     *     description = "Mobilit token"
+     *     description = "Mobilit token."
      * )
      *
-     * @FosRest\View()
+     * @param Section $section
+     * @param ParamFetcher $paramFetcher
      *
      * @return Response
      */
@@ -104,7 +81,7 @@ class SectionController extends Controller
     {
         if ($this->container->getParameter('mobilit_token') != $paramFetcher->get('token')) {
             return new Response(
-                "Invalid token. The token should be the same than the config file.",
+                json_encode(["message" => $this->get('translator')->trans("errors.api.android.v1.token")]),
                 Response::HTTP_FORBIDDEN
             );
         }

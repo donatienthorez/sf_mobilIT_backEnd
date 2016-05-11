@@ -40,15 +40,14 @@ class RegIdManager
                 ->setSection($section)
                 ->setUpdatedAt();
         } else {
-            $this->em->persist(
-                $this->regIdCreator->createRegId($regId, $section)
-            );
+            $regIdDb = $this->regIdCreator->createRegId($regId, $section);
+            $this->em->persist($regIdDb);
         }
 
         $this
             ->em
             ->flush();
 
-        return $regId;
+        return $regIdDb;
     }
 }

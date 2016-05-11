@@ -5,6 +5,7 @@ namespace MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -18,6 +19,7 @@ class RegId
      * @ORM\Id
      * @ORM\Column(name="id", type="string", length=255)
      * @Expose
+     * @Groups({"list", "details", "listSection"})
      */
     private $id;
 
@@ -25,6 +27,7 @@ class RegId
      * @ORM\ManyToOne(targetEntity="section", inversedBy="regIds")
      * @ORM\JoinColumn(name="section", referencedColumnName="codeSection")
      * @Expose
+     * @Groups({"list"})
      */
     protected $section;
 
@@ -55,6 +58,8 @@ class RegId
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
     /**

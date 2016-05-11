@@ -7,11 +7,25 @@ use MainBundle\Model\GuideModel;
 
 class GuideAdapter
 {
-    public function getModel($guide)
+    /**
+     * Gets the model of a Guide.
+     *
+     * @param $guide
+     * @param $onlyActivated
+     *   set contents only if activated.
+     *
+     * @return GuideModel
+     */
+    public function getModel($guide, $onlyActivated = false)
     {
         $model = new GuideModel();
 
-        if ($guide) {
+        if (!$guide) {
+            return $model->setCreated(false);
+
+        }
+
+        if (($onlyActivated && $guide->getActivated()) || (!$onlyActivated)) {
             $model->setCreated(true);
             $model->setCodeSection($guide->getSection()->getCodeSection());
             $model->setActivated($guide->getActivated());
@@ -46,7 +60,9 @@ class GuideAdapter
                 $model->sortNodes();
             }
         } else {
-            $model->setCreated(false);
+            $model->setCreated(true);
+            $model->setCodeSection($guide->getSection()->getCodeSection());
+            $model->setActivated($guide->getActivated());
         }
 
         return $model;

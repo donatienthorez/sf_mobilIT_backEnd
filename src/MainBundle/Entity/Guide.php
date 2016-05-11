@@ -81,6 +81,8 @@ class Guide
 
     /**
      * @param string $section
+     *
+     * @return $this
      */
     public function setSection($section)
     {
@@ -114,11 +116,15 @@ class Guide
     }
 
     /**
-     * @param mixed $activated
+     * @param bool $activated
+     *
+     * @return $this
      */
     public function setActivated($activated)
     {
         $this->activated = $activated;
+
+        return $this;
     }
 
     /**
@@ -130,18 +136,24 @@ class Guide
     }
 
     /**
-     * @param mixed $categories
+     * Adds a category to the guide
+     *
+     * @param Category $category
+     *
+     * @return $this
      */
-    public function setCategories($categories)
-    {
-        $this->categories = $categories;
-    }
-
     public function addCategory(Category $category)
     {
         $this->categories[] = $category;
+
+        return $this;
     }
 
+    /**
+     * Get all the categories of the first level
+     *
+     * @return array
+     */
     public function getCategoriesWithoutParent()
     {
         $categories = [];
@@ -153,6 +165,11 @@ class Guide
         return $categories;
     }
 
+    /**
+     * Get the maximum integer position of this guide for the first level.
+     *
+     * @return int|mixed
+     */
     public function getMaxPosition()
     {
         $max = 0;

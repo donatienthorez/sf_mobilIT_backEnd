@@ -97,7 +97,7 @@ class NotificationService
                     $title,
                     $content,
                     $section,
-                    null,
+                    Notification::NOTIFICATION_TYPE_BACK_OFFICE,
                     $user
                 );
         }
@@ -133,12 +133,12 @@ class NotificationService
             ->getModels($section->getRegIds());
 
         $this
-            ->notificationHelper
-            ->sendNotification($notification, $regIds);
-
-        $this
             ->notificationManager
             ->saveNotification($notification);
+
+        $this
+            ->notificationHelper
+            ->sendNotification($notification, $regIds);
 
         return $notification;
     }

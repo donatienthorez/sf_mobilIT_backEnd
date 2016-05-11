@@ -14,6 +14,8 @@ use JMS\Serializer\Annotation\Expose;
 */
 class Notification
 {
+    const NOTIFICATION_TYPE_BACK_OFFICE = "BO";
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

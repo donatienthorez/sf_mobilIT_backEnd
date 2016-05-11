@@ -47,3 +47,10 @@ sections:
           logo-url-image: Logo image for this link
       buttons:
           generate-url-logo: Generate from logoInserter
+
+errors:
+  api:
+    android:
+      v1:
+        token: Invalid token. The token should be the same than the config file.
+        no_section: The section doesn't exist.

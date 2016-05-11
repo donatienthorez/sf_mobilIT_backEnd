@@ -8,6 +8,7 @@ use JMS\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity
  * @ORM\Table(name="countries")
+ * @ORM\Entity(repositoryClass="MainBundle\Repository\CountryRepository")
  */
 class Country
 {
@@ -39,7 +40,7 @@ class Country
 
     /**
      * @ORM\OneToMany(targetEntity="Section", cascade="all", mappedBy="country")
-     * @Groups({"list", "details", "section", "listSection"})
+     * @Groups({"details", "section", "listSection"})
      */
     protected $sections;
 
@@ -71,10 +72,14 @@ class Country
 
     /**
      * @param string $codeCountry
+     *
+     * @return $this
      */
     public function setCodeCountry($codeCountry)
     {
         $this->codeCountry = $codeCountry;
+
+        return $this;
     }
 
     /**
@@ -87,10 +92,14 @@ class Country
 
     /**
      * @param string $name
+     *
+     * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -103,10 +112,14 @@ class Country
 
     /**
      * @param string $website
+     *
+     * @return $this
      */
     public function setWebsite($website)
     {
         $this->website = $website;
+
+        return $this;
     }
 
     /**
@@ -119,10 +132,14 @@ class Country
 
     /**
      * @param string $email
+     *
+     * @return $this
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     public function getSection($codeSection) {
@@ -144,10 +161,14 @@ class Country
 
     /**
      * @param mixed $sections
+     *
+     * @return $this
      */
     public function setSections($sections)
     {
         $this->sections = $sections;
+
+        return $this;
     }
 
     /**
@@ -160,10 +181,14 @@ class Country
 
     /**
      * @param mixed $addedAt
+     *
+     * @return $this
      */
     public function setAddedAt($addedAt)
     {
         $this->addedAt = $addedAt;
+
+        return $this;
     }
 
     /**
@@ -176,9 +201,13 @@ class Country
 
     /**
      * @param mixed $updatedAt
+     *
+     * @return $this
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }
