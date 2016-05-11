@@ -21,6 +21,8 @@ class CountryRepository extends EntityRepository
                 ->select('c, s')
                 ->join('c.sections','s')
                 ->where('s.activated = 1')
+                ->orderBy('c.name', 'ASC')
+                ->addOrderBy('s.name', 'ASC')
                 ->getQuery()
                 ->getResult()
             : $this->findAll();

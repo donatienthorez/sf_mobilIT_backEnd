@@ -20,6 +20,7 @@ class SectionRepository extends EntityRepository
                 ->createQueryBuilder('s')
                 ->select('s')
                 ->where('s.activated = 1')
+                ->orderBy('s.name', 'ASC')
                 ->getQuery()
                 ->getResult()
             : $this->findAll();
