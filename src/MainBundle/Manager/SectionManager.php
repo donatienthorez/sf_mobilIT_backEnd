@@ -4,6 +4,7 @@ namespace MainBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use MainBundle\Entity\Section;
+use MainBundle\Fetcher\SectionFetcher;
 
 class SectionManager
 {
@@ -11,14 +12,21 @@ class SectionManager
      * @var EntityManagerInterface
      */
     private $em;
+    /**
+     * @var SectionFetcher
+     */
+    private $sectionFetcher;
 
     /**
-     * @param EntityManagerInterface $em
+     * @param EntityManagerInterface             $em
+     * @param \MainBundle\Fetcher\SectionFetcher $sectionFetcher
      */
     public function __construct(
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        SectionFetcher $sectionFetcher
     ) {
         $this->em = $em;
+        $this->sectionFetcher = $sectionFetcher;
     }
 
     public function save(Section $section)
@@ -42,11 +50,12 @@ class SectionManager
     {
         foreach ($sections as $section) {
             $oldSection = $this
-                ->em
-                ->find(Section::class, $section->getCodeSection());
+                ->sectionFetcher
+                ->getSection($section->getCodeSection());
 
             if (!$oldSection) {
                 $this->em->persist($section);
+                $this->em->flush();
             } else {
                 $section->setGuide($oldSection->getGuide());
                 $section->setToken($oldSection->getToken());
@@ -54,9 +63,9 @@ class SectionManager
                 $section->setAddedAt($oldSection->getAddedAt());
                 $section->setUpdatedAt();
                 $this->em->merge($section);
+                $this->em->flush();
             }
         }
-        $this->em->flush();
     }
 
     /**

@@ -9,3 +9,4 @@ services:
         class: MainBundle\Reader\ImportSectionsReader
         arguments:
             - "@main.section.creator"
+            - "@main.section.fetcher"
