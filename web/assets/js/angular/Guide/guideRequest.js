@@ -12,6 +12,7 @@ function GuideRequest($http) {
     ctrl.moveCategory = moveCategory;
     ctrl.removeCategory = removeCategory;
     ctrl.save = save;
+    ctrl.deleteImage = deleteImage;
 
     /**
      * Retrieve the guide.
@@ -129,8 +130,10 @@ function GuideRequest($http) {
         var formData = new FormData();
         formData.append('image', category.file);
         formData.append('title', category.title);
-        if (! null ===category.content) {
+        if (null != category.content) {
             formData.append('content', category.content);
+        } else {
+            formData.append('content', "");
         }
 
         $http.post(url, formData, {
@@ -138,10 +141,26 @@ function GuideRequest($http) {
             headers: { 'Content-Type': undefined }
         })
         .success(function(data) {
-            //@TODO: something unique here to properly display a success message.
+            category.image = data.image;
         })
         .error(function(data) {
             //@TODO: something unique here for an error message
+        });
+    }
+
+    /**
+     * Delete the image of a category.
+     *
+     * @return promise.
+     */
+    function deleteImage(category) {
+        return $http({
+            method: 'PUT',
+            url: Routing.generate(
+                'api_categories_delete_image',
+                {'category': category.id}
+            )
+        }).then(function (result) {
         });
     }
 }

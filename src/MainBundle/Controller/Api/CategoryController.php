@@ -80,6 +80,8 @@ class CategoryController extends BaseController
      * @ParamConverter("category", class="MainBundle:Category")
      *
      * @param Category $category
+     *
+     * @return Category $category
      */
     public function editCategoryAction(Category $category, Request $request)
     {
@@ -89,23 +91,30 @@ class CategoryController extends BaseController
         $content = $request->request->get('content');
         $image = $request->files->get('image');
 
-        if ($image) {
-            // to be moved in a service
-            $fileName = sprintf("%s.%s", md5(uniqid()), $image->guessExtension());
-            $filePath =  sprintf('uploads/images/%s/', $category->getId());
-            $image->move($filePath, $fileName);
-            // delete old image
-            $siteUrl = $this->container->getParameter('site_url');
-            $imageSitePath = sprintf("%s/%s%s", $siteUrl, $filePath, $fileName);
-            $this
-              ->get('main.category.service')
-              ->edit($category, $title, $content, $imageSitePath);
-        } else {
-            $this
-              ->get('main.category.service')
-              ->edit($category, $title, $content);
-        }
+        $this
+          ->get('main.category.service')
+          ->edit($category, $title, $content, $image);
 
+        return $category;
+    }
+
+    /**
+     * @FosRest\View()
+     *
+     * @FosRest\Put("/{category}/deleteImage", requirements={"category" = "\d+"})
+     * @ParamConverter("category", class="MainBundle:Category")
+     *
+     * @param Category $category
+     *
+     * @return Category $category
+     */
+    public function deleteImageAction(Category $category, Request $request)
+    {
+        $this->checkPermissionsForSection($category->getGuide()->getSection());
+
+        $this
+          ->get('main.category.service')
+          ->deleteImage($category);
     }
 
     /**
