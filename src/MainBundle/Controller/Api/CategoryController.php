@@ -2,7 +2,6 @@
 
 namespace MainBundle\Controller\Api;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -76,7 +75,7 @@ class CategoryController extends BaseController
     /**
      * @FosRest\View()
      *
-     * @FosRest\Post("/{category}/edit", requirements={"category" = "\d+"})
+     * @FosRest\Put("/{category}/edit", requirements={"category" = "\d+"})
      * @ParamConverter("category", class="MainBundle:Category")
      *
      * @param Category $category
