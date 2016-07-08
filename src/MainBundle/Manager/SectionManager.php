@@ -61,6 +61,7 @@ class SectionManager
                 $section->setToken($oldSection->getToken());
                 $section->setLogoUrl($oldSection->getLogoUrl());
                 $section->setAddedAt($oldSection->getAddedAt());
+                $section->setActivated($oldSection->isActivated());
                 $section->setUpdatedAt();
                 $this->em->merge($section);
                 $this->em->flush();
