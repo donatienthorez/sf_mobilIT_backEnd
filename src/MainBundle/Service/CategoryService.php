@@ -53,9 +53,15 @@ class CategoryService
             ->getModel($createdCategory);
     }
 
-    public function edit(Category $category, $title, $content)
+    public function edit(Category $category, $title, $content, $image = null)
     {
-        $category->setTitle($title)->setContent($content);
+        $category->setTitle($title);
+        $category->setContent($content ? $content : "");
+
+        if ($image) {
+            $category->setImage($image);
+        }
+
         $this
             ->categoryManager
             ->edit($category);

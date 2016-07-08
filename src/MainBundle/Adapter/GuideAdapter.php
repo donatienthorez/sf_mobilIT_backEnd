@@ -35,20 +35,22 @@ class GuideAdapter
                         ->setId($category->getId())
                         ->setTitle($category->getTitle())
                         ->setContent($category->getContent())
-                        ->setPosition($category->getPosition());
+                        ->setPosition($category->getPosition())
+                        ->setImage($category->getImage());
                     foreach ($category->getChildren() as $category2) {
                         $category2M = (new CategoryModel())
                             ->setId($category2->getId())
                             ->setTitle($category2->getTitle())
                             ->setContent($category2->getContent())
-                            ->setPosition($category2->getPosition());
-
+                            ->setPosition($category2->getPosition())
+                            ->setImage($category->getImage());
                         foreach ($category2->getChildren() as $category3) {
                             $category3M = (new CategoryModel())
                                 ->setId($category3->getId())
                                 ->setTitle($category3->getTitle())
                                 ->setContent($category3->getContent())
-                                ->setPosition($category3->getPosition());
+                                ->setPosition($category3->getPosition())
+                                ->setImage($category->getImage());
                             $category2M->addToNodes($category3M);
                         }
                         $categoryM->addToNodes($category2M);

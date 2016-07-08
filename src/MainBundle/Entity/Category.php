@@ -61,6 +61,11 @@ class Category
      */
     protected $position;
 
+    /**
+     * @ORM\Column(name="image", type="text", nullable=true)
+     * @Expose
+     */
+    protected $image;
 
     public function __construct()
     {
@@ -244,5 +249,26 @@ class Category
             $max = max($children->getPosition(), $max);
         }
         return $max;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     *
+     * @return $this
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

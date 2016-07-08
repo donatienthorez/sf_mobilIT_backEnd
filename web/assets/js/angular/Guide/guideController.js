@@ -104,9 +104,7 @@ function GuideController($scope, guideRequest) {
     }
 
     function save() {
-        guideRequest.save(ctrl.categorieSelected).then(function (data) {
-
-        })
+        guideRequest.save(ctrl.categorieSelected);
     }
 
     function moveLastToTheBeginning() {

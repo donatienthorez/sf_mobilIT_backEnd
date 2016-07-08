@@ -12,6 +12,7 @@ class CategoryModel
     private $content;
     private $nodes;
     private $position;
+    private $image;
 
     public function __construct()
     {
@@ -49,6 +50,8 @@ class CategoryModel
 
     /**
      * @param mixed $id
+     *
+     * @return $this
      */
     public function setId($id)
     {
@@ -113,6 +116,18 @@ class CategoryModel
     public function setPosition($position)
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
 
         return $this;
     }

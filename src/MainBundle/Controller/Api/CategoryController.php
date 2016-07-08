@@ -76,7 +76,7 @@ class CategoryController extends BaseController
     /**
      * @FosRest\View()
      *
-     * @FosRest\Put("/{category}/edit", requirements={"category" = "\d+"})
+     * @FosRest\Post("/{category}/edit", requirements={"category" = "\d+"})
      * @ParamConverter("category", class="MainBundle:Category")
      *
      * @param Category $category
@@ -87,10 +87,25 @@ class CategoryController extends BaseController
 
         $title = $request->request->get('title');
         $content = $request->request->get('content');
+        $image = $request->files->get('image');
 
-        $this
-            ->get('main.category.service')
-            ->edit($category, $title, $content);
+        if ($image) {
+            // to be moved in a service
+            $fileName = sprintf("%s.%s", md5(uniqid()), $image->guessExtension());
+            $filePath =  sprintf('uploads/images/%s/', $category->getId());
+            $image->move($filePath, $fileName);
+            // delete old image
+            $siteUrl = $this->container->getParameter('site_url');
+            $imageSitePath = sprintf("%s/%s%s", $siteUrl, $filePath, $fileName);
+            $this
+              ->get('main.category.service')
+              ->edit($category, $title, $content, $imageSitePath);
+        } else {
+            $this
+              ->get('main.category.service')
+              ->edit($category, $title, $content);
+        }
+
     }
 
     /**

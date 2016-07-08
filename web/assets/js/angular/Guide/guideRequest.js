@@ -123,15 +123,25 @@ function GuideRequest($http) {
      * @return promise.
      */
     function save(category) {
-        return $http({
-            method: 'PUT',
-            url: Routing.generate(
-                'api_categories_edit_category',
-                {'category': category.id}
-            ),
-            data: {'content': category.content, 'title': category.title}
-        }).then(function (result) {
-            return result.data;
+        var url = Routing.generate(
+            'api_categories_edit_category',
+            {'category': category.id});
+        var formData = new FormData();
+        formData.append('image', category.file);
+        formData.append('title', category.title);
+        if (! null ===category.content) {
+            formData.append('content', category.content);
+        }
+
+        $http.post(url, formData, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        })
+        .success(function(data) {
+            //@TODO: something unique here to properly display a success message.
+        })
+        .error(function(data) {
+            //@TODO: something unique here for an error message
         });
     }
 }
