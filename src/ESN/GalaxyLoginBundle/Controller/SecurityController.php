@@ -35,9 +35,7 @@ class SecurityController extends Controller
     public function checkAction(Request $request)
     {
         try {
-            $u = $this->get("galaxy_user_bundle.user.provider");
-            $u->initPHPCasConnection();
-            $userModel = $u->loadUser();
+            $userModel = $this->get("galaxy_user_bundle.user.provider")->loadUser();
 
             $userDb = $this
               ->get("main.user.manager")
@@ -51,7 +49,6 @@ class SecurityController extends Controller
             );
 
             $this->get("security.token_storage")->setToken($token);
-
             $event = new InteractiveLoginEvent($request, $token);
             $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 

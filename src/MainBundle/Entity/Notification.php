@@ -49,7 +49,7 @@ class Notification
     protected $sentAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="user", inversedBy="notifications")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="notifications")
      * @ORM\JoinColumn(name="sentBy", referencedColumnName="id")
      */
     protected $sentBy;

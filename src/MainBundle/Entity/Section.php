@@ -3,20 +3,16 @@
 namespace MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ESN\GalaxyLoginBundle\Entity\GalaxySection;
 use JMS\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="sections")
- * @ORM\Entity(repositoryClass="MainBundle\Repository\SectionRepository")
  */
-class Section
+class Section extends GalaxySection
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(name="codeSection", type="string", length=11)
-     *
      * @Groups({"list", "details", "listSection"})
      */
     private $codeSection;
@@ -117,7 +113,7 @@ class Section
     protected $notification;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", cascade="all", mappedBy="section")
+     * @ORM\OneToMany(targetEntity="ESN\GalaxyLoginBundle\Entity\GalaxyUser", cascade="all", mappedBy="section")
      */
     protected $users;
 
