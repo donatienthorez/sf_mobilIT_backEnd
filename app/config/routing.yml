@@ -1,3 +1,8 @@
+esn_galaxy_login:
+    resource: "@ESNGalaxyLoginBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
@@ -10,8 +15,6 @@ main:
 rest :
     type : rest
     resource: "@MainBundle/Resources/config/routing.yml"
-    prefix: /api
-    defaults: {_format: json}
 
 #FOS ROUTING
 fos_js_routing:
@@ -21,3 +24,4 @@ fos_js_routing:
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /api/doc
+

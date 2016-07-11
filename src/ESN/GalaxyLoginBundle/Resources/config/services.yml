@@ -1,9 +1,8 @@
 services:
-    main.user.provider:
-        class: MainBundle\Provider\UserProvider
+    galaxy_user_bundle.user.provider:
+        class: ESN\GalaxyLoginBundle\Provider\GalaxyUserProvider
         arguments:
             - "%cas_server%"
             - "%cas_port%"
             - "%cas_path%"
             - "@main.user.creator"
-

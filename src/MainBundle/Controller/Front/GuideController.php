@@ -16,4 +16,14 @@ class GuideController extends Controller
             'MainBundle:Guide:index.html.twig'
         );
     }
+
+    /**
+     * @Route("/admin/guide/", name="esn_logged_redirection")
+     */
+    public function loggedAction()
+    {
+        return $this->render(
+          'MainBundle:Guide:index.html.twig'
+        );
+    }
 }

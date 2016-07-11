@@ -1,5 +1,18 @@
 androidApi:
     resource: "@MainBundle/Resources/config/routing/androidApi/v1.yml"
+    prefix: /api
+    defaults: {_format: json}
 
 api:
     resource: "@MainBundle/Resources/config/routing/api.yml"
+    prefix: /api
+    defaults: {_format: json}
+
+esn_security_index:
+    path:     /
+    defaults: { _controller: ESNGalaxyLoginBundle:Security:index }
+
+esn_logout:
+    path:     /logout
+    defaults: { _controller: ESNGalaxyLoginBundle:Security:logout }
+

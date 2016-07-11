@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@MainBundle/Resources/config/services.yml" }
+    - { resource: "@ESNGalaxyLoginBundle/Resources/config/services.yml" }
 
 framework:
     #esi:             ~
