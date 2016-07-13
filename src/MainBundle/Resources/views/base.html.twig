@@ -1,6 +1,53 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html ng-app="survivalGuideApp">
-{{ include('MainBundle::header.html.twig') }}
+    <head>
+        <title>ESN - Survival Guide</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        {% block javascripts %}
+            {# default libraries #}
+                <script src="{{ asset('assets/js/jquery-1.11.3.min.js') }}" type="text/javascript"></script>
+                <script src="{{ asset('assets/js/bootstrap-3.3.5.min.js') }}" type="text/javascript"></script>
+                <script src="{{ asset('assets/js/angular.min.js') }}" type="text/javascript" ></script>
+
+            {# libraries for input chosen selector #}
+                <script src="{{ asset('assets/vendor/angular-chosen-localytics/chosen.js') }}" type="text/javascript"></script>
+                <script src="{{ asset('assets/vendor/chosen/chosen.js') }}" type="text/javascript"></script>
+
+            {# libraries for ckeditor #}
+                <script src="{{ asset('assets/vendor/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+                <script src="{{ asset('assets/vendor/ng-ckeditor/ng-ckeditor.js') }}" type="text/javascript"></script>
+
+            {# libraries for angularUI tree #}
+                <script src="{{ asset('assets/vendor/angular-ui-tree/dist/angular-ui-tree.js') }}" type="text/javascript"></script>
+
+            {# FOS User Bundle libraries #}
+                <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}" type="text/javascript"></script>
+                <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}" type="text/javascript"></script>
+
+            {# angularJS application #}
+            <script src="{{ asset('assets/js/angular/app.js') }}" type="text/javascript"></script>
+        {% endblock %}
+
+        {% block css %}
+            <link href="{{ asset('assets/images/logo.ico') }}" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+            <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+            <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/css/bootstrap-responsive.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/css/font-awesome.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/css/pages/dashboard.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/css/pages/signin.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/vendor/chosen/chosen.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/vendor/angular-chosen-localytics/chosen-spinner.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/vendor/angular-ui-tree/dist/angular-ui-tree.min.css') }}" rel="stylesheet">
+        {% endblock %}
+    </head>
+
 
     <body>
         {{ include('MainBundle::navbar.html.twig') }}
