@@ -33,4 +33,5 @@ abstract class GalaxySection
     return $this;
   }
 
+  abstract public function setMandatoryFields();
 }

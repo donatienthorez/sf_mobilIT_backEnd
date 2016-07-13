@@ -1,0 +1,7 @@
+esn_login_check:
+    path:      /login_check
+    defaults:  { _controller: ESNGalaxyLoginBundle:Security:check }
+
+esn_logout:
+    path:     /logout
+    defaults: { _controller: ESNGalaxyLoginBundle:Security:logout }

@@ -13,11 +13,6 @@ use JMS\Serializer\Annotation\Groups;
 class Section extends GalaxySection
 {
     /**
-     * @Groups({"list", "details", "listSection"})
-     */
-    private $codeSection;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -143,24 +138,8 @@ class Section extends GalaxySection
         $this->galaxyImport = true;
     }
 
-    /**
-     * @return string
-     */
-    public function getCodeSection()
-    {
-        return $this->codeSection;
-    }
-
-    /**
-     * @param string $codeSection
-     *
-     * @return $this
-     */
-    public function setCodeSection($codeSection)
-    {
-        $this->codeSection = $codeSection;
-
-        return $this;
+    public function setMandatoryFields(){
+        $this->name = "";
     }
 
     /**

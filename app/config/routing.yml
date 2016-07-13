@@ -25,3 +25,6 @@ NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /api/doc
 
+#Galaxy Login Bundle
+GalaxyLoginBundle:
+    resource: "@ESNGalaxyLoginBundle/Resources/config/routing.yml"

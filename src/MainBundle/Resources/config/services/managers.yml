@@ -1,9 +1,4 @@
 services:
-    main.user.manager:
-        class: MainBundle\Manager\UserManager
-        arguments:
-            - "@doctrine.orm.entity_manager"
-
     main.notification.manager:
         class: MainBundle\Manager\NotificationManager
         arguments:

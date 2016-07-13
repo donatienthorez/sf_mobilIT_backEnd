@@ -1,8 +1,18 @@
 services:
+    galaxy_user_bundle.user.creator:
+        class: ESN\GalaxyLoginBundle\Creator\UserCreator
+
+    galaxy_user_bundle.user.manager:
+        class: ESN\GalaxyLoginBundle\Manager\UserManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@galaxy_user_bundle.user.creator"
+
     galaxy_user_bundle.user.provider:
         class: ESN\GalaxyLoginBundle\Provider\GalaxyUserProvider
         arguments:
             - "%cas_server%"
             - "%cas_port%"
             - "%cas_path%"
-            - "@main.user.creator"
+            - "@galaxy_user_bundle.user.manager"
+

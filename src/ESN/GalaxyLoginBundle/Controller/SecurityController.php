@@ -26,26 +26,20 @@ class SecurityController extends Controller
         $this->get('security.context')->setToken(null);
         $this->get('request')->getSession()->invalidate();
         $this->get('activity.manager')->logout();
+        $this->get("galaxy_user_bundle.user.provider")->logout();
         return $this->redirect($this->generateUrl('esn_not_logged_redirection'));
     }
 
-    /**
-     * @Route("/login_check", name="esn_login_check")
-     */
     public function checkAction(Request $request)
     {
         try {
-            $userModel = $this->get("galaxy_user_bundle.user.provider")->loadUser();
-
-            $userDb = $this
-              ->get("main.user.manager")
-              ->saveUser($userModel);
+            $user = $this->get("galaxy_user_bundle.user.provider")->loadUser();
 
             $token = new UsernamePasswordToken(
-              $userDb,
+              $user,
               null,
               "main",
-              $userDb->getRoles()
+              $user->getRoles()
             );
 
             $this->get("security.token_storage")->setToken($token);

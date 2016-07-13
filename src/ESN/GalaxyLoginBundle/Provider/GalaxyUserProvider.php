@@ -5,11 +5,10 @@ namespace ESN\GalaxyLoginBundle\Provider;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use phpCAS;
-use MainBundle\Entity\User;
-use MainBundle\Creator\UserCreator;
+use ESN\GalaxyLoginBundle\Manager\UserManager;
+use ESN\GalaxyLoginBundle\Entity\GalaxyUser;
 
 
 class GalaxyUserProvider implements UserProviderInterface
@@ -19,16 +18,16 @@ class GalaxyUserProvider implements UserProviderInterface
   private $casPath;
 
   /**
-   * @var UserCreator
+   * @var UserManager
    */
-  private $userCreator;
+  private $userManager;
 
-  public function __construct($cas_server, $cas_port, $cas_path, UserCreator $userCreator)
+  public function __construct($cas_server, $cas_port, $cas_path, UserManager $userManager)
   {
     $this->casServer = $cas_server;
     $this->casPort = $cas_port;
     $this->casPath = $cas_path;
-    $this->userCreator = $userCreator;
+    $this->userManager = $userManager;
   }
 
   public function initPHPCasConnection(){
@@ -52,23 +51,12 @@ class GalaxyUserProvider implements UserProviderInterface
   {
     $attributes = phpCAS::getAttributes();
 
-    $user = $this
-      ->userCreator
-      ->createUser(
-        $username,
-        $attributes['mail'],
-        $attributes['roles'],
-        $attributes['first'],
-        $attributes['last'],
-        $attributes['sc']
-      );
-
-    return $user;
+    return $this->userManager->saveUser($username, $attributes);
   }
 
   public function refreshUser(UserInterface $user)
   {
-    if (!$user instanceof User) {
+    if (!$user instanceof GalaxyUser) {
       throw new UnsupportedUserException(
         sprintf('Instances of "%s" are not supported.', get_class($user))
       );
@@ -76,7 +64,7 @@ class GalaxyUserProvider implements UserProviderInterface
     return $this->loadUserByUsername($user->getUsername());
   }
 
-  public function logout($cas_host, $cas_port, $cas_context)
+  public function logout()
   {
     $this->initPHPCasConnection();
     phpCAS::logout();
@@ -87,4 +75,9 @@ class GalaxyUserProvider implements UserProviderInterface
   {
     return $class === 'MainBundle\Security\User\UserProvider';
   }
+
+  public function saveUser() {
+
+  }
+
 }

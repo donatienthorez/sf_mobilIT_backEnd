@@ -11,9 +11,6 @@ services:
     main.section.creator:
         class: MainBundle\Creator\SectionCreator
 
-    main.user.creator:
-        class: MainBundle\Creator\UserCreator
-
     main.regid.creator:
         class: MainBundle\Creator\RegIdCreator
 

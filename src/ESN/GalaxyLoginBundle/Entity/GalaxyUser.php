@@ -15,7 +15,7 @@ abstract class GalaxyUser extends BaseUser implements UserInterface
 
   /**
    * @ORM\Id
-   * @ORM\Column(type="integer")r
+   * @ORM\Column(type="integer")
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;

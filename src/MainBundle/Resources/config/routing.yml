@@ -12,7 +12,4 @@ esn_security_index:
     path:     /
     defaults: { _controller: ESNGalaxyLoginBundle:Security:index }
 
-esn_logout:
-    path:     /logout
-    defaults: { _controller: ESNGalaxyLoginBundle:Security:logout }
 
