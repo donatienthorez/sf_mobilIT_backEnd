@@ -1,4 +1,11 @@
 {% extends 'MainBundle::base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/angular/Notification/notificationController.js') }}"></script>
+    <script src="{{ asset('assets/js/angular/Notification/notificationRequest.js') }}"></script>
+{% endblock %}
+
 {% set readOnly = (is_granted('ROLE_ADMIN') == false and is_granted('ROLE_BOARD') == false) %}
 {% block body %}
     <div class="main-inner" ng-controller="notificationController as ctrl" ng-init="ctrl.init()">

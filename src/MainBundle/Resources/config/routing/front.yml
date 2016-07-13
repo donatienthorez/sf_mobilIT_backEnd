@@ -1,0 +1,23 @@
+esn_guide:
+    path: /admin/guide/
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    MainBundle:Guide:index.html.twig
+
+esn_notifications:
+    path: /admin/notifications/
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    MainBundle:Notifications:index.html.twig
+
+esn_sections:
+    path: /admin/sections/
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    MainBundle:Section:index.html.twig
+
+esn_settings:
+    path: /admin/settings/
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    MainBundle:Settings:index.html.twig

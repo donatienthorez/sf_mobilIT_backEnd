@@ -1,5 +1,12 @@
 androidApi:
     resource: "@MainBundle/Resources/config/routing/androidApi/v1.yml"
+    prefix: /api
+    defaults: {_format: json}
 
 api:
     resource: "@MainBundle/Resources/config/routing/api.yml"
+    prefix: /api
+    defaults: {_format: json}
+
+front:
+    resource: "@MainBundle/Resources/config/routing/front.yml"
