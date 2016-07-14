@@ -2,6 +2,7 @@
 
 namespace MainBundle\Reader;
 
+use MainBundle\Fetcher\SectionFetcher;
 use Symfony\Component\DomCrawler\Crawler;
 use MainBundle\Creator\SectionCreator;
 use MainBundle\Entity\Country;
@@ -14,11 +15,20 @@ class ImportSectionsReader
     private $sectionCreator;
 
     /**
-     * @param SectionCreator $sectionCreator
+     * @var SectionFetcher
      */
-    public function __construct(SectionCreator $sectionCreator)
-    {
+    private $sectionFetcher;
+
+    /**
+     * @param SectionCreator                     $sectionCreator
+     * @param \MainBundle\Fetcher\SectionFetcher $sectionFetcher
+     */
+    public function __construct(
+      SectionCreator $sectionCreator,
+      SectionFetcher $sectionFetcher
+    ) {
         $this->sectionCreator = $sectionCreator;
+        $this->sectionFetcher = $sectionFetcher;
     }
 
     /**
@@ -89,29 +99,31 @@ class ImportSectionsReader
     public function importSections(Country $country)
     {
         $sections = array();
+        $codeCountry = $country->getCodeCountry();
 
-        foreach ($this->filterSections($country->getCodeCountry()) as $element) {
+        foreach ($this->filterSections($codeCountry) as $element) {
 
             $name = $element->nodeValue;
-            $codeSection = explode(
-                sprintf("/section/%s/", $country->getCodeCountry()),
+            $sectionCode = substr(explode(
+                sprintf("/section/%s/", $codeCountry),
                 $element->attributes->getNamedItem('href')->value
-            )[1];
+            )[1], 0, 11);
 
-            if (!$country->getSection($codeSection) ||
-                ($country->getSection($codeSection) && $country->getSection($codeSection)->isGalaxyImport())
+            $section = $this->sectionFetcher->getSection($sectionCode);
+
+            if (!$section || ($section && $section->isGalaxyImport())
             ) {
                 $sectionElementsField = $this
                     ->filterSectionDetails(
-                        $country->getCodeCountry(),
-                        $codeSection,
+                        $codeCountry,
+                        $sectionCode,
                         true
                     );
 
                 $sectionElementsIterator = $this
                     ->filterSectionDetails(
-                        $country->getCodeCountry(),
-                        $codeSection
+                        $codeCountry,
+                        $sectionCode
                     )
                     ->getIterator();
                 $information = [];
@@ -137,7 +149,7 @@ class ImportSectionsReader
                     $cpt++;
                     $sectionElementsIterator->next();
                 }
-                $section = $this->sectionCreator->createSection($codeSection, $name, $information, $country);
+                $section = $this->sectionCreator->createSection($sectionCode, $name, $information, $country);
                 $sections[] = $section;
             }
         }

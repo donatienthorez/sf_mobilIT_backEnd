@@ -23,6 +23,7 @@ services:
         class: MainBundle\Manager\SectionManager
         arguments:
             - "@doctrine.orm.entity_manager"
+            - "@main.section.fetcher"
 
     main.regid.manager:
         class: MainBundle\Manager\RegIdManager
