@@ -10,8 +10,6 @@ main:
 rest :
     type : rest
     resource: "@MainBundle/Resources/config/routing.yml"
-    prefix: /api
-    defaults: {_format: json}
 
 #FOS ROUTING
 fos_js_routing:
