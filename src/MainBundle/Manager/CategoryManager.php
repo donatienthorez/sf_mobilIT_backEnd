@@ -55,8 +55,7 @@ class CategoryManager
             ->setParent(null)
             ->setGuide($guide)
             ->setTitle("New Category")
-            ->setPosition($guide->getMaxPosition() == 0 ? 0 : $guide->getMaxPosition()+1)
-            ->setImage(null);
+            ->setPosition($guide->getMaxPosition());
 
         $guide->addCategory($category);
 
