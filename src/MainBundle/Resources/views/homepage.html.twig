@@ -6,6 +6,12 @@
     <script src="{{ asset('assets/js/angular/Homepage/homepageRequest.js') }}"></script>
 {% endblock %}
 
+{% block css %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/pages/signin.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
     <div class="account-container text-align-center">
         <div class="content clearfix">

@@ -1,5 +1,12 @@
 {% extends 'MainBundle::base.html.twig' %}
 
+{% block css %}
+    {{ parent() }}
+    <link href="{{ asset('assets/vendor/chosen/chosen.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/angular-chosen-localytics/chosen-spinner.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/pages/signin.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('assets/js/angular/Notification/notificationController.js') }}"></script>
