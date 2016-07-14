@@ -1,4 +1,8 @@
 {% extends 'MainBundle::base.html.twig' %}
+{% block css %}
+    {{ parent() }}
+    <link href="{{ asset('assets/vendor/angular-ui-tree/dist/angular-ui-tree.min.css') }}" rel="stylesheet">
+{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
