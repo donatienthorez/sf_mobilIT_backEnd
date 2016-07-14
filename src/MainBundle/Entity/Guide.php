@@ -172,10 +172,11 @@ class Guide
      */
     public function getMaxPosition()
     {
-        $max = 0;
-        foreach ($this->getCategoriesWithoutParent() as $children) {
+        $max = -1;
+        $categories = $this->getCategoriesWithoutParent();
+        foreach ($categories as $children) {
             $max = max($children->getPosition(), $max);
         }
-        return $max;
+        return $max + 1;
     }
 }
