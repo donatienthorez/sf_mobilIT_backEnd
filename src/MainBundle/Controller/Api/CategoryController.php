@@ -2,7 +2,6 @@
 
 namespace MainBundle\Controller\Api;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -76,10 +75,12 @@ class CategoryController extends BaseController
     /**
      * @FosRest\View()
      *
-     * @FosRest\Put("/{category}/edit", requirements={"category" = "\d+"})
+     * @FosRest\Post("/{category}/edit", requirements={"category" = "\d+"})
      * @ParamConverter("category", class="MainBundle:Category")
      *
      * @param Category $category
+     *
+     * @return Category $category
      */
     public function editCategoryAction(Category $category, Request $request)
     {
@@ -87,10 +88,32 @@ class CategoryController extends BaseController
 
         $title = $request->request->get('title');
         $content = $request->request->get('content');
+        $image = $request->files->get('image');
 
         $this
-            ->get('main.category.service')
-            ->edit($category, $title, $content);
+          ->get('main.category.service')
+          ->edit($category, $title, $content, $image);
+
+        return $category;
+    }
+
+    /**
+     * @FosRest\View()
+     *
+     * @FosRest\Put("/{category}/deleteImage", requirements={"category" = "\d+"})
+     * @ParamConverter("category", class="MainBundle:Category")
+     *
+     * @param Category $category
+     *
+     * @return Category $category
+     */
+    public function deleteImageAction(Category $category, Request $request)
+    {
+        $this->checkPermissionsForSection($category->getGuide()->getSection());
+
+        $this
+          ->get('main.category.service')
+          ->deleteImage($category);
     }
 
     /**

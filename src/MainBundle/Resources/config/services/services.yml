@@ -43,8 +43,13 @@ services:
             - "@main.section.manager"
             - "@event_dispatcher"
 
+    main.upload.service:
+        class: MainBundle\Service\UploadService
+
     main.category.service:
         class: MainBundle\Service\CategoryService
         arguments:
             - "@main.category.manager"
             - "@main.category.adapter"
+            - "@main.upload.service"
+            - "%site_url%"

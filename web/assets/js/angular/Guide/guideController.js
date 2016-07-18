@@ -7,9 +7,7 @@ GuideController.$inject = [
 
 function GuideController($scope, guideRequest) {
     var ctrl = this;
-    ctrl.categorieSelected = {};
     ctrl.data = [];
-    ctrl.activated = false;
 
     ctrl.init = init;
     ctrl.getGuide = getGuide;
@@ -25,6 +23,7 @@ function GuideController($scope, guideRequest) {
     ctrl.expandAll = expandAll;
     ctrl.getGuide = getGuide;
     ctrl.editGuide = editGuide;
+    ctrl.deleteImage = deleteImage;
 
     $scope.editorOptions = {
         language: 'fr',
@@ -142,6 +141,13 @@ function GuideController($scope, guideRequest) {
     function editGuide(category) {
         guideRequest.editGuide(category).then(function (data) {
 
+        })
+    }
+
+    function deleteImage(category) {
+        guideRequest.deleteImage(category).then(function (data) {
+            $('#category-file').value = null;
+            delete ctrl.categorieSelected.file;
         })
     }
 }
