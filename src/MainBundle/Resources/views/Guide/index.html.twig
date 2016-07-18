@@ -89,6 +89,11 @@
                         <div ng-if="ctrl.categorieSelected.title" class="ng-scope">
                             <label for="title">Title :</label>
                             <input type="text" name="title" required="" id="name" ng-model="ctrl.categorieSelected.title" {% if (readOnly) %}disabled="true"{% endif %}><br>
+                            <label for="content">Image :</label>
+                            <img style="max-height: 100px;" ng-if="ctrl.categorieSelected.image" ng-src="{[{ctrl.categorieSelected.image}]}" alt="Categorie image"/>
+                            <br>
+                            <input id="category-file" type="file" file-model="ctrl.categorieSelected.file">
+                            <input type="button" value="Delete image" ng-click="ctrl.deleteImage(ctrl.categorieSelected)" ng-if="ctrl.categorieSelected.file">
                             <label for="content">Content :</label>
                             <textarea ckeditor="editorOptions" ng-model="ctrl.categorieSelected.content" {% if (readOnly) %}disabled="true"{% endif %}></textarea>
                         </div>
