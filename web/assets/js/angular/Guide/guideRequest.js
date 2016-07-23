@@ -11,8 +11,8 @@ function GuideRequest($http) {
     ctrl.changeGuideStatus = changeGuideStatus;
     ctrl.moveCategory = moveCategory;
     ctrl.removeCategory = removeCategory;
-    ctrl.save = save;
     ctrl.deleteImage = deleteImage;
+    ctrl.save = save;
 
     /**
      * Retrieve the guide.

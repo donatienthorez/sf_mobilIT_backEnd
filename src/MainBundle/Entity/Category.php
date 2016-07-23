@@ -34,6 +34,12 @@ class Category
     protected $content;
 
     /**
+     * @ORM\Column(name="image", type="text", nullable=true)
+     * @Expose
+     */
+    protected $image;
+
+    /**
      * @ORM\Column(name="createAt", type="datetime")
      * @Expose
      */
@@ -244,5 +250,17 @@ class Category
             $max = max($children->getPosition(), $max);
         }
         return $max;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 }

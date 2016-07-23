@@ -99,13 +99,12 @@ function GuideController($scope, guideRequest) {
     }
 
     function edit(scope) {
+        console.log(ctrl.categorieSelected);
         ctrl.categorieSelected = scope.$modelValue;
     }
 
     function save() {
-        guideRequest.save(ctrl.categorieSelected).then(function (data) {
-
-        })
+        guideRequest.save(ctrl.categorieSelected);
     }
 
     function moveLastToTheBeginning() {
