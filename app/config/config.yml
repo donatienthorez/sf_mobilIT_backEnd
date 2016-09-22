@@ -37,6 +37,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         webmastermail: donatienthorez@gmail.com
+        site_url: "%site_url%"
 
 # Doctrine Configuration
 doctrine:
@@ -93,15 +94,3 @@ fos_rest:
         include_format: false
 
 nelmio_api_doc: ~
-
-parameters:
-    locale: en
-    #CAS
-    cas_server: galaxy.esn.org
-    cas_port: 443
-    cas_path: /cas/
-    mail: donatienthorez@gmail.com
-    google_api_key: AIzaSyARq1v5hjOd16fSBin0DXmG-EX5CeYQS84
-    google_api_website: https://android.googleapis.com/gcm/send
-    mobilit_token: g6g2A52mGPPbKaaHmFjz
-    site_url: http://127.0.0.1:8000/
