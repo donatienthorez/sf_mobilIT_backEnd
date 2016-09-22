@@ -12,6 +12,7 @@ class CategoryModel
     private $content;
     private $nodes;
     private $position;
+    private $image;
 
     public function __construct()
     {
@@ -115,5 +116,17 @@ class CategoryModel
         $this->position = $position;
 
         return $this;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 }

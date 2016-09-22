@@ -1,4 +1,15 @@
 {% extends 'MainBundle::base.html.twig' %}
+{% block css %}
+    {{ parent() }}
+    <link href="{{ asset('assets/vendor/angular-ui-tree/dist/angular-ui-tree.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/angular/Guide/guideController.js') }}"></script>
+    <script src="{{ asset('assets/js/angular/Guide/guideRequest.js') }}"></script>
+{% endblock %}
+
 {% set readOnly = (is_granted('ROLE_ADMIN') == false and is_granted('ROLE_BOARD') == false) %}
 {% block body %}
     <script type="text/ng-template" id="nodes_renderer.html">
@@ -55,7 +66,6 @@
                                         <span class="onoffswitch-switch"></span>
                                     </label>
                                 </div>
-
                             </span>
                     </div>
 
@@ -73,12 +83,17 @@
                     <div class="widget-header">
                         <i class="icon-book"></i>
                         <h3>Content</h3>
-                        <input class="{% if (readOnly) %}hidden{% endif %} btn btn-default" ng-if="ctrl.categorieSelected.title" value="Save" type="submit" ng-click="ctrl.save()">
+                        <input class="{% if (readOnly) %}hidden{% endif %} btn btn-default" ng-if="ctrl.categorieSelected.title" value="Save" type="submit" ng-click="ctrl.save(ctrl.categorieSelected)">
                     </div>
                     <div class="widget-content">
                         <div ng-if="ctrl.categorieSelected.title" class="ng-scope">
                             <label for="title">Title :</label>
                             <input type="text" name="title" required="" id="name" ng-model="ctrl.categorieSelected.title" {% if (readOnly) %}disabled="true"{% endif %}><br>
+                            <label for="content">Image :</label>
+                            <img style="max-height: 100px;" ng-if="ctrl.categorieSelected.image" ng-src="{[{ctrl.categorieSelected.image}]}" alt="Categorie image"/>
+                            <br>
+                            <input id="category-file" type="file" file-model="ctrl.categorieSelected.file">
+                            <input type="button" value="Delete image" ng-click="ctrl.deleteImage(ctrl.categorieSelected)" ng-if="ctrl.categorieSelected.file">
                             <label for="content">Content :</label>
                             <textarea ckeditor="editorOptions" ng-model="ctrl.categorieSelected.content" {% if (readOnly) %}disabled="true"{% endif %}></textarea>
                         </div>

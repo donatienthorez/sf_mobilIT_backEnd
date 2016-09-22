@@ -1,6 +1,20 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html ng-app="survivalGuideApp">
-{{ include('MainBundle::header.html.twig') }}
+    <head>
+        <title>ESN - Survival Guide</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        {% block javascripts %}
+            {{ include('MainBundle::js.html.twig') }}
+        {% endblock %}
+
+        {% block css %}
+            {{ include('MainBundle::css.html.twig') }}
+        {% endblock %}
+    </head>
 
     <body>
         {{ include('MainBundle::navbar.html.twig') }}

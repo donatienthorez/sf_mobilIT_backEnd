@@ -7,3 +7,5 @@ services:
 
     main.guide.adapter:
         class: MainBundle\Adapter\GuideAdapter
+        arguments:
+            - "@main.category.adapter"

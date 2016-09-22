@@ -7,6 +7,16 @@ use MainBundle\Model\GuideModel;
 
 class GuideAdapter
 {
+
+    /**
+     * @param CategoryAdapter $categoryAdapter
+     */
+    public function __construct(
+        CategoryAdapter $categoryAdapter
+    ) {
+        $this->categoryAdapter = $categoryAdapter;
+    }
+
     /**
      * Gets the model of a Guide.
      *
@@ -31,24 +41,12 @@ class GuideAdapter
             $model->setActivated($guide->getActivated());
             foreach ($guide->getCategories() as $category) {
                 if (!$category->getParent()) {
-                    $categoryM = (new CategoryModel())
-                        ->setId($category->getId())
-                        ->setTitle($category->getTitle())
-                        ->setContent($category->getContent())
-                        ->setPosition($category->getPosition());
+                    $categoryM = $this->categoryAdapter->getModel($category);
                     foreach ($category->getChildren() as $category2) {
-                        $category2M = (new CategoryModel())
-                            ->setId($category2->getId())
-                            ->setTitle($category2->getTitle())
-                            ->setContent($category2->getContent())
-                            ->setPosition($category2->getPosition());
+                        $category2M = $this->categoryAdapter->getModel($category2);
 
                         foreach ($category2->getChildren() as $category3) {
-                            $category3M = (new CategoryModel())
-                                ->setId($category3->getId())
-                                ->setTitle($category3->getTitle())
-                                ->setContent($category3->getContent())
-                                ->setPosition($category3->getPosition());
+                            $category3M = $this->categoryAdapter->getModel($category3);
                             $category2M->addToNodes($category3M);
                         }
                         $categoryM->addToNodes($category2M);

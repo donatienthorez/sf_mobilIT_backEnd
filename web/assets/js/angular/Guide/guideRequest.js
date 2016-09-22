@@ -11,6 +11,7 @@ function GuideRequest($http) {
     ctrl.changeGuideStatus = changeGuideStatus;
     ctrl.moveCategory = moveCategory;
     ctrl.removeCategory = removeCategory;
+    ctrl.deleteImage = deleteImage;
     ctrl.save = save;
 
     /**
@@ -123,15 +124,43 @@ function GuideRequest($http) {
      * @return promise.
      */
     function save(category) {
+        var url = Routing.generate(
+            'api_categories_edit_category',
+            {'category': category.id});
+        var formData = new FormData();
+        formData.append('image', category.file);
+        formData.append('title', category.title);
+        if (null != category.content) {
+            formData.append('content', category.content);
+        } else {
+            formData.append('content', "");
+        }
+
+        $http.post(url, formData, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        })
+        .success(function(data) {
+            category.image = data.image;
+        })
+        .error(function(data) {
+            //@TODO: something unique here for an error message
+        });
+    }
+
+    /**
+     * Delete the image of a category.
+     *
+     * @return promise.
+     */
+    function deleteImage(category) {
         return $http({
             method: 'PUT',
             url: Routing.generate(
-                'api_categories_edit_category',
+                'api_categories_delete_image',
                 {'category': category.id}
-            ),
-            data: {'content': category.content, 'title': category.title}
+            )
         }).then(function (result) {
-            return result.data;
         });
     }
 }

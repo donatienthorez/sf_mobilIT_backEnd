@@ -7,12 +7,13 @@ use MainBundle\Model\CategoryModel;
 
 class CategoryAdapter
 {
-    public function getModel(Category $c)
+    public function getModel(Category $category)
     {
         return (new CategoryModel())
-            ->setId($c->getId())
-            ->setPosition($c->getPosition())
-            ->setTitle($c->getTitle())
-            ->setContent($c->getContent());
+            ->setId($category->getId())
+            ->setPosition($category->getPosition())
+            ->setTitle($category->getTitle())
+            ->setImage($category->getImage())
+            ->setContent($category->getContent());
     }
 }

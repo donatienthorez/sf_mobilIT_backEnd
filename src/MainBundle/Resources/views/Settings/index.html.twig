@@ -1,4 +1,11 @@
 {% extends 'MainBundle::base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/angular/Settings/settingsController.js') }}"></script>
+    <script src="{{ asset('assets/js/angular/Settings/settingsRequest.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <div class="main-inner" ng-controller="settingsController as ctrl" ng-init="ctrl.init()">
         <div class="container">
