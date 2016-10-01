@@ -208,7 +208,7 @@ class Section
     }
 
     /**
-     * @return string
+     * @return Country
      */
     public function getCountry()
     {

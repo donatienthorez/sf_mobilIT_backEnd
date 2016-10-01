@@ -33,7 +33,11 @@ class CategoryController extends BaseController
      */
     public function addChildAction(Category $category)
     {
-        $this->checkPermissionsForSection($category->getGuide()->getSection());
+        if ($category->getGuide()->getSection()) {
+            $this->checkPermissionsForSection($category->getGuide()->getSection());
+        } else {
+            $this->checkPermissionsForCountry($category->getGuide()->getCountry());
+        }
 
         return $this
             ->get('main.category.service')
@@ -55,7 +59,7 @@ class CategoryController extends BaseController
 
         $guide = $this
             ->get('main.guide.fetcher')
-            ->getGuide($section);
+            ->getGuideBySection($section);
 
         if (!$guide) {
             $guide = $this
@@ -73,6 +77,40 @@ class CategoryController extends BaseController
     }
 
     /**
+     * @FosRest\Post("/country/")
+     *
+     * @FosRest\View()
+     *
+     * @return CategoryModel $categoryModel
+     */
+    public function addCountryGuideCategoryAction(Request $request)
+    {
+        $section = $this->getUser()->getSection();
+        $country = $section->getCountry();
+
+        $this->checkPermissionsForCountry($country);
+
+        $guide = $this
+            ->get('main.guide.fetcher')
+            ->getGuideByCountry($country);
+
+        if (!$guide) {
+            $guide = $this
+                ->get('main.guide.creator')
+                ->createGuide($section);
+
+            $this
+                ->get('main.guide.manager')
+                ->addGuide($guide);
+        }
+
+        return $this
+            ->get('main.category.service')
+            ->add($guide);
+    }
+
+
+    /**
      * @FosRest\View()
      *
      * @FosRest\Post("/{category}/edit", requirements={"category" = "\d+"})
@@ -84,7 +122,11 @@ class CategoryController extends BaseController
      */
     public function editCategoryAction(Category $category, Request $request)
     {
-        $this->checkPermissionsForSection($category->getGuide()->getSection());
+        if ($category->getGuide()->getSection()) {
+            $this->checkPermissionsForSection($category->getGuide()->getSection());
+        } else {
+            $this->checkPermissionsForCountry($category->getGuide()->getCountry());
+        }
 
         $title = $request->request->get('title');
         $content = $request->request->get('content');
@@ -109,7 +151,11 @@ class CategoryController extends BaseController
      */
     public function deleteImageAction(Category $category, Request $request)
     {
-        $this->checkPermissionsForSection($category->getGuide()->getSection());
+        if ($category->getGuide()->getSection()) {
+            $this->checkPermissionsForSection($category->getGuide()->getSection());
+        } else {
+            $this->checkPermissionsForCountry($category->getGuide()->getCountry());
+        }
 
         $this
           ->get('main.category.service')
@@ -126,7 +172,11 @@ class CategoryController extends BaseController
      */
     public function moveCategoryAction(Category $category, Request $request)
     {
-        $this->checkPermissionsForSection($category->getGuide()->getSection());
+        if ($category->getGuide()->getSection()) {
+            $this->checkPermissionsForSection($category->getGuide()->getSection());
+        } else {
+            $this->checkPermissionsForCountry($category->getGuide()->getCountry());
+        }
 
         $parentId = $request->request->get('newParentId');
         $position = $request->request->get('position');
@@ -146,7 +196,11 @@ class CategoryController extends BaseController
      */
     public function removeAction(Category $category)
     {
-        $this->checkPermissionsForSection($category->getGuide()->getSection());
+        if ($category->getGuide()->getSection()) {
+            $this->checkPermissionsForSection($category->getGuide()->getSection());
+        } else {
+            $this->checkPermissionsForCountry($category->getGuide()->getCountry());
+        }
 
         return $this
             ->get('main.category.service')

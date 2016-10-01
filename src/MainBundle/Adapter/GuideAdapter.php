@@ -37,7 +37,9 @@ class GuideAdapter
 
         if (($onlyActivated && $guide->getActivated()) || (!$onlyActivated)) {
             $model->setCreated(true);
-            $model->setCodeSection($guide->getSection()->getCodeSection());
+            if ($guide->getSection()) {
+                $model->setCodeSection($guide->getSection()->getCodeSection());
+            }
             $model->setActivated($guide->getActivated());
             foreach ($guide->getCategories() as $category) {
                 if (!$category->getParent()) {

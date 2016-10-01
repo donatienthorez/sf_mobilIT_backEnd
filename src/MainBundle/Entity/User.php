@@ -149,7 +149,7 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * @return string
+     * @return Section
      */
     public function getSection()
     {

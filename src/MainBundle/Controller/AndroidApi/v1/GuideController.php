@@ -46,7 +46,7 @@ class GuideController extends Controller
 
         $guide = $this
             ->get('main.guide.fetcher')
-            ->getGuide($section);
+            ->getGuideBySection($section);
 
         $guide = $this
             ->get('main.guide.adapter')

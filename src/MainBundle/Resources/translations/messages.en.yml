@@ -16,6 +16,7 @@ homepage:
 menu:
   name-site: ESN - Survival Guide
   guide: Guide
+  country_guide: Country guide
   notifications: Notifications
   sections: Sections
   settings: Settings
