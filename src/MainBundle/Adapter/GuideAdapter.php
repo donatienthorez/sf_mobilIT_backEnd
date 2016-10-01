@@ -61,10 +61,27 @@ class GuideAdapter
             }
         } else {
             $model->setCreated(true);
-            $model->setCodeSection($guide->getSection()->getCodeSection());
+            if ($guide->getSection()) {
+                $model->setCodeSection($guide->getSection()->getCodeSection());
+            }
             $model->setActivated($guide->getActivated());
         }
 
         return $model;
+    }
+
+    public function addCountryGuide(GuideModel $sectionGuide, GuideModel $countryGuide)
+    {
+        if (!$countryGuide->isActivated()) {
+            return $sectionGuide;
+        }
+
+        if ($sectionGuide->isActivated()) {
+            foreach ($sectionGuide->getNodes() as $categoryModel) {
+                $countryGuide->addToNodes($categoryModel);
+            }
+        }
+
+        return $countryGuide;
     }
 }
