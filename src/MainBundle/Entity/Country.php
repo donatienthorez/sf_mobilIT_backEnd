@@ -21,6 +21,12 @@ class Country
     protected $codeCountry;
 
     /**
+     * @ORM\OneToOne(targetEntity="Guide")
+     * @ORM\JoinColumn(name="guide", referencedColumnName="id")
+     */
+    protected $guide;
+
+    /**
      * @ORM\Column(name="name", type="string", length=255)
      * @Groups({"list", "details", "listSection"})
      */

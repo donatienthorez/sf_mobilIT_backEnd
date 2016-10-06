@@ -44,14 +44,31 @@ class GuideController extends Controller
             );
         }
 
-        $guide = $this
-            ->get('main.guide.fetcher')
-            ->getGuide($section);
+        $guideFetcher = $this
+            ->get('main.guide.fetcher');
 
-        $guide = $this
-            ->get('main.guide.adapter')
-            ->getModel($guide, true);
+        $guideAdapter = $this
+            ->get('main.guide.adapter');
 
-        return $guide;
+        $sectionGuide = $guideFetcher
+            ->getGuideBySection($section);
+
+        $sectionGuide = $guideAdapter
+            ->getModel($sectionGuide, true);
+
+        $countryGuide = $guideFetcher
+            ->getGuideByCountry($section->getCountry());
+
+        if ($countryGuide) {
+            $countryGuide = $guideAdapter
+                ->getModel($countryGuide, true);
+
+
+            $guide = $guideAdapter
+                ->addCountryGuide($sectionGuide, $countryGuide);
+            return $guide;
+        }
+        return $sectionGuide;
+
     }
 }

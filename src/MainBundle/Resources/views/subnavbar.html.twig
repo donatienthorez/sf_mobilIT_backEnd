@@ -2,6 +2,12 @@
     <div class="subnavbar-inner">
         <div class="container">
             <ul class="mainnav">
+                <li class="{% if app.request.attributes.get('_route') == 'esn_country_guide' %}active{% endif %}">
+                    <a href="{{ path('esn_country_guide') }}">
+                        <i class="icon-list-alt"></i>
+                        <span>{{ 'menu.country_guide' | trans }}</span>
+                    </a>
+                </li>
                 <li class="{% if app.request.attributes.get('_route') == 'esn_guide' %}active{% endif %}">
                     <a href="{{ path('esn_guide') }}">
                         <i class="icon-list-alt"></i>

@@ -31,6 +31,12 @@ class Guide
     protected $section;
 
     /**
+     * @ORM\OneToOne(targetEntity="Country")
+     * @ORM\JoinColumn(name="country", referencedColumnName="codeCountry", unique=true)
+     */
+    protected $country;
+
+    /**
      * @ORM\Column(name="createdAt", type="datetime")
      * @Expose
      */
@@ -87,6 +93,26 @@ class Guide
     public function setSection($section)
     {
         $this->section = $section;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     *
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
 
         return $this;
     }

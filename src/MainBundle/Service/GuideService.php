@@ -31,14 +31,19 @@ class GuideService
         $this->guideManager = $guideManager;
     }
 
-    public function changeStatus(Section $section)
+    public function changeStatus(Guide $guide)
     {
-        $guide = $this
-            ->guideFetcher
-            ->getGuide($section);
-
         return $this
             ->guideManager
             ->changeStatus($guide);
+    }
+
+    public function createGuide($countryGuide = false)
+    {
+        if ($countryGuide) {
+
+        } else {
+
+        }
     }
 }
