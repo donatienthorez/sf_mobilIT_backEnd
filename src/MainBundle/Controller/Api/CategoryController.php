@@ -64,7 +64,7 @@ class CategoryController extends BaseController
         if (!$guide) {
             $guide = $this
                 ->get('main.guide.creator')
-                ->createGuide($section);
+                ->createGuideBySection($section);
 
             $this
                 ->get('main.guide.manager')
@@ -94,10 +94,14 @@ class CategoryController extends BaseController
             ->get('main.guide.fetcher')
             ->getGuideByCountry($country);
 
+        $country = $this
+            ->get('main.country.fetcher')
+            ->getCountry($country->getCodeCountry());
+
         if (!$guide) {
             $guide = $this
                 ->get('main.guide.creator')
-                ->createGuide($section);
+                ->createGuideByCountry($country);
 
             $this
                 ->get('main.guide.manager')
