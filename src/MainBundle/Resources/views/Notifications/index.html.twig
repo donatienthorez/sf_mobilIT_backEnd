@@ -46,6 +46,25 @@
                                     <input class="span4" type="text" ng-model="ctrl.notification.title" required>
                                 </div> <!-- /controls -->
                             </div>
+                            <div class="control-group">
+                                <label for="subject" class="control-label">Type</label>
+                                <div class="controls">
+
+                                    <select ng-model="ctrl.notification.type" ng-options="key as value for (key , value) in ctrl.notificationTypes">
+                                        {#<option ng-value="BO-text">Text</option>#}
+                                        {#<option ng-value="BO-link">Link</option>#}
+                                        {#<option ng-value="BO-news">News</option>#}
+                                        {#<option ng-value="BO-events">Event</option>#}
+                                        {#<option ng-value="BO-partners">Partners</option>#}
+                                    </select>
+                                </div> <!-- /controls -->
+                            </div>
+                            <div class="control-group">
+                                <label for="subject" class="control-label">Link / Feed / Guide</label>
+                                <div class="controls">
+                                    <input class="span4" type="text" ng-model="ctrl.notification.link" required>
+                                </div> <!-- /controls -->
+                            </div>
 
                             <div class="control-group">
                                 <label for="message" class="control-label">Content</label>

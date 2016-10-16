@@ -11,7 +11,13 @@ function NotificationController(notificationRequest) {
     ctrl.notification = {};
     ctrl.sectionsSelected = [];
     ctrl.sections = [];
-
+    ctrl.notificationTypes = {
+        "bo-text" : 'Simple text',
+        "bo-link" : 'External Link',
+        "bo-events" : 'Satellite event',
+        "bo-news" : 'Satellite news',
+        "bo-partners" : 'Satellite partner'
+    };
     ctrl.init = init;
     ctrl.getNotifications = getNotifications;
     ctrl.getSections = getSections;
@@ -35,16 +41,17 @@ function NotificationController(notificationRequest) {
     }
 
     function sendNotification() {
-        var sectionsToSend = [];
-        angular.forEach(ctrl.sectionsSelected, function (section, key) {
-            sectionsToSend.push(section.code_section);
-        });
-        notificationRequest.sendNotification(
-            ctrl.notification,
-            sectionsToSend
-        ).then(function (data) {
-                ctrl.notifications.splice(0, 0, data);
-                ctrl.notification = {};
-            });
+        console.log(ctrl.notification);
+        //var sectionsToSend = [];
+        //angular.forEach(ctrl.sectionsSelected, function (section, key) {
+        //    sectionsToSend.push(section.code_section);
+        //});
+        //notificationRequest.sendNotification(
+        //    ctrl.notification,
+        //    sectionsToSend
+        //).then(function (data) {
+        //        ctrl.notifications.splice(0, 0, data);
+        //        ctrl.notification = {};
+        //    });
     }
 }
