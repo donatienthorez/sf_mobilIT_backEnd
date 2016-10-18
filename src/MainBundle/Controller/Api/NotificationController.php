@@ -2,7 +2,7 @@
 
 namespace MainBundle\Controller\Api;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use MainBundle\Entity\Notification;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -53,9 +53,21 @@ class NotificationController extends BaseController
      * )
      * @QueryParam(
      *     name="sections",
-     *     nullable=true,
+     *     nullable=false,
      *     default=null,
      *     description="Esn section of the notification"
+     * )
+     * @QueryParam(
+     *     name="type",
+     *     nullable=false,
+     *     default=null,
+     *     description="Type of the notification"
+     * )
+     * @QueryParam(
+     *     name="link",
+     *     nullable=true,
+     *     default=null,
+     *     description="Link of the notification"
      * )
      * @param ParamFetcher $paramFetcher
      *
@@ -68,8 +80,10 @@ class NotificationController extends BaseController
         $title = $paramFetcher->get('title');
         $content = $paramFetcher->get('content');
         $sections = $paramFetcher->get('sections');
+        $type = sprintf("%s-%s", Notification::NOTIFICATION_TYPE_BACK_OFFICE, $paramFetcher->get('type'));
+        $link = $paramFetcher->get('link');
 
-        if (!$title || !$content) {
+        if (!$title || !$content || !$type) {
             return new Response("Invalid post arguments", Response::HTTP_BAD_REQUEST);
         }
 
@@ -81,7 +95,7 @@ class NotificationController extends BaseController
         $notification =
             $this
                 ->get('main.notification.service')
-                ->sendNotifications($title, $content, $this->getUser(), $sections);
+                ->sendNotifications($title, $content, $this->getUser(), $sections, $type, $link);
 
         return [
             "title" => $notification->getTitle(),
@@ -126,7 +140,7 @@ class NotificationController extends BaseController
         $title = $request->request->get('title');
         $content = $request->request->get('content');
         $token = $request->request->get('token');
-        $type = $request->request->get('type');
+        $type = sprintf("%s-%s", Notification::NOTIFICATION_TYPE_DRUPAL, $request->request->get('type'));
 
         if (!$title || !$content || !$token || !$type) {
             return new Response("Invalid post arguments", Response::HTTP_BAD_REQUEST);
