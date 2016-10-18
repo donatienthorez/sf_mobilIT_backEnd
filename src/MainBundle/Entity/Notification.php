@@ -15,7 +15,10 @@ use JMS\Serializer\Annotation\Expose;
 class Notification
 {
     const NOTIFICATION_TYPE_BACK_OFFICE = "BO";
-    const NOTIFICATION_TYPE_DRUPAL = "DRUPAL";
+    const NOTIFICATION_TYPE_DRUPAL = "";
+    /** to be set for this value in the future
+     * const NOTIFICATION_TYPE_DRUPAL = "DRUPAL";
+     **/
 
     /**
      * @ORM\Id

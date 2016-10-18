@@ -12,11 +12,11 @@ function NotificationController(notificationRequest) {
     ctrl.sectionsSelected = [];
     ctrl.sections = [];
     ctrl.notificationTypes = {
-        "TEXT" : 'Simple text',
-        "LINK" : 'External Link',
-        "EVENTS" : 'Satellite event',
-        "NEWS" : 'Satellite news',
-        "PARTNERS" : 'Satellite partner'
+        "text" : 'Simple text',
+        "link" : 'External Link',
+        "events" : 'Satellite event',
+        "news" : 'Satellite news',
+        "partners" : 'Satellite partner'
     };
     ctrl.notificationTypesArray = Object.keys(ctrl.notificationTypes)
             .map(function (key) { return {key: key, value: ctrl.notificationTypes[key]} })

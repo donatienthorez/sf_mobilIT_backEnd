@@ -42,7 +42,8 @@ class NotificationHelper
             'data' => [
                 'content' => $notification->getContent(),
                 'title' => $notification->getTitle(),
-                'type' => $notification->getType()]
+                'type' => $notification->getType(),
+                'link' => $notification->getLink()]
         ];
 
         $ch = curl_init();
