@@ -11,6 +11,16 @@ function NotificationController(notificationRequest) {
     ctrl.notification = {};
     ctrl.sectionsSelected = [];
     ctrl.sections = [];
+    ctrl.notificationTypes = {
+        "text" : 'Simple text',
+        "link" : 'External Link',
+        "events" : 'Satellite event',
+        "news" : 'Satellite news',
+        "partners" : 'Satellite partner'
+    };
+    ctrl.notificationTypesArray = Object.keys(ctrl.notificationTypes)
+            .map(function (key) { return {key: key, value: ctrl.notificationTypes[key]} })
+            .sort(function(a,b) { return a.value < b.value; } );
 
     ctrl.init = init;
     ctrl.getNotifications = getNotifications;
@@ -35,6 +45,7 @@ function NotificationController(notificationRequest) {
     }
 
     function sendNotification() {
+        //console.log(ctrl.notification);
         var sectionsToSend = [];
         angular.forEach(ctrl.sectionsSelected, function (section, key) {
             sectionsToSend.push(section.code_section);
