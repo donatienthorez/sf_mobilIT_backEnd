@@ -15,9 +15,9 @@ use JMS\Serializer\SerializationContext;
 use MainBundle\Controller\Api\Base\BaseController;
 
 /**
- * @FosRest\NamePrefix("api_guides_")
+ * @FosRest\NamePrefix("api_country_guides_")
  */
-class GuideController extends BaseController
+class CountryGuideController extends BaseController
 {
     /**
      * @FosRest\View()
@@ -27,43 +27,39 @@ class GuideController extends BaseController
     public function listAction()
     {
         $section = $this->getUser()->getSection();
+        $country = $section->getCountry();
 
-        $this->checkPermissionsForSection($section);
+        $this->checkPermissionsForCountry($country);
 
         $guide = $this
             ->get('main.guide.fetcher')
-            ->getGuideBySection($section);
+            ->getGuideByCountry($country);
 
         return $this
             ->get('main.guide.adapter')
             ->getModel($guide);
     }
 
+
     /**
      * @FosRest\Put()
      * @FosRest\View()
      *
-     * @Security("has_role('ROLE_BOARD')")
+     * @Security("has_role('ROLE_BOARD_NATIONAL')")
      */
     public function changeStatusAction()
     {
         $section = $this->getUser()->getSection();
+        $country = $section->getCountry();
 
-        $this->checkPermissionsForSection($section);
+        $this->checkPermissionsForCountry($country);
 
         $guide = $this
             ->get('main.guide.fetcher')
-            ->getGuideBySection($section);
+            ->getGuideByCountry($country);
 
         return $this
             ->get('main.guide.service')
             ->changeStatus($guide);
-    }
-
-    public function countAction()
-    {
-        return $this
-            ->get('main.guide.fetcher')
-            ->count();
     }
 }

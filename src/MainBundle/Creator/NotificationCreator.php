@@ -19,7 +19,7 @@ class NotificationCreator
      *
      * @return Notification
      */
-    public function createNotification($title, $content, $user, Section $section, $type = null)
+    public function createNotification($title, $content, $user, Section $section, $type = null, $link)
     {
         $notification = (new Notification())
             ->setTitle($title)
@@ -31,6 +31,9 @@ class NotificationCreator
         }
         if ($type) {
             $notification->setType($type);
+        }
+        if ($link) {
+            $notification->setLink($link);
         }
 
         return $notification;

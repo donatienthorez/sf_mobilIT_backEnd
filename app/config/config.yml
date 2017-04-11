@@ -37,6 +37,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         webmastermail: donatienthorez@gmail.com
+        site_url: "%site_url%"
 
 # Doctrine Configuration
 doctrine:

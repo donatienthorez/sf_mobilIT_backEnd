@@ -1,0 +1,3 @@
+ALTER TABLE notifications ADD link LONGTEXT DEFAULT NULL;
+
+

@@ -46,6 +46,20 @@
                                     <input class="span4" type="text" ng-model="ctrl.notification.title" required>
                                 </div> <!-- /controls -->
                             </div>
+                            <div class="control-group">
+                                <label for="subject" class="control-label">Type</label>
+                                <div class="controls">
+
+                                    <select ng-model="ctrl.notification.type" ng-options="event.key as event.value for event in ctrl.notificationTypesArray">
+                                    </select>
+                                </div> <!-- /controls -->
+                            </div>
+                            <div class="control-group">
+                                <label for="subject" class="control-label">Link / Feed / Guide</label>
+                                <div class="controls">
+                                    <input class="span4" type="text" ng-model="ctrl.notification.link">
+                                </div> <!-- /controls -->
+                            </div>
 
                             <div class="control-group">
                                 <label for="message" class="control-label">Content</label>

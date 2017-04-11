@@ -24,7 +24,7 @@ class CountryFetcher
         return $this
             ->em
             ->getRepository('MainBundle:Country')
-            ->findBy(['codeCountry' => $codeCountry]);
+            ->findOneBy(['codeCountry' => $codeCountry]);
     }
 
     public function getCountries($onlyActivated = false)
