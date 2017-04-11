@@ -97,7 +97,7 @@ nelmio_api_doc: ~
 parameters:
     locale: en
     #CAS
-    cas_server: galaxy.esn.org
+    cas_server: accounts.esn.org
     cas_port: 443
     cas_path: /cas/
     mail: donatienthorez@gmail.com
