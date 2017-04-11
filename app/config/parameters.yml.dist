@@ -17,3 +17,23 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    locale: en
+
+    # CAS parameters
+    cas_server: galaxy.esn.org
+    cas_port: 443
+    cas_path: /cas/
+
+    #
+    mail: donatienthorez@gmail.com
+
+    # Google API for GCM notifications
+    google_api_key: AIzaSyARq1v5hjOd16fSBin0DXmG-EX5CeYQS84
+    google_api_website: https://android.googleapis.com/gcm/send
+
+    # Mobilit token for the app
+    mobilit_token: g6g2A52mGPPbKaaHmFjz
+
+    # Base site url of the website
+    site_url: http://127.0.0.1:8000

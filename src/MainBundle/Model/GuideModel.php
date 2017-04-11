@@ -25,9 +25,9 @@ class GuideModel
         $this->codeSection = $codeSection;
     }
 
-    public function addToNodes(CategoryModel $cm)
+    public function addToNodes(CategoryModel $categoryModel)
     {
-        $this->nodes[] = $cm;
+        $this->nodes[] = $categoryModel;
     }
 
     public function sortNodes()
@@ -62,5 +62,9 @@ class GuideModel
         $this->created = $created;
 
         return $this;
+    }
+
+    public function getNodes() {
+        return $this->nodes;
     }
 }

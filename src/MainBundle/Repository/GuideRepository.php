@@ -5,6 +5,7 @@ namespace MainBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use MainBundle\Entity\Guide;
 use MainBundle\Entity\Section;
+use MainBundle\Entity\Country;
 
 class GuideRepository extends EntityRepository
 {
@@ -22,6 +23,24 @@ class GuideRepository extends EntityRepository
             ->select('g')
             ->where('g.section = :section')
             ->setParameter(":section", $section->getCodeSection());
+
+        return $query->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * Returns the guide of the country.
+     *
+     * @param Country $country
+     *
+     * @return Guide
+     */
+    public function getGuideOfCountry(Country $country)
+    {
+        $query = $this
+            ->createQueryBuilder('g')
+            ->select('g')
+            ->where('g.country = :country')
+            ->setParameter(":country", $country->getCodeCountry());
 
         return $query->getQuery()->getOneOrNullResult();
     }

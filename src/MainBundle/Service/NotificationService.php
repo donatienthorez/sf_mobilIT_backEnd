@@ -78,7 +78,7 @@ class NotificationService
      *
      * @return Notification|null
      */
-    public function sendNotifications($title, $content, User $user, array $sections)
+    public function sendNotifications($title, $content, User $user, array $sections, $type, $link)
     {
         $notification = null;
         foreach ($sections as $section) {
@@ -97,8 +97,9 @@ class NotificationService
                     $title,
                     $content,
                     $section,
-                    Notification::NOTIFICATION_TYPE_BACK_OFFICE,
-                    $user
+                    $type,
+                    $user,
+                    $link
                 );
         }
 
@@ -116,7 +117,7 @@ class NotificationService
      *
      * @return Notification
      */
-    public function sendNotification($title, $content, Section $section, $type, $user = null)
+    public function sendNotification($title, $content, Section $section, $type, $user = null, $link = null)
     {
         $notification = $this
             ->notificationCreator
@@ -125,7 +126,8 @@ class NotificationService
                 $content,
                 $user,
                 $section,
-                $type
+                $type,
+                $link
             );
 
         $regIds = $this

@@ -51,11 +51,16 @@ bin/console assets:install
 bin/console assetic:dump
 ```
 
+8 - Copy parameters.yml.dist to your parameters.yml file and modify site_url if it is not the same
+
 To access to the admin rights inside the application :
 ```
 bin/console fos:user:promote username ROLE_ADMIN
+bin/console fos:user:promote username ROLE_SUPER_ADMIN
 ```
 If you are already logged, you will need to logout and login again 
+
+
 
 ## What do I do now ?
 

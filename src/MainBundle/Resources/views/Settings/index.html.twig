@@ -38,7 +38,7 @@
                                 "DO" : [
                                     { "request_url" : {
                                         "USING" : {
-                                            "url" : "http://mobilit.esnlille.fr/api/notifications/{[{ ctrl.section.code_section }]}/sendFromDrupal",
+                                            "url" : "{{ site_url }}/api/notifications/{[{ ctrl.section.code_section }]}/sendFromDrupal",
                                             "headers" : "Content-type: application\/x-www-form-urlencoded",
                                             "method" : "POST",
                                             "data" : "title=ESN [node:content-type] \r\ncontent=[node:title] \r\ntoken={[{ ctrl.section.token }]} \r\ntype=events"
@@ -62,7 +62,7 @@
                                 "DO" : [
                                     { "request_url" : {
                                         "USING" : {
-                                            "url" : "http://mobilit.esnlille.fr/api/notifications/{[{ ctrl.section.code_section }]}/sendFromDrupal",
+                                            "url" : "{{ site_url }}api/notifications/{[{ ctrl.section.code_section }]}/sendFromDrupal",
                                             "headers" : "Content-type: application\/x-www-form-urlencoded",
                                             "method" : "POST",
                                             "data" : "title=ESN [node:content-type] \r\ncontent=[node:title] \r\ntoken={[{ ctrl.section.token }]} \r\ntype=news"
@@ -86,7 +86,7 @@
                                 "DO" : [
                                     { "request_url" : {
                                         "USING" : {
-                                            "url" : "http://mobilit.esnlille.fr/api/notifications/{[{ ctrl.section.code_section }]}/sendFromDrupal",
+                                            "url" : "{{ site_url }}/api/notifications/{[{ ctrl.section.code_section }]}/sendFromDrupal",
                                             "headers" : "Content-type: application\/x-www-form-urlencoded",
                                             "method" : "POST",
                                             "data" : "title=ESN [node:content-type] \r\ncontent=[node:title] \r\ntoken={[{ ctrl.section.token }]} \r\ntype=partners"

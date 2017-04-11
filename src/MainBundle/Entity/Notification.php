@@ -15,6 +15,10 @@ use JMS\Serializer\Annotation\Expose;
 class Notification
 {
     const NOTIFICATION_TYPE_BACK_OFFICE = "BO";
+    const NOTIFICATION_TYPE_DRUPAL = "";
+    /** to be set for this value in the future
+     * const NOTIFICATION_TYPE_DRUPAL = "DRUPAL";
+     **/
 
     /**
      * @ORM\Id
@@ -59,6 +63,12 @@ class Notification
      * @Expose
      */
     protected $type;
+
+    /**
+     * @ORM\Column(name="link", type="text", nullable=true)
+     * @Expose
+     */
+    protected $link;
 
     public function __construct()
     {
@@ -192,4 +202,20 @@ class Notification
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLink() {
+        return $this->link;
+    }
+
+    /**
+     * @param mixed $link
+     */
+    public function setLink($link) {
+        $this->link = $link;
+    }
+
+
 }

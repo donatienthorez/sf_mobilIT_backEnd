@@ -32,6 +32,12 @@ guides:
     prefix: guides
     options:
         expose: true
+country_guides:
+    type: rest
+    resource: MainBundle\Controller\Api\CountryGuideController
+    prefix: country-guides
+    options:
+        expose: true
 
 categories:
     type: rest
